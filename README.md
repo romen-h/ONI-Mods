@@ -3,8 +3,7 @@ Mods and code for the game Oxygen Not Included.
 
 ## Overview of Mods
 
-### CommonLib
-`src/CommonLib`
+### [CommonLib](src/CommonLib)
 
 A library that provides shared code used by multiple mods in this solution.
 
