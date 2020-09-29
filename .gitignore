@@ -350,4 +350,5 @@ MigrationBackup/
 .ionide/
 
 # lib folder (avoid committing official game libraries
-src/lib
+src/lib/*
+!src/lib/.keep
