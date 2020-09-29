@@ -3,37 +3,16 @@ Mods and code for the game Oxygen Not Included.
 
 ## Overview of Mods
 
-### Alarm Sensors
-`./LogicAlarmSensorMod`
+### [CommonLib](src/CommonLib)
 
-A mod that adds automation sensors that output green signals during red and yellow alerts.
+A library that provides shared code used by multiple mods in this solution.
 
-### Debug Teleport Fixes
-`./DebugTeleportFixes`
+---
 
-A mod that fixes some minor annoyances when using the Alt+Q teleport feature in debug mode.
+### [Germicidal UVC Lamps](src/GermicideLamp)
+[<img src="src/GermicideLamp/Assets/preview.png" height="200px"/>](src/GermicideLamp)
 
-### Germicidal UVC Lamps
-`./GermicideUVLampMod`
 
 A mod that adds various UVC emitting lights for disinfecting your base.
 
-### No Bathroom During Downtime
-`./NoBathroomDuringDowntimeMod`
-
-A mod that prevents dupes from using the bathroom during downtime schedule blocks. (My first mod!)
-
-### Portable Batteries
-`./PortableBatteriesMod`
-
-A mod that adds rechargeable batteries that can be delivered to power sockets.
-
-### Schedule Sensor
-`./LogicScheduleSensorMod`
-
-A new automation sensor that outputs a green signal during the selected schedule and schedule block type.
-
-### Stirling Engine
-`./StirlingEngineMod`
-
-A new building that converts heat into power by simulating a real-ish Stirling engine.
+---
