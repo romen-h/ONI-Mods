@@ -9,6 +9,6 @@ Mods and code for the game Oxygen Not Included.
 A library that provides shared code used by multiple mods in this solution.
 
 ### Germicidal UVC Lamps
-`./GermicideUVLampMod`
+`src/GermicideLamp`
 
 A mod that adds various UVC emitting lights for disinfecting your base.
