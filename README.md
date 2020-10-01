@@ -16,3 +16,10 @@ A library that provides shared code used by multiple mods in this solution.
 A mod that adds various UVC emitting lights for disinfecting your base.
 
 ---
+
+### [Stirling Engine](src/StirlingEngine)
+[<img src="src/StirlingEngine/Assets/preview.png" height="200px"/>](src/StirlingEngine)
+
+A new building that converts heat energy directly into power.
+
+---
