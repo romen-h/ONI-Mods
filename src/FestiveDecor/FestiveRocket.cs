@@ -1,4 +1,4 @@
-﻿using Harmony;
+using Harmony;
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(BuildingDef __result)
 		{
-			if (FestivalManager.CurrentFestival != Festival.Halloween)
+			if (FestivalManager.CurrentFestival != Festival.None)
 			{
 				KAnimFile anim = Assets.GetAnim($"rocket_command_module_{FestivalManager.FestivalAnimAffix}_kanim");
 				if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
