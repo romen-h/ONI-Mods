@@ -1,4 +1,4 @@
-﻿using Harmony;
+using Harmony;
 
 using JetBrains.Annotations;
 
@@ -37,7 +37,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(GameObject __0)
 		{
-			if (FestivalManager.CurrentFestival == Festival.Halloween)
+			if (Mod.Settings.EnableSpiders && FestivalManager.CurrentFestival == Festival.Halloween)
 			{
 				__0.AddComponent<MouldingSpiderSpawner>();
 			}

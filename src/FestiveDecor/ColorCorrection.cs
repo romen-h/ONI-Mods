@@ -1,4 +1,4 @@
-﻿using Harmony;
+using Harmony;
 using UnityStandardAssets.ImageEffects;
 
 namespace RomenMods.FestiveDecorMod
@@ -9,18 +9,21 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(CameraController __instance)
 		{
-			var cc = __instance.overlayCamera.GetComponent<ColorCorrectionLookup>();
-
-			if (ModAssets.lutDay != null)
+			if (Mod.Settings.EnableColorCorrection)
 			{
-				__instance.dayColourCube = ModAssets.lutDay;
-				cc.Convert(__instance.dayColourCube, "");
-			}
+				var cc = __instance.overlayCamera.GetComponent<ColorCorrectionLookup>();
 
-			if (ModAssets.lutNight != null)
-			{
-				__instance.nightColourCube = ModAssets.lutNight;
-				cc.Convert2(__instance.nightColourCube, "");
+				if (ModAssets.lutDay != null)
+				{
+					__instance.dayColourCube = ModAssets.lutDay;
+					cc.Convert(__instance.dayColourCube, "");
+				}
+
+				if (ModAssets.lutNight != null)
+				{
+					__instance.nightColourCube = ModAssets.lutNight;
+					cc.Convert2(__instance.nightColourCube, "");
+				}
 			}
 		}
 	}

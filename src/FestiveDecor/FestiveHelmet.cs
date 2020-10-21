@@ -1,4 +1,4 @@
-﻿using Harmony;
+using Harmony;
 
 using PeterHan.PLib;
 
@@ -20,14 +20,17 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(EquipmentDef __result)
 		{
-			if (FestivalManager.CurrentFestival != Festival.None)
+			if (Mod.Settings.EnableCustomHelmets)
 			{
-				KAnimFile itemAnim = Assets.GetAnim($"suit_oxygen_{FestivalManager.FestivalAnimAffix}_kanim");
-				KAnimFile suitAnim = Assets.GetAnim("body_oxygen_nohelm_kanim");
-				if (itemAnim != null && suitAnim != null)
+				if (FestivalManager.CurrentFestival != Festival.None)
 				{
-					__result.Anim = itemAnim;
-					__result.BuildOverride = suitAnim;
+					KAnimFile itemAnim = Assets.GetAnim($"suit_oxygen_{FestivalManager.FestivalAnimAffix}_kanim");
+					KAnimFile suitAnim = Assets.GetAnim("body_oxygen_nohelm_kanim");
+					if (itemAnim != null && suitAnim != null)
+					{
+						__result.Anim = itemAnim;
+						__result.BuildOverride = suitAnim;
+					}
 				}
 			}
 		}
@@ -42,10 +45,13 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(BuildingDef __result)
 		{
-			if (FestivalManager.CurrentFestival != Festival.None)
+			if (Mod.Settings.EnableCustomHelmets)
 			{
-				KAnimFile anim = Assets.GetAnim($"changingarea_{FestivalManager.FestivalAnimAffix}_kanim");
-				if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
+				if (FestivalManager.CurrentFestival != Festival.None)
+				{
+					KAnimFile anim = Assets.GetAnim($"changingarea_{FestivalManager.FestivalAnimAffix}_kanim");
+					if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
+				}
 			}
 		}
 	}
@@ -59,40 +65,41 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(GameObject __0)
 		{
-			//TODO: Separate anim files for each festival helmet?
-
-			if (FestivalManager.CurrentFestival == Festival.Halloween)
+			if (Mod.Settings.EnableCustomHelmets)
 			{
-				KAnimFile anim = Assets.GetAnim("helm_festive_kanim");
-				if (anim != null)
+				if (FestivalManager.CurrentFestival == Festival.Halloween)
 				{
-					var dupeAnim = __0.GetComponent<KBatchedAnimController>();
-					if (dupeAnim == null)
+					KAnimFile anim = Assets.GetAnim("helm_festive_kanim");
+					if (anim != null)
 					{
-						Debug.Log("FestiveDecor: Unable to create festive helmet. Dupe does not have an anim controller!");
-						return;
+						var dupeAnim = __0.GetComponent<KBatchedAnimController>();
+						if (dupeAnim == null)
+						{
+							Debug.Log("FestiveDecor: Unable to create festive helmet. Dupe does not have an anim controller!");
+							return;
+						}
+
+						GameObject helm = new GameObject(__0.name + ".FestiveHelm");
+						helm.transform.position = new Vector3(0, 0, Grid.GetLayerZ(Grid.SceneLayer.Front));
+						helm.SetActive(false);
+						helm.transform.parent = __0.transform;
+
+						var ac = helm.AddComponent<KBatchedAnimController>();
+						ac.isMovable = true;
+						ac.sceneLayer = Grid.SceneLayer.Front;
+						ac.AnimFiles = new KAnimFile[1]
+						{
+							anim
+						};
+
+						var cmp = helm.AddComponent<FestiveHelmet>();
+						cmp.dupeAnim = dupeAnim;
+						cmp.myAnim = ac;
+
+						helm.SetActive(true);
+						string front_anim = FestivalManager.FestivalAnimAffix + "_front";
+						ac.Play(front_anim);
 					}
-
-					GameObject helm = new GameObject(__0.name + ".FestiveHelm");
-					helm.transform.position = new Vector3(0, 0, Grid.GetLayerZ(Grid.SceneLayer.Front));
-					helm.SetActive(false);
-					helm.transform.parent = __0.transform;
-
-					var ac = helm.AddComponent<KBatchedAnimController>();
-					ac.isMovable = true;
-					ac.sceneLayer = Grid.SceneLayer.Front;
-					ac.AnimFiles = new KAnimFile[1]
-					{
-					anim
-					};
-
-					var cmp = helm.AddComponent<FestiveHelmet>();
-					cmp.dupeAnim = dupeAnim;
-					cmp.myAnim = ac;
-
-					helm.SetActive(true);
-					string front_anim = FestivalManager.FestivalAnimAffix + "_front";
-					ac.Play(front_anim);
 				}
 			}
 		}

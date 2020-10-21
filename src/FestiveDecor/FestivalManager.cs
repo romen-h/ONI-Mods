@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 
 using System;
 using System.Collections.Generic;
@@ -10,12 +10,12 @@ namespace RomenMods.FestiveDecorMod
 	/// <summary>
 	/// Enumerates the festivals supported by this mod.
 	/// </summary>
-	public enum Festival
+	public enum Festival : int
 	{
-		None,
-		Easter,
-		Halloween,
-		WinterHolidays
+		None = 0,
+		Easter = 1,
+		Halloween = 2,
+		WinterHolidays = 3
 	}
 
 	/// <summary>
@@ -40,6 +40,10 @@ namespace RomenMods.FestiveDecorMod
 		/// </summary>
 		internal static void SetFestival(System.DateTime date)
 		{
+			PeterHan.PLib.PSharedData.PutData("FestiveDecor.Constants.iSpring", (int)Festival.Easter);
+			PeterHan.PLib.PSharedData.PutData("FestiveDecor.Constants.iHalloween", (int)Festival.Halloween);
+			PeterHan.PLib.PSharedData.PutData("FestiveDecor.Constants.iWinterHolidays", (int)Festival.WinterHolidays);
+
 			// Easter March 22 - April 25
 			if (FestivalEnabled(Festival.Easter) && ((date.Month == 3 && date.Day >= 22) || (date.Month == 4 && date.Day <= 25)))
 			{
@@ -60,6 +64,8 @@ namespace RomenMods.FestiveDecorMod
 				CurrentFestival = Festival.None;
 			}
 
+			PeterHan.PLib.PSharedData.PutData("FestiveDecor.iCurrentFestival", (int)CurrentFestival);
+
 			FestivalAnimAffix = GetAnimAffix(CurrentFestival);
 		}
 
@@ -68,8 +74,9 @@ namespace RomenMods.FestiveDecorMod
 			switch (f)
 			{
 				case Festival.None:
-				case Festival.Halloween:
 					return true;
+				case Festival.Halloween:
+					return Mod.Settings.EnableHalloween;
 				default:
 					return false;
 			}
