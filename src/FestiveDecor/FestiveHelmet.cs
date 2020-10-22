@@ -116,6 +116,8 @@ namespace RomenMods.FestiveDecorMod
 		private string front_anim = FestivalManager.FestivalAnimAffix + "_front";
 		private string back_anim = FestivalManager.FestivalAnimAffix + "_back";
 
+		private int facing = 0;
+
 		private float constantZ = Grid.GetLayerZ(Grid.SceneLayer.Front);
 
 		static KAnimHashedString symbol = new KAnimHashedString("snapTo_neck");
@@ -145,11 +147,19 @@ namespace RomenMods.FestiveDecorMod
 							{
 								if (frameElement.frame == 0)
 								{
-									myAnim.Play(front_anim);
+									if (facing <= 0)
+									{
+										myAnim.Play(front_anim);
+										facing = 1;
+									}
 								}
 								else
 								{
-									myAnim.Play(back_anim);
+									if (facing >= 0)
+									{
+										myAnim.Play(back_anim);
+										facing = -1;
+									}
 								}
 							}
 						}

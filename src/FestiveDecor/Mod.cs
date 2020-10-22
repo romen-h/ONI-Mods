@@ -9,8 +9,7 @@ namespace RomenMods.FestiveDecorMod
 
 		public static void OnLoad()
 		{
-			PUtil.InitLibrary();
-			DebugUtils.PrintModInfo();
+			PUtil.InitLibrary(true);
 
 			Settings = PeterHan.PLib.Options.POptions.ReadSettings<ModSettings>();
 			if (Settings == null)
@@ -19,6 +18,8 @@ namespace RomenMods.FestiveDecorMod
 				
 				PeterHan.PLib.Options.POptions.WriteSettings<ModSettings>(Settings);
 			}
+
+			PeterHan.PLib.Options.POptions.RegisterOptions(typeof(ModSettings));
 
 			System.DateTime date = System.DateTime.Now;
 			if (Settings.UseOverrideDate)
