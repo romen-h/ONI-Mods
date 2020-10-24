@@ -25,7 +25,7 @@ A mod that adds various UVC emitting lights for disinfecting your base.
 ---
 
 ### [Make Dirt](src/MakeDirt)
-[<img src="src/makeDirt/Assets/preview.png" height="200px"/>](src/MakeDirt)
+[<img src="src/MakeDirt/Assets/preview.png" height="200px"/>](src/MakeDirt)
 
 A mod form making dirt at the Rock Crusher.
 
