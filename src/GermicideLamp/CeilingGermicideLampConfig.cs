@@ -1,10 +1,3 @@
-﻿
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using TUNING;
 
 using UnityEngine;
@@ -44,7 +37,7 @@ namespace RomenMods.GermicideLampMod
 			);
 			def.RequiresPowerInput = true;
 			def.EnergyConsumptionWhenActive = Mod.Settings.CeilingLampPowerCost;
-			def.SelfHeatKilowattsWhenActive = 1f;
+			def.SelfHeatKilowattsWhenActive = Mod.Settings.CeilingLampHeat;
 			def.AudioCategory = "Metal";
 			def.Floodable = false;
 			def.Entombable = true;
@@ -86,22 +79,22 @@ namespace RomenMods.GermicideLampMod
 			lamp.aoeHeight = UV_HEIGHT;
 			lamp.applySunburn = Mod.Settings.CeilingLampGivesSunburn;
 			lamp.strength = Mod.Settings.CeilingLampGermicidalStrength;
+			lamp.flicker = true;
 			go.AddOrGet<LogicOperationalController>();
 			go.AddOrGetDef<PoweredActiveController.Def>();
 			AddVisualizer(go, movable: false);
 
-			GameObject leftLight = go;
-			var leftLight2D = leftLight.AddOrGet<Light2D>();
-			leftLight2D.overlayColour = LIGHT2D.CEILINGLIGHT_OVERLAYCOLOR;
-			leftLight2D.Color = LIGHT2D.CEILINGLIGHT_COLOR;
-			leftLight2D.Range = 6f;
-			leftLight2D.Angle = 2.6f;
-			leftLight2D.Direction = LIGHT2D.CEILINGLIGHT_DIRECTION;
-			leftLight2D.Offset = LIGHT2D.CEILINGLIGHT_OFFSET;
-			leftLight2D.shape = LightShape.Cone;
-			leftLight2D.drawOverlay = true;
-			leftLight2D.Lux = 600;
-			leftLight.AddOrGetDef<LightController.Def>();
+			var light2D = go.AddOrGet<Light2D>();
+			light2D.overlayColour = LIGHT2D.CEILINGLIGHT_OVERLAYCOLOR;
+			light2D.Color = Mod.Settings.LightColor;
+			light2D.Range = 6f;
+			light2D.Angle = 2.6f;
+			light2D.Direction = LIGHT2D.CEILINGLIGHT_DIRECTION;
+			light2D.Offset = new Vector2(0.55f, 0.65f);
+			light2D.shape = LightShape.Cone;
+			light2D.drawOverlay = true;
+			light2D.Lux = Mod.Settings.CeilingLampLux;
+			go.AddOrGetDef<LightController.Def>();
 
 			// TODO: Add a right Light on child object?
 		}

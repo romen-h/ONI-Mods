@@ -1,13 +1,8 @@
-﻿using Klei.AI;
+using Klei.AI;
 
 using KSerialization;
 
-using STRINGS;
-
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using UnityEngine;
 
@@ -17,6 +12,12 @@ namespace RomenMods.GermicideLampMod
 	public class GermicideLamp : KMonoBehaviour, ISim200ms
 	{
 		protected static byte[] diseasesKilled = null;
+
+		public static void GetAOEBounds(int xOffset, int yOffset, int width, int height, out int left, out int bottom)
+		{
+			left = xOffset -width / 2;
+			bottom = yOffset -height / 2;
+		}
 
 		public bool FlashReachesCell(int cellX, int cellY)
 		{
@@ -28,17 +29,23 @@ namespace RomenMods.GermicideLampMod
 			return (int)Mathf.Clamp(count * strength, 0, count);
 		}
 
-		[MyCmpReq]
+		[MyCmpGet]
 		public Operational operational;
+
+		[MyCmpGet]
+		public Light2D light;
 
 		private Vector2I lampXY;
 
+		public bool alwaysOn = false;
+		public bool mobileLamp = false;
 		public int aoeLeft = 0;
 		public int aoeWidth = 1;
 		public int aoeBottom = 0;
 		public int aoeHeight = 1;
 		public bool applySunburn = false;
 		public float strength = 0f;
+		public bool flicker = false;
 
 		protected override void OnSpawn()
 		{
@@ -46,18 +53,41 @@ namespace RomenMods.GermicideLampMod
 
 			if (diseasesKilled == null)
 			{
-				diseasesKilled = new byte[] {
-					Db.Get().Diseases.GetIndex(Db.Get().Diseases.FoodGerms.id),
-					Db.Get().Diseases.GetIndex(Db.Get().Diseases.SlimeGerms.id)
-				};
+				var db = Db.Get();
+
+				List<byte> enabledDiseases = new List<byte>();
+				if (Mod.Settings.UVCKillsFoodPoisoning)
+					enabledDiseases.Add(db.Diseases.GetIndex(db.Diseases.FoodGerms.id));
+
+				if (Mod.Settings.UVCKillsSlimelung)
+					enabledDiseases.Add(db.Diseases.GetIndex(db.Diseases.SlimeGerms.id));
+
+				if (Mod.Settings.UVCKillsZombieSpores)
+					enabledDiseases.Add(db.Diseases.GetIndex(db.Diseases.ZombieSpores.id));
+
+				diseasesKilled = enabledDiseases.ToArray();
 			}
 
 			lampXY = Grid.PosToXY(gameObject.transform.position);
 		}
 
+		public void Update()
+		{
+			if (flicker && light != null)
+			{
+				float intensity = Mathf.Sin(100f*Time.time) * 0.025f + 0.975f;
+				light.IntensityAnimation = intensity;
+			}
+		}
+
 		public void Sim200ms(float dt)
 		{
-			if (operational.IsOperational)
+			if (mobileLamp)
+			{
+				lampXY = Grid.PosToXY(gameObject.transform.position);
+			}
+
+			if (alwaysOn || (operational != null && operational.IsOperational))
 			{
 				HashSet<GameObject> buildingsAlreadySeen = new HashSet<GameObject>();
 

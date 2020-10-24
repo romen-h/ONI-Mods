@@ -1,5 +1,7 @@
-﻿using Harmony;
+using Harmony;
 using RomenMods.Common;
+
+using UnityEngine;
 
 namespace RomenMods.GermicideLampMod
 {

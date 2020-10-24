@@ -1,10 +1,3 @@
-﻿
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using TUNING;
 
 using UnityEngine;
@@ -44,7 +37,7 @@ namespace RomenMods.GermicideLampMod
 			);
 			def.RequiresPowerInput = true;
 			def.EnergyConsumptionWhenActive = Mod.Settings.BigLampPowerCost;
-			def.SelfHeatKilowattsWhenActive = 1f;
+			def.SelfHeatKilowattsWhenActive = Mod.Settings.BigLampHeat;
 			def.AudioCategory = "Metal";
 			def.Floodable = false;
 			def.Entombable = true;
