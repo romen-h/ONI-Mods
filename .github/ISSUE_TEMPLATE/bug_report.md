@@ -1,3 +1,11 @@
+---
+name: Bug Report
+about: Use this template for reporting a problem with a mod.
+title: "[DATE]: [FEATURE NAME]"
+labels: bug
+---
+
+
 **Mod Name**  
 What mod is this bug report for?
 
