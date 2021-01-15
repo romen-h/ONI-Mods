@@ -9,4 +9,4 @@ Write the steps to reproduce the bug here.
 
 **REQUIRED: Logs & Screenshots**  
 Share a copy of the log showing the bug or crash if there is one.  
-Share a screenshot or video demonstrating the bug if necessary.  
+Share a screenshot or video demonstrating the bug if possible.
