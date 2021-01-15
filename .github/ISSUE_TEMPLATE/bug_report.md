@@ -1,38 +1,21 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: Bug Report
+about: Create a report to let me know about problems with a mod.
 title: ''
 labels: ''
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Mod Name**
+What mod is this bug report for?
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+**REQUIRED: Describe the bug**
+Write a clear description of the bug here.
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**Steps To Reproduce**
+Write the steps to reproduce the bug here.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+**REQUIRED: Logs & Screenshots**
+Share a copy of the log showing the bug or crash if there is one.  
+Share a screenshot or video demonstrating the bug if necessary.  
