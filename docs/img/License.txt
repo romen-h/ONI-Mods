@@ -1,0 +1,12 @@
+The images in this folder use graphics obtained from icomoon.io
+under the CC BY 4.0 license.
+
+IcoMoon Icon Pack:
+https://icomoon.io/#icons-icomoon
+
+CC BY 4.0 License:
+https://creativecommons.org/licenses/by/4.0/
+
+Modifications to the original graphics include:
+- Resizing
+- Colorization
