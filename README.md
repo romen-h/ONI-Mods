@@ -1,7 +1,8 @@
 # ONI-Mods
 Mods and code for the game Oxygen Not Included.
 
-## [My Steam Workshop](https://steamcommunity.com/id/romenhurst/myworkshopfiles/?appid=457140)
+## My Steam Workshop
+[<img src="docs/img/banner_browse_workshop.jpg"/>](https://steamcommunity.com/id/romenhurst/myworkshopfiles/?appid=457140)
 
 ## Overview of Mods
 
