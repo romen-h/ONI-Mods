@@ -351,4 +351,6 @@ MigrationBackup/
 
 # lib folder (avoid committing official game libraries
 src/lib/*
+src/lib-vanilla/*
+src/lib-spacedout/*
 !src/lib/.keep
