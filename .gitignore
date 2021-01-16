@@ -354,3 +354,6 @@ src/lib/*
 src/lib-vanilla/*
 src/lib-spacedout/*
 !src/lib/.keep
+
+# update script
+update_oni.bat.lnk

@@ -1,18 +1,13 @@
 using Harmony;
-
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using UnityEngine;
 
-namespace MakeDirt
+namespace RomenH.MakeDirt
 {
 	[HarmonyPatch(typeof(RockCrusherConfig))]
 	[HarmonyPatch("ConfigureBuildingTemplate")]
-    public static class RockCrusherConfig_ConfigureBuildingTemplate_Patch
-    {
+	public static class RockCrusherConfig_ConfigureBuildingTemplate_Patch
+	{
 		public static LocString DIRT_RECIPE_DESCRIPTION = "Crushes {0}, {1}, and {2} into {3}";
 
 		public static void Postfix(GameObject __0)
@@ -41,7 +36,7 @@ namespace MakeDirt
 				{
 					time = 40f,
 					description = string.Format(DIRT_RECIPE_DESCRIPTION, clay.name, sand.name, phosphorite.name, dirt.name),
-	
+
 					nameDisplay = ComplexRecipe.RecipeNameDisplay.IngredientToResult,
 					fabricators = new List<Tag>
 					{
@@ -50,5 +45,5 @@ namespace MakeDirt
 				};
 			}
 		}
-    }
+	}
 }

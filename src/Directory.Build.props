@@ -1,0 +1,46 @@
+<Project>
+	<ItemGroup Condition=" '$(Configuration)' == 'Vanilla' ">
+		<Reference Include="Assembly-CSharp">
+			<HintPath>../lib-vanilla/Assembly-CSharp.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Assembly-CSharp-firstpass">
+			<HintPath>../lib-vanilla/Assembly-CSharp-firstpass.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+    <Reference Include="0Harmony">
+      <HintPath>../lib-vanilla/0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>../lib-vanilla/UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>../lib-vanilla/UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+	</ItemGroup>
+	<ItemGroup Condition=" '$(Configuration)' == 'SpacedOut' ">
+		<Reference Include="Assembly-CSharp">
+			<HintPath>../lib-spacedout/Assembly-CSharp.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Assembly-CSharp-firstpass">
+			<HintPath>../lib-spacedout/Assembly-CSharp-firstpass.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+    <Reference Include="0Harmony">
+      <HintPath>../lib-spacedout/0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>../lib-spacedout/UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>../lib-spacedout/UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+	</ItemGroup>
+</Project>
