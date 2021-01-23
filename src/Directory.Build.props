@@ -20,7 +20,12 @@
       <HintPath>../lib-vanilla/UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>../lib-vanilla/Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
 	</ItemGroup>
+
 	<ItemGroup Condition=" '$(Configuration)' == 'SpacedOut' ">
 		<Reference Include="Assembly-CSharp">
 			<HintPath>../lib-spacedout/Assembly-CSharp.dll</HintPath>
@@ -40,6 +45,10 @@
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>../lib-spacedout/UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>../lib-spacedout/Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
 	</ItemGroup>
