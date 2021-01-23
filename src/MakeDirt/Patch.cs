@@ -8,8 +8,6 @@ namespace RomenH.MakeDirt
 	[HarmonyPatch("ConfigureBuildingTemplate")]
 	public static class RockCrusherConfig_ConfigureBuildingTemplate_Patch
 	{
-		public static LocString DIRT_RECIPE_DESCRIPTION = "Crushes {0}, {1}, and {2} into {3}";
-
 		public static void Postfix(GameObject __0)
 		{
 			var clay = ElementLoader.elements.Find((Element e) => e.HasTag(SimHashes.Clay.CreateTag()));
@@ -35,7 +33,7 @@ namespace RomenH.MakeDirt
 				new ComplexRecipe(text, inputs, outputs)
 				{
 					time = 40f,
-					description = string.Format(DIRT_RECIPE_DESCRIPTION, clay.name, sand.name, phosphorite.name, dirt.name),
+					description = string.Format(ModStrings.STRINGS.BUILDINGS.ROCKCRUSHER.MAKEDIRT_RECIPE_DESCRIPTION, sand.name, clay.name, phosphorite.name, dirt.name),
 
 					nameDisplay = ComplexRecipe.RecipeNameDisplay.IngredientToResult,
 					fabricators = new List<Tag>
