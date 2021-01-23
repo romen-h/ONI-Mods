@@ -28,9 +28,16 @@ A mod that adds various UVC emitting lights for disinfecting your base.
 ---
 
 ### [Make Dirt](src/MakeDirt)
-[<img src="src/MakeDirt/Assets/preview.png" height="200px"/>](src/MakeDirt)
+[<img src="src/MakeDirt/Assets/Workshop/preview.png" height="200px"/>](src/MakeDirt)
 
 A mod for making dirt at the Rock Crusher.
+
+---
+
+### [Piped Deodorizer](src/PipedDeodorizer)
+[<img src="src/PipedDeodorizer/Assets/Workshop/preview.png" height="200px"/>](src/PipedDeodorizer)
+
+A new building that deodorizes polluted oxygen with a vent input and output.
 
 ---
 
