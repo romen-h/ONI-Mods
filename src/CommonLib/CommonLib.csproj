@@ -7,38 +7,32 @@
     <ProjectGuid>{9264D05D-3A50-42CC-B838-4201F3C57A97}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RomenMods.Common</RootNamespace>
+    <RootNamespace>RomenH.Common</RootNamespace>
     <AssemblyName>CommonLib</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Vanilla|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Vanilla\</OutputPath>
+    <DefineConstants>TRACE;VANILLA</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SpacedOut|AnyCPU'">
+    <OutputPath>bin\SpacedOut\</OutputPath>
+    <DefineConstants>TRACE;SPACED_OUT</DefineConstants>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>../lib/0Harmony.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>../lib/Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>../lib/Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,17 +43,43 @@
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
       <HintPath>../lib/UnityEngine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>../lib/UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Vanilla' ">
+    <Reference Include="Assembly-CSharp">
+      <HintPath>../lib-vanilla/Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>../lib-vanilla/Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'SpacedOut' ">
+    <Reference Include="Assembly-CSharp">
+      <HintPath>../lib-spacedout/Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>../lib-spacedout/Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DebugUtils.cs" />
+    <Compile Include="ModDebug.cs" />
     <Compile Include="GameStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringListOption.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

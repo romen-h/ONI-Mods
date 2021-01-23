@@ -1,42 +1,54 @@
-﻿using STRINGS;
-using System;
+using STRINGS;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace RomenMods.Common
+namespace RomenH.Common
 {
 	/// <summary>
 	/// A class that provides static utility methods for buildings.
 	/// </summary>
 	public static class BuildingUtils
 	{
-		public static void AddBuildingToPlanScreen(HashedString category, string buildingId, string addAfterBuildingId = null)
+		private static PlanScreen.PlanInfo GetMenu(HashedString category)
 		{
-			var index = TUNING.BUILDINGS.PLANORDER.FindIndex(x => x.category == category);
-
-			if (index == -1)
-				return;
-
-			var planOrderList = TUNING.BUILDINGS.PLANORDER[index].data as IList<string>;
-			if (planOrderList == null)
+			foreach (var menu in TUNING.BUILDINGS.PLANORDER)
 			{
-				Debug.Log($"Could not add {buildingId} to the building menu.");
-				return;
+				if (menu.category == category) return menu;
 			}
 
-			var neighborIdx = planOrderList.IndexOf(addAfterBuildingId);
-
-			if (neighborIdx != -1)
-				planOrderList.Insert(neighborIdx + 1, buildingId);
-			else
-				planOrderList.Add(buildingId);
+			throw new System.Exception("The plan menu was not found in TUNING.BUILDINGS.PLANORDER.");
 		}
 
-		public static void AddBuildingToTechnology(string tech, string buildingId)
+		public static void AddBuildingToPlanScreen(string buildingID, HashedString category, string addAferID = null)
 		{
-			var techList = new List<string>(Database.Techs.TECH_GROUPING[tech]) { buildingId };
-			Database.Techs.TECH_GROUPING[tech] = techList.ToArray();
+			var categoryMenu = GetMenu(category);
+			if (categoryMenu.data is List<string> buildings)
+			{
+				if (addAferID != null)
+				{
+					var i = buildings.IndexOf(addAferID);
+					if (i == -1 || i == buildings.Count - 1) buildings.Add(buildingID);
+					else buildings.Insert(i + 1, buildingID);
+				}
+				else
+				{
+					buildings.Add(buildingID);
+				}
+			}
+		}
+
+		public static void AddBuildingToTech(string buildingID, string techID)
+		{
+#if VANILLA
+			var techList = new List<string>(Database.Techs.TECH_GROUPING[techID]);
+			techList.Add(buildingID);
+			Database.Techs.TECH_GROUPING[techID] = techList.ToArray();
+#elif SPACED_OUT
+			var tech = Db.Get().Techs.TryGet(techID);
+			if (tech != null)
+			{
+				tech.unlockedItemIDs.Add(buildingID);
+			}
+#endif
 		}
 	}
 
@@ -54,14 +66,14 @@ namespace RomenMods.Common
 
 		public static void AddStatusItemStrings(string id, string prefix, string name, string tooltip)
 		{
-			Strings.Add($"STRINGS." + prefix + ".STATUSITEMS." + id.ToUpper() + ".NAME", name);
-			Strings.Add($"STRINGS." + prefix + ".STATUSITEMS." + id.ToUpper() + ".TOOLTIP", tooltip);
+			Strings.Add($"STRINGS.{prefix.ToUpperInvariant()}.STATUSITEMS.{id.ToUpperInvariant()}.NAME", name);
+			Strings.Add($"STRINGS.{prefix.ToUpperInvariant()}.STATUSITEMS.{id.ToUpperInvariant()}.TOOLTIP", tooltip);
 		}
 
 		public static void AddSideScreenStrings(string key, string title, string tooltip)
 		{
-			Strings.Add("STRINGS.UI.UISIDESCREENS." + key + ".TITLE" , title);
-			Strings.Add("STRINGS.UI.UISIDESCREENS." + key + ".TOOLTIP", tooltip);
+			Strings.Add($"STRINGS.UI.UISIDESCREENS.{key.ToUpperInvariant()}.TITLE" , title);
+			Strings.Add($"STRINGS.UI.UISIDESCREENS.{key.ToUpperInvariant()}.TOOLTIP", tooltip);
 		}
 	}
 }

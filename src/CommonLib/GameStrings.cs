@@ -1,4 +1,4 @@
-﻿namespace RomenMods.Common
+namespace RomenH.Common
 {
 	/// <summary>
 	/// Defines strings that are used by the game but not already defined in the decompiled game code.

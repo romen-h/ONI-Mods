@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace RomenMods.Common
+namespace RomenH.Common
 {
 	/// <summary>
 	/// An implementation of IListableOption that uses a string value.
