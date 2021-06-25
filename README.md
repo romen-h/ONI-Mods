@@ -50,6 +50,7 @@ A new building that converts heat energy directly into power.
 
 ## License
 
-This repository has not been assigned a license.  
-Please contact me for permission to use any of this code or artwork in your own mod.  
-(I am still deciding on a license, or if certain mods need individual licenses)
+The content of this repository has been made source-available, but without license to use or copy in your own mods or other works.
+Please contact me for permission to use any of this code or artwork.
+
+© 2021 RomenH
