@@ -1,17 +1,16 @@
 using TUNING;
-
 using UnityEngine;
 
-namespace RomenMods.GermicideLampMod
+namespace RomenH.GermicideLamp
 {
 	public class CeilingGermicideLampConfig : IBuildingConfig
 	{
+		public const string ID = "SmallGermicideLamp";
+
 		internal const int UV_LEFT = -1;
 		internal const int UV_WIDTH = 4;
 		internal const int UV_BOTTOM = -3;
 		internal const int UV_HEIGHT = 4;
-
-		public const string ID = "SmallGermicideLamp";
 
 		public override BuildingDef CreateBuildingDef()
 		{

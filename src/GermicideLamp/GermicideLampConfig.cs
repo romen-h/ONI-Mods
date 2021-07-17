@@ -1,8 +1,7 @@
 using TUNING;
-
 using UnityEngine;
 
-namespace RomenMods.GermicideLampMod
+namespace RomenH.GermicideLamp
 {
 	public class GermicideLampConfig : IBuildingConfig
 	{
@@ -63,6 +62,7 @@ namespace RomenMods.GermicideLampMod
 		public override void DoPostConfigureComplete(GameObject go)
 		{
 			go.AddOrGet<LoopingSounds>();
+			go.AddOrGet<EnergyConsumer>();
 			var lamp = go.AddOrGet<GermicideLamp>();
 			lamp.aoeLeft = UV_LEFT;
 			lamp.aoeWidth = UV_WIDTH;

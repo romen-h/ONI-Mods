@@ -1,32 +1,33 @@
-using Harmony;
-using RomenMods.Common;
+using HarmonyLib;
+using RomenH.Common;
 
-using UnityEngine;
-
-namespace RomenMods.GermicideLampMod
+namespace RomenH.GermicideLamp
 {
-	[HarmonyPatch(typeof(GeneratedBuildings))]
-	[HarmonyPatch(nameof(GeneratedBuildings.LoadGeneratedBuildings))]
-	public class GeneratedBuildings_LoadGeneratedBuildings_Patch
-	{
-		public static void Prefix()
-		{
-			StringUtils.AddBuildingStrings(GermicideLampConfig.ID, ModStrings.GERMICIDELAMP.NAME, ModStrings.GERMICIDELAMP.DESC, ModStrings.GERMICIDELAMP.EFFECT);
-			StringUtils.AddBuildingStrings(CeilingGermicideLampConfig.ID, ModStrings.CEILINGGERMICIDELAMP.NAME, ModStrings.CEILINGGERMICIDELAMP.DESC, ModStrings.CEILINGGERMICIDELAMP.EFFECT);
-
-			BuildingUtils.AddBuildingToPlanScreen(GameStrings.PlanMenuCategory.Utilities, GermicideLampConfig.ID);
-			BuildingUtils.AddBuildingToPlanScreen(GameStrings.PlanMenuCategory.Utilities, CeilingGermicideLampConfig.ID);
-		}
-	}
-
 	[HarmonyPatch(typeof(Db))]
 	[HarmonyPatch("Initialize")]
 	public static class Db_Initialize_Patch
 	{
 		public static void Prefix()
 		{
-			BuildingUtils.AddBuildingToTechnology(GameStrings.Technology.Medicine.PathogenDiagnostics, GermicideLampConfig.ID);
-			BuildingUtils.AddBuildingToTechnology(GameStrings.Technology.Medicine.PathogenDiagnostics, CeilingGermicideLampConfig.ID);
+			StringUtils.AddBuildingStrings(
+				GermicideLampConfig.ID,
+				ModStrings.STRINGS.BUILDINGS.GERMICIDELAMP.NAME,
+				ModStrings.STRINGS.BUILDINGS.GERMICIDELAMP.DESC,
+				ModStrings.STRINGS.BUILDINGS.GERMICIDELAMP.EFFECT);
+			StringUtils.AddBuildingStrings(
+				CeilingGermicideLampConfig.ID,
+				ModStrings.STRINGS.BUILDINGS.CEILINGGERMICIDELAMP.NAME,
+				ModStrings.STRINGS.BUILDINGS.CEILINGGERMICIDELAMP.DESC,
+				ModStrings.STRINGS.BUILDINGS.CEILINGGERMICIDELAMP.EFFECT);
+		}
+
+		public static void Postfix()
+		{
+			BuildingUtils.AddBuildingToPlanScreen(GermicideLampConfig.ID, GameStrings.PlanMenuCategory.Utilities);
+			BuildingUtils.AddBuildingToPlanScreen(CeilingGermicideLampConfig.ID, GameStrings.PlanMenuCategory.Utilities);
+
+			BuildingUtils.AddBuildingToTech(GermicideLampConfig.ID, GameStrings.Technology.Medicine.PathogenDiagnostics);
+			BuildingUtils.AddBuildingToTech(CeilingGermicideLampConfig.ID, GameStrings.Technology.Medicine.PathogenDiagnostics);
 		}
 	}
 }

@@ -1,17 +1,14 @@
 using Klei.AI;
-
 using KSerialization;
-
 using System.Collections.Generic;
-
 using UnityEngine;
 
-namespace RomenMods.GermicideLampMod
+namespace RomenH.GermicideLamp
 {
 	[SerializationConfig(MemberSerialization.OptIn)]
 	public class GermicideLamp : KMonoBehaviour, ISim200ms
 	{
-		protected static byte[] diseasesKilled = null;
+		protected static HashSet<byte> diseasesKilled = null;
 
 		public static void GetAOEBounds(int xOffset, int yOffset, int width, int height, out int left, out int bottom)
 		{
@@ -26,6 +23,7 @@ namespace RomenMods.GermicideLampMod
 
 		private int GermsToKill(int count)
 		{
+			if (count == 1) return 1;
 			return (int)Mathf.Clamp(count * strength, 0, count);
 		}
 
@@ -53,19 +51,23 @@ namespace RomenMods.GermicideLampMod
 
 			if (diseasesKilled == null)
 			{
+				diseasesKilled = new HashSet<byte>();
 				var db = Db.Get();
 
-				List<byte> enabledDiseases = new List<byte>();
 				if (Mod.Settings.UVCKillsFoodPoisoning)
-					enabledDiseases.Add(db.Diseases.GetIndex(db.Diseases.FoodGerms.id));
+					diseasesKilled.Add(db.Diseases.GetIndex(db.Diseases.FoodGerms.id));
 
 				if (Mod.Settings.UVCKillsSlimelung)
-					enabledDiseases.Add(db.Diseases.GetIndex(db.Diseases.SlimeGerms.id));
+					diseasesKilled.Add(db.Diseases.GetIndex(db.Diseases.SlimeGerms.id));
 
 				if (Mod.Settings.UVCKillsZombieSpores)
-					enabledDiseases.Add(db.Diseases.GetIndex(db.Diseases.ZombieSpores.id));
+					diseasesKilled.Add(db.Diseases.GetIndex(db.Diseases.ZombieSpores.id));
 
-				diseasesKilled = enabledDiseases.ToArray();
+				if (DlcManager.IsExpansion1Active())
+				{
+					if (Mod.Settings.UVCKillsRadiation)
+						diseasesKilled.Add(db.Diseases.GetIndex(db.Diseases.RadiationPoisoning.id));
+				}
 			}
 
 			lampXY = Grid.PosToXY(gameObject.transform.position);
@@ -89,6 +91,11 @@ namespace RomenMods.GermicideLampMod
 
 			if (alwaysOn || (operational != null && operational.IsOperational))
 			{
+				if (operational != null)
+				{
+					operational.SetActive(true);
+				}
+
 				HashSet<GameObject> buildingsAlreadySeen = new HashSet<GameObject>();
 
 				// Delete germs in area
@@ -105,9 +112,12 @@ namespace RomenMods.GermicideLampMod
 							// Delete germs in the cell
 
 							byte cellGermIndex = Grid.DiseaseIdx[cell];
-							int cellGermCount = Grid.DiseaseCount[cell];
-							int cellGermsToKill = GermsToKill(cellGermCount);
-							SimMessages.ModifyDiseaseOnCell(cell, cellGermIndex, -cellGermsToKill);
+							if (diseasesKilled.Contains(cellGermIndex))
+							{
+								int cellGermCount = Grid.DiseaseCount[cell];
+								int cellGermsToKill = GermsToKill(cellGermCount);
+								SimMessages.ModifyDiseaseOnCell(cell, cellGermIndex, -cellGermsToKill);
+							}
 
 							// Delete germs on pickupables in the cell
 
@@ -122,7 +132,8 @@ namespace RomenMods.GermicideLampMod
 
 									if (pickupable != null)
 									{
-										if (pickupable.PrimaryElement.DiseaseIdx != byte.MaxValue)
+										byte pickupableDiseaseIndex = pickupable.PrimaryElement.DiseaseIdx;
+										if (diseasesKilled.Contains(pickupableDiseaseIndex))
 										{
 											int pickupableGermCount = pickupable.PrimaryElement.DiseaseCount;
 											int pickupableGermsToKill = GermsToKill(pickupableGermCount);
@@ -134,7 +145,7 @@ namespace RomenMods.GermicideLampMod
 											var minion = pickupable.GetComponent<MinionIdentity>();
 											if (minion != null)
 											{
-												var sunburn = new SicknessExposureInfo(Db.Get().Sicknesses.Sunburn.Id, ModStrings.GERMICIDELAMP.NAME);
+												var sunburn = new SicknessExposureInfo(Db.Get().Sicknesses.Sunburn.Id, ModStrings.STRINGS.BUILDINGS.GERMICIDELAMP.NAME);
 												var sicknesses = minion.GetSicknesses();
 
 												bool hasSunburn = false;
@@ -165,11 +176,15 @@ namespace RomenMods.GermicideLampMod
 							{
 								var conduitContents = conduit.GetContents(Game.Instance.solidConduitFlow);
 								var conduitPickupable = Game.Instance.solidConduitFlow.GetPickupable(conduitContents.pickupableHandle);
-								if (conduitPickupable != null && conduitPickupable.PrimaryElement.DiseaseIdx != byte.MaxValue)
+								if (conduitPickupable != null)
 								{
-									int cpuCount = conduitPickupable.PrimaryElement.DiseaseCount;
-									int cpuGermsToKill = GermsToKill(cpuCount);
-									conduitPickupable.PrimaryElement.ModifyDiseaseCount(-cpuGermsToKill, GermicideLampConfig.ID);
+									byte conduitDiseaseIndex = conduitPickupable.PrimaryElement.DiseaseIdx;
+									if (diseasesKilled.Contains(conduitDiseaseIndex))
+									{
+										int cpuCount = conduitPickupable.PrimaryElement.DiseaseCount;
+										int cpuGermsToKill = GermsToKill(cpuCount);
+										conduitPickupable.PrimaryElement.ModifyDiseaseCount(-cpuGermsToKill, GermicideLampConfig.ID);
+									}
 								}
 							}
 
@@ -179,17 +194,28 @@ namespace RomenMods.GermicideLampMod
 							if (buildingInCell != null && !buildingsAlreadySeen.Contains(buildingInCell))
 							{
 								var buildingElement = buildingInCell.GetComponent<PrimaryElement>();
-								if (buildingElement != null && buildingElement.DiseaseIdx != byte.MaxValue)
+								if (buildingElement != null)
 								{
-									int buildingGermCount = buildingElement.DiseaseCount;
-									int buildingGermsToKill = GermsToKill(buildingGermCount);
-									buildingElement.ModifyDiseaseCount(-buildingGermsToKill, GermicideLampConfig.ID);
+									byte buildingDiseaseIndex = buildingElement.DiseaseIdx;
+									if (diseasesKilled.Contains(buildingDiseaseIndex))
+									{
+										int buildingGermCount = buildingElement.DiseaseCount;
+										int buildingGermsToKill = GermsToKill(buildingGermCount);
+										buildingElement.ModifyDiseaseCount(-buildingGermsToKill, GermicideLampConfig.ID);
+									}
 								}
 
 								buildingsAlreadySeen.Add(buildingInCell);
 							}
 						}
 					}
+				}
+			}
+			else
+			{
+				if (operational != null)
+				{
+					operational.SetActive(false);
 				}
 			}
 		}

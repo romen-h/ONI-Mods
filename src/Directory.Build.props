@@ -1,54 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project>
-	<ItemGroup Condition=" '$(Configuration)' == 'Vanilla' ">
-		<Reference Include="Assembly-CSharp">
-			<HintPath>../lib-vanilla/Assembly-CSharp.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="Assembly-CSharp-firstpass">
-			<HintPath>../lib-vanilla/Assembly-CSharp-firstpass.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-    <Reference Include="0Harmony">
-      <HintPath>../lib-vanilla/0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>../lib-vanilla/UnityEngine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>../lib-vanilla/UnityEngine.CoreModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>../lib-vanilla/Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-	</ItemGroup>
 
-	<ItemGroup Condition=" '$(Configuration)' == 'SpacedOut' ">
-		<Reference Include="Assembly-CSharp">
-			<HintPath>../lib-spacedout/Assembly-CSharp.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
+  <PropertyGroup Condition="'$(IsMod)' == 'true'">
+    <ClearOutputDirectory>True</ClearOutputDirectory>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Vanilla'">
+    <DefineConstants>VANILLA</DefineConstants>
+    <GameLibsFolder>../lib-vanilla</GameLibsFolder>
+    <APIVersion>1</APIVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'SpacedOut'">
+    <DefineConstants>SPACED_OUT</DefineConstants>
+    <GameLibsFolder>../lib</GameLibsFolder>
+    <APIVersion>2</APIVersion>
+  </PropertyGroup>
+  
+	<ItemGroup Condition="'$(IsMod)' == 'true'">
+    <Reference Include="Assembly-CSharp">
+	    <HintPath>$(GameLibsFolder)/Assembly-CSharp.dll</HintPath>
+	    <Private>False</Private>
+    </Reference>
 		<Reference Include="Assembly-CSharp-firstpass">
-			<HintPath>../lib-spacedout/Assembly-CSharp-firstpass.dll</HintPath>
+			<HintPath>$(GameLibsFolder)/Assembly-CSharp-firstpass.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
     <Reference Include="0Harmony">
-      <HintPath>../lib-spacedout/0Harmony.dll</HintPath>
+      <HintPath>$(GameLibsFolder)/0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>../lib-spacedout/UnityEngine.dll</HintPath>
+      <HintPath>$(GameLibsFolder)/UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>../lib-spacedout/UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(GameLibsFolder)/UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>../lib-spacedout/Newtonsoft.Json.dll</HintPath>
+      <HintPath>$(GameLibsFolder)/Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
 	</ItemGroup>

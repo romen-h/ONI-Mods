@@ -1,4 +1,4 @@
-using Harmony;
+using HarmonyLib;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ namespace RomenH.MakeDirt
 					new ComplexRecipe.RecipeElement(dirt.tag, 100f)
 				};
 
-				string text = ComplexRecipeManager.MakeRecipeID("RockCrusher", inputs, outputs);
+				string text = ComplexRecipeManager.MakeRecipeID(RockCrusherConfig.ID, inputs, outputs);
 				new ComplexRecipe(text, inputs, outputs)
 				{
 					time = 40f,
@@ -38,7 +38,7 @@ namespace RomenH.MakeDirt
 					nameDisplay = ComplexRecipe.RecipeNameDisplay.IngredientToResult,
 					fabricators = new List<Tag>
 					{
-						TagManager.Create("RockCrusher")
+						TagManager.Create(RockCrusherConfig.ID)
 					}
 				};
 			}

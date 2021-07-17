@@ -43,10 +43,14 @@ namespace RomenH.Common
 			techList.Add(buildingID);
 			Database.Techs.TECH_GROUPING[techID] = techList.ToArray();
 #elif SPACED_OUT
-			var tech = Db.Get().Techs.TryGet(techID);
+			var tech = Db.Get().Techs.Get(techID);
 			if (tech != null)
 			{
 				tech.unlockedItemIDs.Add(buildingID);
+			}
+			else
+			{
+				Debug.LogWarning($"AddBuildingToTech() Failed to find tech ID: {techID}");
 			}
 #endif
 		}

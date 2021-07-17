@@ -1,8 +1,7 @@
-using Harmony;
-
+using HarmonyLib;
 using UnityEngine;
 
-namespace RomenMods.GermicideLampMod
+namespace RomenH.GermicideLamp
 {
 	[HarmonyPatch(typeof(LightBugOrangeConfig))]
 	[HarmonyPatch("CreatePrefab")]

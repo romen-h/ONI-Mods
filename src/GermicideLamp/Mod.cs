@@ -1,29 +1,33 @@
-using PeterHan.PLib;
+using HarmonyLib;
+using KMod;
+using PeterHan.PLib.Core;
+using PeterHan.PLib.Options;
 
-using RomenMods.GermicideLampMod;
-
-using UnityEngine;
-
-namespace RomenMods
+namespace RomenH.GermicideLamp
 {
-	public static class Mod
+	public class Mod : UserMod2
 	{
 		internal static readonly ModSettings DefaultSettings = new ModSettings();
 		internal static ModSettings Settings;
 
-		public static void OnLoad()
+		internal POptions Options
+		{ get; private set; }
+
+		public override void OnLoad(Harmony harmony)
 		{
 			PUtil.InitLibrary();
 
-			Settings = PeterHan.PLib.Options.POptions.ReadSettings<ModSettings>();
+			Options = new POptions();
+
+			Settings = POptions.ReadSettings<ModSettings>();
 			if (Settings == null)
 			{
 				Settings = new ModSettings();
-
-				PeterHan.PLib.Options.POptions.WriteSettings(Settings);
+				POptions.WriteSettings(Settings);
 			}
+			Options.RegisterOptions(this, typeof(ModSettings));
 
-			PeterHan.PLib.Options.POptions.RegisterOptions(typeof(ModSettings));
+			base.OnLoad(harmony);
 		}
 	}
 }

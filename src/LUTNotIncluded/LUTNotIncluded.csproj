@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- General Package Properties -->
+  <PropertyGroup>
+    <PackageId>LUTNotIncluded</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>RomenH</Authors>
+    <Product>LUTNotIncluded</Product>
+    <Copyright>2021 RomenH</Copyright>
+    <RepositoryUrl>https://github.com/romen-h/ONI-Mods</RepositoryUrl>
+  </PropertyGroup>
+
+  <!-- Build Properties -->
+  <PropertyGroup>
+    <TargetFramework>net471</TargetFramework>
+    <Configurations>SpacedOut</Configurations>
+    <AssemblyName>LUTNotIncluded</AssemblyName>
+    <RootNamespace>RomenH.LUTNotIncluded</RootNamespace>
+    <IsMod>true</IsMod>
+    <GenerateMetadata>true</GenerateMetadata>
+    <IsPacked>true</IsPacked>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SpacedOut|AnyCPU'">
+    <OutDir>bin</OutDir>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <!-- Mod Info -->
+  <PropertyGroup>
+    <ModName>LUT Not Included</ModName>
+    <ModDescription>TODO</ModDescription>
+    <SupportedContent>ALL</SupportedContent>
+    <MinimumSupportedBuild>469369</MinimumSupportedBuild>
+    <APIVersion>2</APIVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Cairath.ONIMetadataFileGenerator" Version="1.0.0">
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
+    <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.18.2">
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PLib">
+      <HintPath>..\..\..\ModRepos\PeterHan-ONIMods\PLib\bin\Spaced Out\Release\net471\PLib.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>..\lib\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(ProjectDir)Assets\Workshop&quot; &quot;$(ProjectDir)bin\&quot; /s /i /y&#xD;&#xA;xcopy &quot;$(ProjectDir)Assets\Textures&quot; &quot;$(ProjectDir)bin\Textures&quot; /s /i /y&#xD;&#xA;del &quot;$(TargetDir)\$(TargetName).pdb&quot;" />
+  </Target>
+
+</Project>

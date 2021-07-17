@@ -1,4 +1,4 @@
-using Harmony;
+using HarmonyLib;
 using RomenH.Common;
 
 namespace RomenH.PipedDeodorizer

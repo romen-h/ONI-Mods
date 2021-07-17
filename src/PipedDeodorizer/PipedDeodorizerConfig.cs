@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RomenH.PipedDeodorizer
 {
-	class PipedDeodorizerConfig : IBuildingConfig
+	public class PipedDeodorizerConfig : IBuildingConfig
 	{
 		public const string ID = "PipedDeodorizer";
 
@@ -25,7 +25,7 @@ namespace RomenH.PipedDeodorizer
 				BUILDINGS.CONSTRUCTION_MASS_KG.TIER2,
 				MATERIALS.RAW_METALS,
 				800f,
-				BuildLocationRule.OnFloor,
+				BuildLocationRule.Anywhere,
 				noise: NOISE_POLLUTION.NOISY.TIER3,
 				decor: BUILDINGS.DECOR.PENALTY.TIER1
 			);
@@ -34,9 +34,8 @@ namespace RomenH.PipedDeodorizer
 			def.SelfHeatKilowattsWhenActive = 1f;
 			def.InputConduitType = ConduitType.Gas;
 			def.OutputConduitType = ConduitType.Gas;
-			def.ViewMode = OverlayModes.Oxygen.ID;
+			def.ViewMode = OverlayModes.GasConduits.ID;
 			def.AudioCategory = "Metal";
-			def.AudioSize = "large";
 			def.UtilityInputOffset = new CellOffset(0, 0);
 			def.UtilityOutputOffset = new CellOffset(1, 0);
 			def.PowerInputOffset = new CellOffset(1, 0);
@@ -61,7 +60,7 @@ namespace RomenH.PipedDeodorizer
 			ElementConverter elementConverter = go.AddOrGet<ElementConverter>();
 			elementConverter.consumedElements = new ElementConverter.ConsumedElement[1]
 			{
-				new ElementConverter.ConsumedElement(GameTagExtensions.Create(SimHashes.ContaminatedOxygen), AIR_INPUT_RATE),
+				new ElementConverter.ConsumedElement(SimHashes.ContaminatedOxygen.CreateTag(), AIR_INPUT_RATE),
 			};
 			elementConverter.outputElements = new ElementConverter.OutputElement[2]
 			{
@@ -77,15 +76,16 @@ namespace RomenH.PipedDeodorizer
 			ConduitConsumer conduitConsumer = go.AddOrGet<ConduitConsumer>();
 			conduitConsumer.conduitType = ConduitType.Gas;
 			conduitConsumer.consumptionRate = AIR_INPUT_RATE;
-			conduitConsumer.capacityKG = AIR_INPUT_RATE;
+			conduitConsumer.capacityKG = 2*AIR_INPUT_RATE;
 			conduitConsumer.capacityTag = GameTags.Breathable;// ElementLoader.FindElementByHash(SimHashes.ContaminatedOxygen).tag;
-			conduitConsumer.wrongElementResult = ConduitConsumer.WrongElementResult.Store;
+			conduitConsumer.wrongElementResult = ConduitConsumer.WrongElementResult.Dump;
 			conduitConsumer.forceAlwaysSatisfied = true;
 
 			ConduitDispenser conduitDispenser = go.AddOrGet<ConduitDispenser>();
 			conduitDispenser.conduitType = ConduitType.Gas;
+			conduitDispenser.alwaysDispense = true;
 			conduitDispenser.invertElementFilter = true;
-			conduitDispenser.elementFilter = new SimHashes[1]
+			conduitDispenser.elementFilter = new SimHashes[]
 			{
 				SimHashes.ContaminatedOxygen
 			};
