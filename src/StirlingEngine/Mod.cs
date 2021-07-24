@@ -1,31 +1,35 @@
-﻿using PeterHan.PLib;
+using HarmonyLib;
+using KMod;
+using PeterHan.PLib.Core;
+using PeterHan.PLib.Options;
 
-using RomenMods.StirlingEngineMod;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-
-namespace RomenMods
+namespace RomenH.StirlingEngine
 {
-	public static class Mod
+	public class Mod : UserMod2
 	{
-		internal static ModSettings Config;
+		internal static readonly ModSettings DefaultSettings = new ModSettings();
+		internal static ModSettings Settings;
 
-		public static void OnLoad()
+		internal POptions Options
+		{ get; private set; }
+
+		public override void OnLoad(Harmony harmony)
 		{
 			PUtil.InitLibrary();
-			RomenMods.Common.DebugUtils.PrintModInfo();
 
-			Config = PeterHan.PLib.Options.POptions.ReadSettings<ModSettings>();
+			Options = new POptions();
 
-			if (Config == null)
+			Settings = POptions.ReadSettings<ModSettings>();
+			if (Settings == null)
 			{
-				Config = new ModSettings();
-				PeterHan.PLib.Options.POptions.WriteSettings<ModSettings>(Config);
+				Settings = new ModSettings();
+				POptions.WriteSettings(Settings);
 			}
+			Options.RegisterOptions(this, typeof(ModSettings));
+
+			ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE.DESC = $"Draws up to {StirlingEngine.WattsToHeat(Mod.Settings.MaxWattOutput):F0} DTU/s of heat from the cell below the floor and converts it to power. The amount of heat drawn is based on the ratio of building temperature vs temperature below the floor tile.";
+
+			base.OnLoad(harmony);
 		}
 	}
 }

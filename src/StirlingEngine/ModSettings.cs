@@ -1,13 +1,12 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using PeterHan.PLib.Options;
 
-namespace RomenMods.StirlingEngineMod
+namespace RomenH.StirlingEngine
 {
+	[RestartRequired]
 	[JsonObject(MemberSerialization.OptIn)]
+	[ModInfo("Stirling Engine", "https://github.com/romen-h/ONI-Mods")]
 	public class ModSettings
 	{
 		[JsonProperty]

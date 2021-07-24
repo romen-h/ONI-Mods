@@ -15,7 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProgrammableLogicController
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LUTNotIncluded", "LUTNotIncluded\LUTNotIncluded.csproj", "{F9D53D25-03E9-4577-BE93-83EBFB92063E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Campfire", "Campfire\Campfire.csproj", "{8276FA3C-8AB2-416D-859B-B82470CED77F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Campfire", "Campfire\Campfire.csproj", "{8276FA3C-8AB2-416D-859B-B82470CED77F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StirlingEngine", "StirlingEngine\StirlingEngine.csproj", "{DFB111B7-087A-4C5E-800D-8FCFD5CFC032}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicScheduleSensor", "LogicScheduleSensor\LogicScheduleSensor.csproj", "{5543D8D2-5136-4CD4-95A6-AB55F5EAB989}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +85,22 @@ Global
 		{8276FA3C-8AB2-416D-859B-B82470CED77F}.SpacedOut|Any CPU.Build.0 = SpacedOut|Any CPU
 		{8276FA3C-8AB2-416D-859B-B82470CED77F}.Vanilla|Any CPU.ActiveCfg = Vanilla|Any CPU
 		{8276FA3C-8AB2-416D-859B-B82470CED77F}.Vanilla|Any CPU.Build.0 = Vanilla|Any CPU
+		{DFB111B7-087A-4C5E-800D-8FCFD5CFC032}.Debug|Any CPU.ActiveCfg = Vanilla|Any CPU
+		{DFB111B7-087A-4C5E-800D-8FCFD5CFC032}.Debug|Any CPU.Build.0 = Vanilla|Any CPU
+		{DFB111B7-087A-4C5E-800D-8FCFD5CFC032}.Release|Any CPU.ActiveCfg = Vanilla|Any CPU
+		{DFB111B7-087A-4C5E-800D-8FCFD5CFC032}.Release|Any CPU.Build.0 = Vanilla|Any CPU
+		{DFB111B7-087A-4C5E-800D-8FCFD5CFC032}.SpacedOut|Any CPU.ActiveCfg = SpacedOut|Any CPU
+		{DFB111B7-087A-4C5E-800D-8FCFD5CFC032}.SpacedOut|Any CPU.Build.0 = SpacedOut|Any CPU
+		{DFB111B7-087A-4C5E-800D-8FCFD5CFC032}.Vanilla|Any CPU.ActiveCfg = Vanilla|Any CPU
+		{DFB111B7-087A-4C5E-800D-8FCFD5CFC032}.Vanilla|Any CPU.Build.0 = Vanilla|Any CPU
+		{5543D8D2-5136-4CD4-95A6-AB55F5EAB989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5543D8D2-5136-4CD4-95A6-AB55F5EAB989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5543D8D2-5136-4CD4-95A6-AB55F5EAB989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5543D8D2-5136-4CD4-95A6-AB55F5EAB989}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5543D8D2-5136-4CD4-95A6-AB55F5EAB989}.SpacedOut|Any CPU.ActiveCfg = SpacedOut|Any CPU
+		{5543D8D2-5136-4CD4-95A6-AB55F5EAB989}.SpacedOut|Any CPU.Build.0 = SpacedOut|Any CPU
+		{5543D8D2-5136-4CD4-95A6-AB55F5EAB989}.Vanilla|Any CPU.ActiveCfg = Vanilla|Any CPU
+		{5543D8D2-5136-4CD4-95A6-AB55F5EAB989}.Vanilla|Any CPU.Build.0 = Vanilla|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,39 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <!-- General Package Properties -->
-  <PropertyGroup>
-    <PackageId>LUTNotIncluded</PackageId>
-    <Version>0.0.1</Version>
-    <Authors>RomenH</Authors>
-    <Product>LUTNotIncluded</Product>
-    <Copyright>2021 RomenH</Copyright>
-    <RepositoryUrl>https://github.com/romen-h/ONI-Mods</RepositoryUrl>
-  </PropertyGroup>
-
-  <!-- Build Properties -->
   <PropertyGroup>
     <TargetFramework>net471</TargetFramework>
+    <PackageId>StirlingEngine</PackageId>
+    <Version>3.0.0</Version>
+    <Authors>RomenH</Authors>
+    <Product>StirlingEngine</Product>
+    <Copyright>2021 RomenH</Copyright>
+    <RepositoryUrl>https://github.com/romen-h/ONI-Mods</RepositoryUrl>
     <Configurations>SpacedOut</Configurations>
-    <AssemblyName>LUTNotIncluded</AssemblyName>
-    <RootNamespace>RomenH.LUTNotIncluded</RootNamespace>
+    <AssemblyName>StirlingEngine</AssemblyName>
+    <RootNamespace>RomenH.StirlingEngine</RootNamespace>
     <IsMod>true</IsMod>
     <GenerateMetadata>true</GenerateMetadata>
     <IsPacked>true</IsPacked>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SpacedOut|AnyCPU'">
-    <OutDir>bin</OutDir>
-    <Optimize>true</Optimize>
-  </PropertyGroup>
-
-  <!-- Mod Info -->
   <PropertyGroup>
-    <ModName>LUT Not Included</ModName>
+    <ModName>Stirling Engine</ModName>
     <ModDescription>TODO</ModDescription>
     <SupportedContent>ALL</SupportedContent>
     <MinimumSupportedBuild>469369</MinimumSupportedBuild>
-    <APIVersion>2</APIVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SpacedOut|AnyCPU'">
+    <OutDir>bin</OutDir>
+    <DefineConstants>TRACE;SPACED_OUT</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -47,14 +40,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>..\lib\UnityEngine.ImageConversionModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
+    <ProjectReference Include="..\CommonLib\CommonLib.csproj">
+    </ProjectReference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)Assets\Workshop&quot; &quot;$(ProjectDir)bin\&quot; /s /i /y&#xD;&#xA;xcopy &quot;$(ProjectDir)Assets\Textures&quot; &quot;$(ProjectDir)bin\Textures&quot; /s /i /y&#xD;&#xA;del &quot;$(TargetDir)\$(TargetName).pdb&quot;" />
+    <Exec Command="xcopy &quot;$(ProjectDir)Assets\Workshop&quot; &quot;$(ProjectDir)bin\&quot; /s /i /y&#xD;&#xA;xcopy &quot;$(ProjectDir)Assets\Shared&quot; &quot;$(ProjectDir)bin\&quot; /s /i /y&#xD;&#xA;del &quot;$(TargetDir)\$(TargetName).pdb&quot;" />
   </Target>
 
 </Project>

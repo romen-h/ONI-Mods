@@ -1,27 +1,25 @@
-﻿using KSerialization;
+#define USE_EFFICIENCY_FOR_HEAT
+#define USE_ALL_HEAT
+#define PRODUCE_PROPORTIONAL_HEAT
+
+using KSerialization;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
-namespace RomenMods.StirlingEngineMod
+namespace RomenH.StirlingEngine
 {
 	[SerializationConfig(MemberSerialization.OptIn)]
 	class StirlingEngine : Generator
 	{
 		internal static float HeatToWatts(float dtu)
 		{
-			return dtu / Mod.Config.DTUPerWatt;
+			return dtu / Mod.Settings.DTUPerWatt;
 		}
 
 		internal static float WattsToHeat(float w)
 		{
-			return w * Mod.Config.DTUPerWatt;
+			return w * Mod.Settings.DTUPerWatt;
 		}
-
-
-
 
 		public class States : GameStateMachine<States, Instance, StirlingEngine>
 		{
@@ -109,9 +107,7 @@ namespace RomenMods.StirlingEngineMod
 			private Guid buildingTooHotHandle = Guid.Empty;
 			private Guid insufficientGradientHandle = Guid.Empty;
 			private Guid activeWattageHandle = Guid.Empty;
-#if ENABLE_HEAT_OUTPUT
 			private Guid heatProductionHandle = Guid.Empty;
-#endif
 			private Guid heatPumpedHandle = Guid.Empty;
 
 			public Instance(StirlingEngine master) : base(master)
@@ -221,10 +217,8 @@ namespace RomenMods.StirlingEngineMod
 				StatusItem power_status_item = base.master.operational.IsActive ? activeWattageStatusItem : Db.Get().BuildingStatusItems.GeneratorOffline;
 				activeWattageHandle = component.SetStatusItem(Db.Get().StatusItemCategories.Power, power_status_item, base.master);
 
-#if ENABLE_HEAT_OUTPUT
 				StatusItem heat_status_item = base.master.operational.IsActive ? heatProducedStatusItem : Db.Get().BuildingStatusItems.GeneratorOffline;
 				heatProductionHandle = component.SetStatusItem(Db.Get().StatusItemCategories.Heat, heat_status_item, base.master);
-#endif
 			}
 
 			private Guid UpdateStatusItem(StatusItem item, bool show, Guid current_handle, KSelectable ksel)
@@ -252,9 +246,7 @@ namespace RomenMods.StirlingEngineMod
 
 		private static StatusItem activeWattageStatusItem;
 
-#if ENABLE_HEAT_OUTPUT
 		private static StatusItem heatProducedStatusItem;
-#endif
 
 		private static StatusItem activeStatusItem;
 
@@ -262,19 +254,17 @@ namespace RomenMods.StirlingEngineMod
 
 		public static void InitializeStatusItems()
 		{
-			activeStatusItem = new StatusItem(ModStrings.STIRLINGENGINE_ACTIVE.ID, "BUILDING", "", StatusItem.IconType.Info, NotificationType.Good, allow_multiples: false, OverlayModes.None.ID);
-			insufficientTemperatureGradientStatusItem = new StatusItem(ModStrings.STIRLINGENGINE_NO_HEAT_GRADIENT.ID, "BUILDING", "", StatusItem.IconType.Exclamation, NotificationType.BadMinor, allow_multiples: false, OverlayModes.None.ID);
+			activeStatusItem = new StatusItem(ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE.ID, "BUILDING", "", StatusItem.IconType.Info, NotificationType.Good, allow_multiples: false, OverlayModes.None.ID);
+			insufficientTemperatureGradientStatusItem = new StatusItem(ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_NO_HEAT_GRADIENT.ID, "BUILDING", "", StatusItem.IconType.Exclamation, NotificationType.BadMinor, allow_multiples: false, OverlayModes.None.ID);
 			insufficientTemperatureGradientStatusItem.resolveStringCallback = ResolveStrings;
 			insufficientTemperatureGradientStatusItem.resolveTooltipCallback = ResolveStrings;
-			buildingTooHotStatusItem = new StatusItem(ModStrings.STIRLINGENGINE_TOO_HOT.ID, "BUILDING", "status_item_plant_temperature", StatusItem.IconType.Custom, NotificationType.BadMinor, allow_multiples: false, OverlayModes.None.ID);
+			buildingTooHotStatusItem = new StatusItem(ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_TOO_HOT.ID, "BUILDING", "status_item_plant_temperature", StatusItem.IconType.Custom, NotificationType.BadMinor, allow_multiples: false, OverlayModes.None.ID);
 			buildingTooHotStatusItem.resolveTooltipCallback = ResolveStrings;
-			activeWattageStatusItem = new StatusItem(ModStrings.STIRLINGENGINE_ACTIVE_WATTAGE.ID, "BUILDING", "", StatusItem.IconType.Info, NotificationType.Neutral, allow_multiples: false, OverlayModes.Power.ID);
+			activeWattageStatusItem = new StatusItem(ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE_WATTAGE.ID, "BUILDING", "", StatusItem.IconType.Info, NotificationType.Neutral, allow_multiples: false, OverlayModes.Power.ID);
 			activeWattageStatusItem.resolveStringCallback = ResolveWattageStatus;
-#if ENABLE_HEAT_OUTPUT
 			heatProducedStatusItem = new StatusItem("OPERATINGENERGY", "BUILDING", "", StatusItem.IconType.Info, NotificationType.Neutral, allow_multiples: false, OverlayModes.Temperature.ID);
 			heatProducedStatusItem.resolveStringCallback = ResolveHeatStatus;
-#endif
-			heatPumpedStatusItem = new StatusItem(ModStrings.STIRLINGENGINE_HEAT_PUMPED.ID, "BUILDING", "", StatusItem.IconType.Info, NotificationType.Neutral, allow_multiples: false, OverlayModes.Temperature.ID);
+			heatPumpedStatusItem = new StatusItem(ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_HEAT_PUMPED.ID, "BUILDING", "", StatusItem.IconType.Info, NotificationType.Neutral, allow_multiples: false, OverlayModes.Temperature.ID);
 			heatPumpedStatusItem.resolveStringCallback = ResolveStrings;
 		}
 
@@ -335,9 +325,9 @@ namespace RomenMods.StirlingEngineMod
 			structureTemperature = GameComps.StructureTemperatures.GetHandle(base.gameObject);
 
 			// Get configurable attributes
-			minTemperatureDifferenceK = Mod.Config.MinimumTemperatureDifference;
-			maxHeatToPumpDTU = WattsToHeat(Mod.Config.MaxWattOutput);
-			wasteHeatRatio = Mod.Config.WasteHeatRatio;
+			minTemperatureDifferenceK = Mod.Settings.MinimumTemperatureDifference;
+			maxHeatToPumpDTU = WattsToHeat(Mod.Settings.MaxWattOutput);
+			wasteHeatRatio = Mod.Settings.WasteHeatRatio;
 
 			// Set up state machine
 			smi = new Instance(this);
@@ -361,18 +351,14 @@ namespace RomenMods.StirlingEngineMod
 			float workHeat = heatToPumpDTU * currentEfficiency;
 #endif
 
-#if ENABLE_HEAT_OUTPUT
-	#if PRODUCE_LEFTOVER_HEAT
+#if PRODUCE_LEFTOVER_HEAT
 			currentGeneratedHeat = Mathf.Clamp(heatToPumpDTU - workHeat, 0, heatToPumpDTU);
-	#elif PRODUCE_CONSTANT_HEAT
+#elif PRODUCE_CONSTANT_HEAT
 			currentGeneratedHeat = 0f;
-	#elif PRODUCE_PROPORTIONAL_HEAT
+#elif PRODUCE_PROPORTIONAL_HEAT
 			currentGeneratedHeat = workHeat * wasteHeatRatio;
-	#else
-			currentGeneratedHeat = 1f;
-	#endif
 #else
-			currentGeneratedHeat = 0f;
+			currentGeneratedHeat = 1f;
 #endif
 
 			currentGeneratedPower = Mathf.Clamp(HeatToWatts(workHeat), 0, heatToPumpDTU);
@@ -395,9 +381,7 @@ namespace RomenMods.StirlingEngineMod
 				GenerateJoules(currentGeneratedPower * dt);
 				float meterPercent = Mathf.Clamp((currentEfficiency * 0.95f), 0f, 1f);
 				meter.SetPositionPercent(meterPercent);
-#if ENABLE_HEAT_OUTPUT
 				GameComps.StructureTemperatures.ProduceEnergy(structureTemperature, currentGeneratedHeat * dt / 1000f, "StirlingEngine", display_dt);
-#endif
 			}
 			else
 			{

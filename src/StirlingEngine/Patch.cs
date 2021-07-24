@@ -1,43 +1,56 @@
-﻿using Harmony;
-using PeterHan.PLib.UI;
-using RomenMods.Common;
+using HarmonyLib;
+using RomenH.Common;
 
-namespace RomenMods.StirlingEngineMod
+namespace RomenH.StirlingEngine
 {
-	[HarmonyPatch(typeof(GeneratedBuildings))]
-	[HarmonyPatch(nameof(GeneratedBuildings.LoadGeneratedBuildings))]
-	public class GeneratedBuildings_LoadGeneratedBuildings_Patch
-	{
-		public static void Prefix()
-		{
-			StringUtils.AddBuildingStrings(StirlingEngineConfig.ID, ModStrings.STIRLINGENGINE.NAME, ModStrings.STIRLINGENGINE.DESC, ModStrings.STIRLINGENGINE.EFFECT);
-			StringUtils.AddStatusItemStrings(ModStrings.STIRLINGENGINE_ACTIVE.ID, "BUILDING", ModStrings.STIRLINGENGINE_ACTIVE.NAME, ModStrings.STIRLINGENGINE_ACTIVE.TOOLTIP);
-			StringUtils.AddStatusItemStrings(ModStrings.STIRLINGENGINE_NO_HEAT_GRADIENT.ID, "BUILDING", ModStrings.STIRLINGENGINE_NO_HEAT_GRADIENT.NAME, ModStrings.STIRLINGENGINE_NO_HEAT_GRADIENT.TOOLTIP);
-			StringUtils.AddStatusItemStrings(ModStrings.STIRLINGENGINE_TOO_HOT.ID, "BUILDING", ModStrings.STIRLINGENGINE_TOO_HOT.NAME, ModStrings.STIRLINGENGINE_TOO_HOT.TOOLTIP);
-			StringUtils.AddStatusItemStrings(ModStrings.STIRLINGENGINE_ACTIVE_WATTAGE.ID, "BUILDING", ModStrings.STIRLINGENGINE_ACTIVE_WATTAGE.NAME, ModStrings.STIRLINGENGINE_ACTIVE_WATTAGE.TOOLTIP);
-			StringUtils.AddStatusItemStrings(ModStrings.STIRLINGENGINE_HEAT_PUMPED.ID, "BUILDING", ModStrings.STIRLINGENGINE_HEAT_PUMPED.NAME, ModStrings.STIRLINGENGINE_HEAT_PUMPED.TOOLTIP);
-			BuildingUtils.AddBuildingToPlanScreen(GameStrings.PlanMenuCategory.Power, StirlingEngineConfig.ID);
-		}
-	}
-
 	[HarmonyPatch(typeof(Db))]
 	[HarmonyPatch("Initialize")]
-	public static class Db_Initialize_Patch
+	public class Db_Initialize_Patch
 	{
 		public static void Prefix()
 		{
-			BuildingUtils.AddBuildingToTechnology(GameStrings.Technology.Gases.TemperatureModulation, StirlingEngineConfig.ID);
-		}
-	}
+			StringUtils.AddBuildingStrings(
+				StirlingEngineConfig.ID,
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE.NAME,
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE.DESC,
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE.EFFECT);
 
-#if ENABLE_SIDESCREEN
-	[HarmonyPatch(typeof(DetailsScreen), "OnPrefabInit")]
-	public static class DetailsScreen_OnPrefabInit_Patch
-	{
-		internal static void Postfix()
+			StringUtils.AddStatusItemStrings(
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE.ID,
+				"BUILDING",
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE.NAME,
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE.TOOLTIP);
+
+			StringUtils.AddStatusItemStrings(
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_NO_HEAT_GRADIENT.ID,
+				"BUILDING",
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_NO_HEAT_GRADIENT.NAME,
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_NO_HEAT_GRADIENT.TOOLTIP);
+
+			StringUtils.AddStatusItemStrings(
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_TOO_HOT.ID,
+				"BUILDING",
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_TOO_HOT.NAME,
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_TOO_HOT.TOOLTIP);
+
+			StringUtils.AddStatusItemStrings(
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE_WATTAGE.ID,
+				"BUILDING",
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE_WATTAGE.NAME,
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE_WATTAGE.TOOLTIP);
+
+			StringUtils.AddStatusItemStrings(
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_HEAT_PUMPED.ID,
+				"BUILDING",
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_HEAT_PUMPED.NAME,
+				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_HEAT_PUMPED.TOOLTIP);
+
+		}
+
+		public static void Postfix()
 		{
-			PUIUtils.AddSideScreenContent<StirlingEngineSideScreen>();
+			BuildingUtils.AddBuildingToPlanScreen(StirlingEngineConfig.ID, GameStrings.PlanMenuCategory.Power);
+			BuildingUtils.AddBuildingToTech(StirlingEngineConfig.ID, GameStrings.Technology.Gases.TemperatureModulation);
 		}
 	}
-#endif
 }

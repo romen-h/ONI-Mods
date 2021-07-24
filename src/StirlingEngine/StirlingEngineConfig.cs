@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TUNING;
 using UnityEngine;
 
-namespace RomenMods.StirlingEngineMod
+namespace RomenH.StirlingEngine
 {
 	public class StirlingEngineConfig : IBuildingConfig
 	{
@@ -31,11 +27,17 @@ namespace RomenMods.StirlingEngineMod
 				decor: DECOR.PENALTY.TIER3,
 				noise: NOISE_POLLUTION.NOISY.TIER3
 			);
+#if VANILLA
 			def.AudioCategory = TUNING.AUDIO.HOLLOW_METAL;
+#elif SPACED_OUT
+			def.AudioCategory = TUNING.AUDIO.CATEGORY.HOLLOW_METAL;
+#endif
 			def.AudioSize = "large";
 			def.Floodable = false;
 			def.Entombable = true;
-			def.GeneratorWattageRating = Mod.Config.MaxWattOutput;
+			Debug.Log("Before NRE");
+			def.GeneratorWattageRating = Mod.Settings.MaxWattOutput;
+			Debug.Log("After NRE");
 			def.GeneratorBaseCapacity = def.GeneratorWattageRating;
 			def.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(0, 0));
 			def.Overheatable = true;

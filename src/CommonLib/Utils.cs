@@ -38,11 +38,6 @@ namespace RomenH.Common
 
 		public static void AddBuildingToTech(string buildingID, string techID)
 		{
-#if VANILLA
-			var techList = new List<string>(Database.Techs.TECH_GROUPING[techID]);
-			techList.Add(buildingID);
-			Database.Techs.TECH_GROUPING[techID] = techList.ToArray();
-#elif SPACED_OUT
 			var tech = Db.Get().Techs.Get(techID);
 			if (tech != null)
 			{
@@ -52,7 +47,6 @@ namespace RomenH.Common
 			{
 				Debug.LogWarning($"AddBuildingToTech() Failed to find tech ID: {techID}");
 			}
-#endif
 		}
 	}
 
