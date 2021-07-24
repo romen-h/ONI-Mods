@@ -50,6 +50,13 @@ A new building that deodorizes polluted oxygen with a vent input and output.
 
 ---
 
+### [Schedule Block Sensor](src/LogicScheduleSensor)
+[<img src="src/LogicScheduleSensor/Assets/Workshop/preview.png" height="200px"/>](src/LogicScheduleSensor)
+
+An automation sensor that turns on when the selected schedule enters a selected shift type. (Work, Sleep, etc.)
+
+---
+
 ### [Stirling Engine](src/StirlingEngine)
 [<img src="src/StirlingEngine/Assets/Workshop/preview.png" height="200px"/>](src/StirlingEngine)
 
