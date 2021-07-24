@@ -51,7 +51,7 @@ A new building that deodorizes polluted oxygen with a vent input and output.
 ---
 
 ### [Stirling Engine](src/StirlingEngine)
-[<img src="src/StirlingEngine/Assets/preview.png" height="200px"/>](src/StirlingEngine)
+[<img src="src/StirlingEngine/Assets/Workshop/preview.png" height="200px"/>](src/StirlingEngine)
 
 A new building that converts heat energy directly into power.
 
