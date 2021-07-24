@@ -20,10 +20,19 @@ A graphical replacer mod that adds a festive appearance to the colony.
 ---
 
 ### [Germicidal UVC Lamps](src/GermicideLamp)
-[<img src="src/GermicideLamp/Assets/preview.png" height="200px"/>](src/GermicideLamp)
+[<img src="src/GermicideLamp/Assets/Workshop/preview.png" height="200px"/>](src/GermicideLamp)
 
 
 A mod that adds various UVC emitting lights for disinfecting your base.
+
+---
+
+### [LUT Not Included](src/LUTNotIncluded)
+[<img src="src/LUTNotIncluded/Assets/Workshop/preview.png" height="200px"/>](src/LUTNotIncluded)
+
+
+A mod that provides custom color correction for the day and night cycle.  
+This will eventually become a dependency for Festive Decor and provide an API for other mods to change the color correction at runtime.
 
 ---
 
