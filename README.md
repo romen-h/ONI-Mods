@@ -57,6 +57,13 @@ An automation sensor that turns on when the selected schedule enters a selected 
 
 ---
 
+### [Sharing Is Caring](src/SharingIsCaring)
+[<img src="src/SharingIsCaring/Assets/Workshop/preview.png" height="200px"/>](src/SharingIsCaring)
+
+A mod that makes beds and mess tables unassigned after dupes are done using them.
+
+---
+
 ### [Stirling Engine](src/StirlingEngine)
 [<img src="src/StirlingEngine/Assets/Workshop/preview.png" height="200px"/>](src/StirlingEngine)
 
