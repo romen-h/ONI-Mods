@@ -4,7 +4,7 @@
   <PropertyGroup>
     <TargetFramework>net471</TargetFramework>
     <AssemblyName>SharingIsCaring</AssemblyName>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Authors>RomenH</Authors>
     <Copyright>2021 RomenH</Copyright>
     <RepositoryUrl>https://github.com/romen-h/ONI-Mods</RepositoryUrl>
@@ -12,6 +12,7 @@
     <RootNamespace>RomenH.SharingIsCaring</RootNamespace>
     <IsMod>true</IsMod>
     <GenerateMetadata>true</GenerateMetadata>
+    <IsPacked>true</IsPacked>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -32,6 +33,7 @@
     <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.18.2">
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
+    <PackageReference Include="PLib" Version="4.4.0" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

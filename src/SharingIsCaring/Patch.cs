@@ -2,7 +2,7 @@ using HarmonyLib;
 
 using UnityEngine;
 
-namespace SharingIsCaring
+namespace RomenH.SharingIsCaring
 {
 	[HarmonyPatch(typeof(EatChore.States))]
 	[HarmonyPatch(nameof(EatChore.States.InitializeStates))]
@@ -10,16 +10,19 @@ namespace SharingIsCaring
 	{
 		public static void Postfix(EatChore.States __instance)
 		{
-			__instance.eatatmessstation.Exit(delegate(EatChore.StatesInstance smi)
+			if (ModSettings.Instance.ShareTables)
 			{
-				var minion = smi.sm.eater.Get(smi).GetComponent<MinionIdentity>();
-				if (minion == null) return;
-				Ownables ownables = minion.GetSoleOwner();
-				if (ownables == null) return;
-				AssignableSlotInstance slot = ownables.GetSlot(Db.Get().AssignableSlots.MessStation);
-				if (slot == null) return;
-				slot.Unassign(true);
-			});
+				__instance.eatatmessstation.Exit(delegate (EatChore.StatesInstance smi)
+				{
+					var minion = smi.sm.eater.Get(smi).GetComponent<MinionIdentity>();
+					if (minion == null) return;
+					Ownables ownables = minion.GetSoleOwner();
+					if (ownables == null) return;
+					AssignableSlotInstance slot = ownables.GetSlot(Db.Get().AssignableSlots.MessStation);
+					if (slot == null) return;
+					slot.Unassign(true);
+				});
+			}
 		}
 	}
 
@@ -29,16 +32,19 @@ namespace SharingIsCaring
 	{
 		public static void Postfix(SleepChore.States __instance)
 		{
-			__instance.success.Exit(delegate (SleepChore.StatesInstance smi)
+			if (ModSettings.Instance.ShareBeds)
 			{
-				var minion = smi.sm.sleeper.Get(smi).GetComponent<MinionIdentity>();
-				if (minion == null) return;
-				Ownables ownables = minion.GetSoleOwner();
-				if (ownables == null) return;
-				AssignableSlotInstance slot = ownables.GetSlot(Db.Get().AssignableSlots.Bed);
-				if (slot == null) return;
-				slot.Unassign(false);
-			});
+				__instance.success.Exit(delegate (SleepChore.StatesInstance smi)
+				{
+					var minion = smi.sm.sleeper.Get(smi).GetComponent<MinionIdentity>();
+					if (minion == null) return;
+					Ownables ownables = minion.GetSoleOwner();
+					if (ownables == null) return;
+					AssignableSlotInstance slot = ownables.GetSlot(Db.Get().AssignableSlots.Bed);
+					if (slot == null) return;
+					slot.Unassign(false);
+				});
+			}
 		}
 	}
 }

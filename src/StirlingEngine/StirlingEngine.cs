@@ -13,12 +13,12 @@ namespace RomenH.StirlingEngine
 	{
 		internal static float HeatToWatts(float dtu)
 		{
-			return dtu / Mod.Settings.DTUPerWatt;
+			return dtu / ModSettings.Instance.DTUPerWatt;
 		}
 
 		internal static float WattsToHeat(float w)
 		{
-			return w * Mod.Settings.DTUPerWatt;
+			return w * ModSettings.Instance.DTUPerWatt;
 		}
 
 		public class States : GameStateMachine<States, Instance, StirlingEngine>
@@ -325,9 +325,9 @@ namespace RomenH.StirlingEngine
 			structureTemperature = GameComps.StructureTemperatures.GetHandle(base.gameObject);
 
 			// Get configurable attributes
-			minTemperatureDifferenceK = Mod.Settings.MinimumTemperatureDifference;
-			maxHeatToPumpDTU = WattsToHeat(Mod.Settings.MaxWattOutput);
-			wasteHeatRatio = Mod.Settings.WasteHeatRatio;
+			minTemperatureDifferenceK = ModSettings.Instance.MinimumTemperatureDifference;
+			maxHeatToPumpDTU = WattsToHeat(ModSettings.Instance.MaxWattOutput);
+			wasteHeatRatio = ModSettings.Instance.WasteHeatRatio;
 
 			// Set up state machine
 			smi = new Instance(this);

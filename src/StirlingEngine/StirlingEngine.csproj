@@ -3,14 +3,12 @@
 
   <PropertyGroup>
     <TargetFramework>net471</TargetFramework>
-    <PackageId>StirlingEngine</PackageId>
+    <AssemblyName>StirlingEngine</AssemblyName>
     <Version>3.0.0</Version>
     <Authors>RomenH</Authors>
-    <Product>StirlingEngine</Product>
     <Copyright>2021 RomenH</Copyright>
     <RepositoryUrl>https://github.com/romen-h/ONI-Mods</RepositoryUrl>
     <Configurations>SpacedOut</Configurations>
-    <AssemblyName>StirlingEngine</AssemblyName>
     <RootNamespace>RomenH.StirlingEngine</RootNamespace>
     <IsMod>true</IsMod>
     <GenerateMetadata>true</GenerateMetadata>

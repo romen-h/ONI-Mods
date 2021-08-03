@@ -36,7 +36,7 @@ namespace RomenH.StirlingEngine
 			def.Floodable = false;
 			def.Entombable = true;
 			Debug.Log("Before NRE");
-			def.GeneratorWattageRating = Mod.Settings.MaxWattOutput;
+			def.GeneratorWattageRating = ModSettings.Instance.MaxWattOutput;
 			Debug.Log("After NRE");
 			def.GeneratorBaseCapacity = def.GeneratorWattageRating;
 			def.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(0, 0));
