@@ -23,7 +23,7 @@
         Exclude="**/0Harmony.dll; **/System.*; **/Microsoft.*" />
     </ItemGroup>
     <ILRepack
-      TargetPlatformVersion="v2"
+      TargetPlatformVersion="v4"
       TargetKind="SameAsPrimaryAssembly"
       InputAssemblies="@(InputAssemblies)"
       Wildcards="true"
