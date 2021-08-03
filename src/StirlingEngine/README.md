@@ -1,3 +1,3 @@
 ﻿# Stirling Engine
 
-<img src="Assets/preview.png" height="200px"/>
+<img src="Assets/Workshop/preview.png" height="200px"/>
