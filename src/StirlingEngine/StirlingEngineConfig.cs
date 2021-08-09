@@ -27,22 +27,17 @@ namespace RomenH.StirlingEngine
 				decor: DECOR.PENALTY.TIER3,
 				noise: NOISE_POLLUTION.NOISY.TIER3
 			);
-#if VANILLA
-			def.AudioCategory = TUNING.AUDIO.HOLLOW_METAL;
-#elif SPACED_OUT
 			def.AudioCategory = TUNING.AUDIO.CATEGORY.HOLLOW_METAL;
-#endif
 			def.AudioSize = "large";
 			def.Floodable = false;
 			def.Entombable = true;
-			Debug.Log("Before NRE");
 			def.GeneratorWattageRating = ModSettings.Instance.MaxWattOutput;
-			Debug.Log("After NRE");
 			def.GeneratorBaseCapacity = def.GeneratorWattageRating;
 			def.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(0, 0));
 			def.Overheatable = true;
 			def.OverheatTemperature = MAX_TEMP;
 			def.PermittedRotations = PermittedRotations.Unrotatable;
+			def.RequiresPowerOutput = true;
 			def.PowerOutputOffset = new CellOffset(0, 0);
 			def.ViewMode = OverlayModes.Power.ID;
 			def.SelfHeatKilowattsWhenActive = 0f;
@@ -69,23 +64,12 @@ namespace RomenH.StirlingEngine
 
 		public override void DoPostConfigureComplete(GameObject go)
 		{
-			// Extents are not modified
-#if false
-			go.GetComponent<KPrefabID>().prefabSpawnFn += delegate (GameObject game_object)
-			{
-				HandleVector<int>.Handle handle = GameComps.StructureTemperatures.GetHandle(game_object);
-				StructureTemperaturePayload new_data = GameComps.StructureTemperatures.GetPayload(handle);
-				Extents extents = game_object.GetComponent<Building>().GetExtents();
-				Extents newExtents = new Extents(extents.x, extents.y, extents.width, extents.height);
-				new_data.OverrideExtents(newExtents);
-				GameComps.StructureTemperatures.SetPayload(handle, ref new_data);
-			};
-#endif
-
 			go.AddOrGet<LogicOperationalController>();
 			var engine = go.AddOrGet<StirlingEngine>();
 			var tinkerable = Tinkerable.MakePowerTinkerable(go);
 			tinkerable.SetWorkTime(120f);
+
+			go.AddOrGetDef<PoweredActiveController.Def>();
 		}
 	}
 }
