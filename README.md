@@ -27,9 +27,15 @@ A mod that adds various UVC emitting lights for disinfecting your base.
 
 ---
 
+### [Infinite Gases & Liquids](src/InfiniteSourceSink)
+[<img src="src/InfiniteSourceSink/Assets/Workshop/preview.png" height="200px"/>](src/InfiniteSourceSink)
+
+A mod that adds new buildings for producing and consuming infinite amounts of fluid.
+
+---
+
 ### [LUT Not Included](src/LUTNotIncluded)
 [<img src="src/LUTNotIncluded/Assets/Workshop/preview.png" height="200px"/>](src/LUTNotIncluded)
-
 
 A mod that provides custom color correction for the day and night cycle.  
 This will eventually become a dependency for Festive Decor and provide an API for other mods to change the color correction at runtime.
