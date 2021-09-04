@@ -22,7 +22,7 @@ namespace InfiniteSourceSink
 					InfiniteLiquidSourceConfig.Description,
 					InfiniteLiquidSourceConfig.Effect);
 				StringUtils.AddBuildingStrings(
-					InfiniteLiquidSinkConfig.Id,
+					InfiniteLiquidSinkConfig.ID,
 					InfiniteLiquidSinkConfig.DisplayName,
 					InfiniteLiquidSinkConfig.Description,
 					InfiniteLiquidSinkConfig.Effect);
@@ -32,7 +32,7 @@ namespace InfiniteSourceSink
 					InfiniteGasSourceConfig.Description,
 					InfiniteGasSourceConfig.Effect);
 				StringUtils.AddBuildingStrings(
-					InfiniteGasSinkConfig.Id,
+					InfiniteGasSinkConfig.ID,
 					InfiniteGasSinkConfig.DisplayName,
 					InfiniteGasSinkConfig.Description,
 					InfiniteGasSinkConfig.Effect);
@@ -48,14 +48,14 @@ namespace InfiniteSourceSink
 				BuildingUtils.AddBuildingToPlanScreen(InfiniteLiquidSourceConfig.ID, GameStrings.PlanMenuCategory.Plumbing);
 				BuildingUtils.AddBuildingToTech(InfiniteLiquidSourceConfig.ID, GameStrings.Technology.Liquids.Plumbing);
 
-				BuildingUtils.AddBuildingToPlanScreen(InfiniteLiquidSinkConfig.Id, GameStrings.PlanMenuCategory.Plumbing);
-				BuildingUtils.AddBuildingToTech(InfiniteLiquidSinkConfig.Id, GameStrings.Technology.Liquids.Plumbing);
+				BuildingUtils.AddBuildingToPlanScreen(InfiniteLiquidSinkConfig.ID, GameStrings.PlanMenuCategory.Plumbing);
+				BuildingUtils.AddBuildingToTech(InfiniteLiquidSinkConfig.ID, GameStrings.Technology.Liquids.Plumbing);
 
 				BuildingUtils.AddBuildingToPlanScreen(InfiniteGasSourceConfig.ID, GameStrings.PlanMenuCategory.Ventilation);
 				BuildingUtils.AddBuildingToTech(InfiniteGasSourceConfig.ID, GameStrings.Technology.Gases.Ventilation);
 
-				BuildingUtils.AddBuildingToPlanScreen(InfiniteGasSinkConfig.Id, GameStrings.PlanMenuCategory.Ventilation);
-				BuildingUtils.AddBuildingToTech(InfiniteGasSinkConfig.Id, GameStrings.Technology.Gases.Ventilation);
+				BuildingUtils.AddBuildingToPlanScreen(InfiniteGasSinkConfig.ID, GameStrings.PlanMenuCategory.Ventilation);
+				BuildingUtils.AddBuildingToTech(InfiniteGasSinkConfig.ID, GameStrings.Technology.Gases.Ventilation);
 			}
         }
 

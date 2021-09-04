@@ -6,7 +6,7 @@ namespace InfiniteSourceSink
 {
     public class InfiniteLiquidSinkConfig : IBuildingConfig
     {
-        public const string Id = "LiquidSink";
+        public const string ID = "LiquidSink";
         public const string DisplayName = "Infinite Liquid Sink";
         public const string Description = "Voids all liquid sent into it.";
         public const string Effect = "Where does all the liquid go?";
@@ -14,7 +14,7 @@ namespace InfiniteSourceSink
         public override BuildingDef CreateBuildingDef()
         {
             var buildingDef = BuildingTemplates.CreateBuildingDef(
-                id: Id,
+                id: ID,
                 width: 1,
                 height: 1,
                 anim: "sink_liquid_kanim",
@@ -36,25 +36,24 @@ namespace InfiniteSourceSink
             buildingDef.PermittedRotations = PermittedRotations.Unrotatable;
             buildingDef.UtilityInputOffset = new CellOffset(0, 0);
             buildingDef.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(0, 0));
-            return buildingDef;
+			GeneratedBuildings.RegisterWithOverlay(OverlayScreen.LiquidVentIDs, ID);
+			return buildingDef;
         }
 
-        public override void ConfigureBuildingTemplate(GameObject go, Tag prefab_tag)
-        {
-            BuildingConfigManager.Instance.IgnoreDefaultKComponent(typeof(RequiresFoundation), prefab_tag);
-            go.AddOrGet<InfiniteSink>().Type = ConduitType.Liquid;
-        }
+        public override void DoPostConfigureComplete(GameObject go)
+		{
+			go.GetComponent<KPrefabID>().AddTag(RoomConstraints.ConstraintTags.IndustrialMachinery, false);
 
-        public override void DoPostConfigureComplete(GameObject go) {
-            go.AddOrGet<LogicOperationalController>();
-            go.AddOrGet<Operational>();
+			go.AddOrGet<LogicOperationalController>();
 
-            Object.DestroyImmediate(go.GetComponent<RequireInputs>());
-            Object.DestroyImmediate(go.GetComponent<ConduitConsumer>());
-            Object.DestroyImmediate(go.GetComponent<ConduitDispenser>());
+			var sink = go.AddOrGet<InfiniteSink>();
+			sink.Type = ConduitType.Liquid;
 
-            go.AddOrGetDef<OperationalController.Def>();
-            BuildingTemplates.DoPostConfigure(go);
-        }
+			Object.DestroyImmediate(go.GetComponent<RequireInputs>(), true);
+			Object.DestroyImmediate(go.GetComponent<ConduitConsumer>(), true);
+
+			go.AddOrGetDef<OperationalController.Def>();
+			go.GetComponent<KPrefabID>().AddTag(GameTags.OverlayInFrontOfConduits, false);
+		}
     }
 }

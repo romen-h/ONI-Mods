@@ -10,7 +10,6 @@ namespace InfiniteSourceSink
 		[MyCmpGet]
 		public KBatchedAnimController anim;
 
-		private HandleVector<int>.Handle accumulator = HandleVector<int>.InvalidHandle;
 		private int inputCell;
 
 		private Operational.Flag incomingFlag = new Operational.Flag("incoming", Operational.Flag.Type.Requirement);
