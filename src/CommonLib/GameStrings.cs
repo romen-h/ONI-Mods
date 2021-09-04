@@ -5,6 +5,13 @@ namespace RomenH.Common
 	/// </summary>
 	public static class GameStrings
 	{
+		public static class MaterialLists
+		{
+			public static readonly string[] Neutronium = { SimHashes.Unobtanium.ToString() };
+
+			public static readonly string[] Abyssalite = { SimHashes.Katairite.ToString() };
+		}
+
 		/// <summary>
 		/// Defines the strings used to reference each of the building menus.
 		/// </summary>

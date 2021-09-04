@@ -8,4 +8,9 @@
     <Configurations>SpacedOut</Configurations>
     <IsMod>true</IsMod>
   </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>..\lib\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
