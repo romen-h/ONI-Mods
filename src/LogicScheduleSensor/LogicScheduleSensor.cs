@@ -26,7 +26,7 @@ namespace RomenH.LogicScheduleSensor
 		{
 			base.OnSpawn();
 			base.OnToggle += OnSwitchToggled;
-			meter = new MeterController(anim, "meter_target", "meter", Meter.Offset.Infront, Grid.SceneLayer.Building, Array.Empty<string>());
+			meter = new MeterController(anim, "meter_target", "meter", Meter.Offset.Behind, Grid.SceneLayer.Building, Array.Empty<string>());
 			UpdateLogicCircuit();
 			UpdateVisualState(force: true);
 			wasOn = switchedOn;
@@ -39,13 +39,13 @@ namespace RomenH.LogicScheduleSensor
 				Schedule s = ScheduleManager.Instance.GetSchedules()[scheduleIndex];
 				int currentScheduleBlock = Schedule.GetBlockIdx();
 
-				float meterPercent = (float)(currentScheduleBlock + 1) / 24f;
+				float meterPercent = (float)(currentScheduleBlock) / 24f;
 				meter.SetPositionPercent(meterPercent);
 
 				ScheduleBlock b = s.GetBlock(currentScheduleBlock);
 				string currentScheduleGroup = b.GroupId;
 
-				anim.SetSymbolTint("face", GetBlockColor(b));
+				meter.SetSymbolTint("face", GetBlockColor(b));
 
 				string selectedScheduleGroup = Db.Get().ScheduleGroups.allGroups[blockTypeIndex].Id;
 
