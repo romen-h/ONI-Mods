@@ -357,3 +357,17 @@ src/lib-spacedout/*
 
 # update script
 update_oni.bat.lnk
+
+# entire mods
+src/Mineralizer
+src/PetroleumIndustry
+src/PLCTestApp
+src/PoweredTruss
+src/ProgrammableLogicControllers
+src/RechargeableBatteriesMod
+src/RisingLava
+
+# various asset folders
+src/FanTiles/Assets/spriter/*
+src/InfiniteSourceSink/Assets/anim_old/*
+src/InfiniteSourceSink/Assets/test447-Original/*
