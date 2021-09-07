@@ -15,7 +15,7 @@ A library that provides shared code used by multiple mods in this solution.
 ## [Festive Decor](src/FestiveDecor)
 [<img src="src/FestiveDecor/Assets/preview.png" height="200px"/>](src/FestiveDecor)
 
-A graphical replacer mod that adds a festive appearance to the colony.
+A graphics replacer mod that adds a festive appearance to the colony.
 
 ---
 
@@ -74,6 +74,13 @@ A mod that makes beds and mess tables unassigned after dupes are done using them
 [<img src="src/StirlingEngine/Assets/Workshop/preview.png" height="200px"/>](src/StirlingEngine)
 
 A new building that converts heat energy directly into power.
+
+---
+
+### [Thermoelectric Coolers](src/TECBlock)
+[<img src="src/TECBlock/Assets/Workshop/preview.png" height="200px"/>](src/TECBlock)
+
+Adds a thermoelectric cooler ("TEC") tile that can move heat from one side to the other while it is powered.
 
 ---
 
