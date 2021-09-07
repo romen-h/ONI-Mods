@@ -15,7 +15,7 @@ A library that provides shared code used by multiple mods in this solution.
 ## [Festive Decor](src/FestiveDecor)
 [<img src="src/FestiveDecor/Assets/preview.png" height="200px"/>](src/FestiveDecor)
 
-A graphical replacer mod that adds a festive appearance to the colony.
+A graphics replacer mod that adds a festive appearance to the colony.
 
 ---
 
