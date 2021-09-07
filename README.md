@@ -77,6 +77,13 @@ A new building that converts heat energy directly into power.
 
 ---
 
+### [Thermoelectric Coolers](src/TECBlock)
+[<img src="src/TECBlock/Assets/Workshop/preview.png" height="200px"/>](src/TECBlock)
+
+Adds a thermoelectric cooler ("TEC") tile that can move heat from one side to the other while it is powered.
+
+---
+
 ## License
 
 The content of this repository has been made source-available, but without license to use or copy in your own mods or other works.
