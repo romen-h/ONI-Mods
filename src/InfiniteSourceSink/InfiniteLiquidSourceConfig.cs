@@ -6,7 +6,7 @@ namespace InfiniteSourceSink
 {
     public class InfiniteLiquidSourceConfig : IBuildingConfig
     {
-        public const string ID = "LiquidSource";
+        public const string ID = "InfiniteLiquidSource";
         public const string DisplayName = "Infinite Liquid Source";
         public const string Description = "Materializes liquid from the void.";
         public const string Effect = "Where is all the liquid coming from?";
@@ -21,7 +21,7 @@ namespace InfiniteSourceSink
                 hitpoints: BUILDINGS.HITPOINTS.TIER2,
                 construction_time: ModSettings.Instance.BuildTimeSeconds,
                 construction_mass: ModSettings.Instance.BuildMassKg,
-                construction_materials: ModSettings.Instance.SandboxOnly ? GameStrings.MaterialLists.Neutronium : MATERIALS.ALLOYS,
+                construction_materials: ModSettings.Instance.SandboxOnly ? GameStrings.MaterialLists.Neutronium : MATERIALS.REFINED_METALS,
                 melting_point: BUILDINGS.MELTING_POINT_KELVIN.TIER4,
                 build_location_rule: BuildLocationRule.Anywhere,
                 decor: BUILDINGS.DECOR.PENALTY.TIER1,

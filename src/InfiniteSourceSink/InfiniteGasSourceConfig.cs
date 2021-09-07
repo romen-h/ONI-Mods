@@ -8,7 +8,7 @@ namespace InfiniteSourceSink
 {
     public class InfiniteGasSourceConfig : IBuildingConfig
     {
-        public const string ID = "GasSource";
+        public const string ID = "InfiniteGasSource";
         public const string DisplayName = "Infinite Gas Source";
         public const string Description = "Materializes gas from the void.";
         public const string Effect = "Where is all the gas coming from?";
@@ -23,7 +23,7 @@ namespace InfiniteSourceSink
                 hitpoints: BUILDINGS.HITPOINTS.TIER2,
                 construction_time: ModSettings.Instance.BuildTimeSeconds,
                 construction_mass: ModSettings.Instance.BuildMassKg,
-                construction_materials: ModSettings.Instance.SandboxOnly ? GameStrings.MaterialLists.Neutronium : MATERIALS.ALLOYS,
+                construction_materials: ModSettings.Instance.SandboxOnly ? GameStrings.MaterialLists.Neutronium : MATERIALS.REFINED_METALS,
                 melting_point: BUILDINGS.MELTING_POINT_KELVIN.TIER4,
                 build_location_rule: BuildLocationRule.Anywhere,
                 decor: BUILDINGS.DECOR.PENALTY.TIER1,

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <TargetFramework>net471</TargetFramework>
     <AssemblyName>InfiniteSourceSink</AssemblyName>
-    <Version>2.0.2</Version>
+    <Version>2.0.5</Version>
     <Authors>Test447, RomenH</Authors>
     <Configurations>SpacedOut</Configurations>
     <RootNamespace>InfiniteSourceSink</RootNamespace>

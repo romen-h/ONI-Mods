@@ -36,7 +36,7 @@ namespace InfiniteSourceSink
 
 		public ConduitType conduitType = ConduitType.None;
 
-		private SimHashes filteredElement = SimHashes.Void;
+		private SimHashes filteredElement = SimHashes.Vacuum;
 		public float minTemp;
 		public float maxTemp;
 
@@ -79,6 +79,7 @@ namespace InfiniteSourceSink
             Conduit.GetFlowManager(conduitType).AddConduitUpdater(ConduitUpdate);
 
             filterable.onFilterChanged += new Action<Tag>(OnFilterChanged);
+			OnFilterChanged(filterable.SelectedTag);
 
             selectable.SetStatusItem(Db.Get().StatusItemCategories.Main, filterStatusItem, this);
         }
@@ -109,7 +110,7 @@ namespace InfiniteSourceSink
 				Temp = Mathf.Clamp(Temp, element.lowTemp, element.highTemp);
 			}
 
-			bool invalidElement = !tag.IsValid || tag == GameTags.Void;
+			bool invalidElement = (!tag.IsValid || tag == GameTags.Void);
             selectable.ToggleStatusItem(Db.Get().BuildingStatusItems.NoFilterElementSelected, invalidElement, null);
             operational.SetFlag(filterFlag, !invalidElement);
 
@@ -137,11 +138,16 @@ namespace InfiniteSourceSink
 
         private void ConduitUpdate(float dt)
         {
-            var flowManager = Conduit.GetFlowManager(conduitType);
-			if (flowManager == null) return;
-			if (flowManager.HasConduit(outputCell) && operational.IsOperational)
+			if (operational.IsOperational)
 			{
-				flowManager.AddElement(outputCell, filteredElement, Flow / 1000, Temp, 0, 0);
+				if (filteredElement == SimHashes.Void || filteredElement == SimHashes.Vacuum) return;
+
+				var flowManager = Conduit.GetFlowManager(conduitType);
+				if (flowManager == null) return;
+				if (flowManager.HasConduit(outputCell))
+				{
+					flowManager.AddElement(outputCell, filteredElement, Flow / 1000, Temp, 0, 0);
+				}
 			}
         }
     }
