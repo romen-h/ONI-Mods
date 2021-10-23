@@ -51,7 +51,6 @@ namespace RomenH.TECBlock
 			def.ObjectLayer = ObjectLayer.Building;
 			def.SceneLayer = Grid.SceneLayer.TileMain;
 			def.PermittedRotations = PermittedRotations.R360;
-			def.isSolidTile = true;
 			def.DragBuild = false;
 			def.ThermalConductivity = 0.01f;
 			def.UseStructureTemperature = false;
