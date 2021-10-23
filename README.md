@@ -9,8 +9,8 @@ Mods and code for the game Oxygen Not Included.
 ### [Kanim Explorer](https://github.com/romen-h/kanim-explorer)
 For inspecting and editing the ONI animation files.
 
-### [ONI Runtime Unity Editor](https://github.com/romen-h/ONI-RuntimeUnityEditor)
-For inspecting Unity GameObjects and Components at runtime. Modified for ONI's mod support instead of BepInEx.
+### [ONI Runtime Editor](https://github.com/romen-h/ONI-RuntimeUnityEditor)
+Tools for inspecting Unity GameObjects and Components at runtime. Modified for ONI's mod support instead of BepInEx.
 
 ## Overview of Mods
 
