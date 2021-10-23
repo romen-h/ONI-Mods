@@ -1,5 +1,9 @@
+using System.Collections.Generic;
 using System.IO;
 using HarmonyLib;
+
+using RomenH.Common;
+
 using UnityEngine;
 using UnityStandardAssets.ImageEffects;
 
@@ -13,7 +17,7 @@ namespace RomenH.LUTNotIncluded
 		{
 			ModAssets.defaultDayLUT = __instance.dayColourCube;
 			ModAssets.defaultNightLUT = __instance.nightColourCube;
-#if false
+#if DUMP_TEXTURES
 			try
 			{
 				byte[] pngBytes = ModAssets.defaultDayLUT.EncodeToPNG();
@@ -33,11 +37,37 @@ namespace RomenH.LUTNotIncluded
 			{ }
 #endif
 
+			Texture2D dayTexture = ModAssets.dayLUT;
+			Texture2D nightTexture = ModAssets.nightLUT;
+
 			if (Mod.Settings.EnableColorCorrection)
 			{
+				if (Mod.Registry != null)
+				{
+					if (Mod.Registry.ContainsKey(RegistryKeys.LUTNotIncluded_DayLUT))
+					{
+						var dayObj = Mod.Registry[RegistryKeys.LUTNotIncluded_DayLUT];
+						if (dayObj is Texture2D tex)
+						{
+							Debug.Log("LUT Not Included: Found override texture for day LUT.");
+							nightTexture = tex;
+						}
+					}
+
+					if (Mod.Registry.ContainsKey(RegistryKeys.LUTNotIncluded_NightLUT))
+					{
+						var nightObj = Mod.Registry[RegistryKeys.LUTNotIncluded_NightLUT];
+						if (nightObj is Texture2D tex)
+						{
+							Debug.Log("LUT Not Included: Found override texture for night LUT.");
+							nightTexture = tex;
+						}
+					}
+				}
+
 				bool changes = false;
 
-				if (ModAssets.dayLUT != null)
+				if (dayTexture != null)
 				{
 					__instance.dayColourCube = ModAssets.dayLUT;
 					changes = true;
@@ -45,17 +75,17 @@ namespace RomenH.LUTNotIncluded
 
 				if (Mod.Settings.AlwaysDay)
 				{
-					if (ModAssets.dayLUT != null)
-						__instance.nightColourCube = ModAssets.dayLUT;
+					if (dayTexture != null)
+						__instance.nightColourCube = dayTexture;
 					else
 						__instance.nightColourCube = __instance.dayColourCube;
 					changes = true;
 				}
 				else 
 				{
-					if (ModAssets.nightLUT != null)
+					if (nightTexture != null)
 					{
-						__instance.nightColourCube = ModAssets.nightLUT;
+						__instance.nightColourCube = nightTexture;
 						changes = true;
 					}
 				}

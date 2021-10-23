@@ -1,7 +1,11 @@
+using System.Collections.Generic;
+
 using HarmonyLib;
 using KMod;
 using PeterHan.PLib.Core;
 using PeterHan.PLib.Options;
+
+using RomenH.Common;
 
 namespace RomenH.LUTNotIncluded
 {
@@ -11,6 +15,9 @@ namespace RomenH.LUTNotIncluded
 		internal static ModSettings Settings;
 
 		internal POptions Options
+		{ get; private set; }
+
+		internal static IDictionary<string,object> Registry
 		{ get; private set; }
 
 		public override void OnLoad(Harmony harmony)
@@ -28,6 +35,8 @@ namespace RomenH.LUTNotIncluded
 			Options.RegisterOptions(this, typeof(ModSettings));
 
 			ModAssets.LoadAssets();
+
+			Registry = RomenHRegistry.Init();
 
 			base.OnLoad(harmony);
 		}

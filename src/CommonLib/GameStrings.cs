@@ -198,5 +198,39 @@ namespace RomenH.Common
 				public const string UniqueCargo = "CargoIII";
 			}
 		}
+
+		public static class ChoreGroups
+		{
+			public const string Combat = "Combat";
+			public const string LifeSupport = "LifeSupport";
+			public const string Toggle = "Toggle";
+			public const string MedicalAid = "MedicalAid";
+			public const string Rocketry = "Rocketry";
+			public const string Basekeeping = "Basekeeping";
+			public const string Cook = "Cook";
+			public const string Art = "Art";
+			public const string Research = "Research";
+			public const string MachineOperating = "MachineOperating";
+			public const string Farming = "Farming";
+			public const string Ranching = "Ranching";
+			public const string Build = "Build";
+			public const string Dig = "Dig";
+			public const string Hauling = "Hauling";
+			public const string Storage = "Storage";
+			public const string Recreation = "Recreation";
+		}
+
+		public static class ChoreTypes
+		{
+			public const string Dig = "Dig";
+		}
+
+		public static class SkillPerks
+		{
+			public const string CanDigVeryFirm = "CanDigVeryFirm";
+			public const string CanDigAbyssalite = "CanDigAbyssalite";
+			public const string CanDigSuperDuperHard = "CanDigDiamondAndObsidan";
+			public const string CanDigRadioactive = "CanDigCorium";
+		}
 	}
 }

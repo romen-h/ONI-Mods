@@ -47,6 +47,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CommonLib\CommonLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="UnityEngine.ImageConversionModule">
       <HintPath>..\lib\UnityEngine.ImageConversionModule.dll</HintPath>
       <Private>false</Private>

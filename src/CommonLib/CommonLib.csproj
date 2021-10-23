@@ -7,6 +7,7 @@
     <RepositoryUrl>https://github.com/romen-h/ONI-Mods</RepositoryUrl>
     <Configurations>SpacedOut</Configurations>
     <IsMod>true</IsMod>
+    <RootNamespace>RomenH.CommonLib</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="UnityEngine.ImageConversionModule">
