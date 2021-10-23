@@ -84,6 +84,13 @@ Adds a thermoelectric cooler ("TEC") tile that can move heat from one side to th
 
 ---
 
+### [Threshold Walls](src/Thresholds)
+[<img src="src/Thresholds/Assets/Workshop/preview.png" height="200px"/>](src/Thresholds)
+
+Adds new backwall buildings that can divide spaces into rooms like a door would.
+
+---
+
 ## License
 
 The content of this repository has been made source-available, but without license to use or copy in your own mods or other works.
