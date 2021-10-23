@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
+
+using RomenH.Common;
 
 using UnityEngine;
 
-namespace RomenMods.FestiveDecorMod
+namespace RomenH.FestiveDecor
 {
 	internal static class ModAssets
 	{
@@ -17,6 +15,8 @@ namespace RomenMods.FestiveDecorMod
 
 		internal static void LoadAssets()
 		{
+			ModDebug.LogThisMethod();
+
 			string modDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
 			if (FestivalManager.CurrentFestival != Festival.None)
@@ -34,6 +34,8 @@ namespace RomenMods.FestiveDecorMod
 					lutDay = null;
 				}
 
+				if (lutDay != null) Debug.Log("FestiveDecor: Loaded LUT for day.");
+
 				try
 				{
 					string lutNightPath = Path.Combine(modDirectory, "textures", $"lut_night_{FestivalManager.FestivalAnimAffix}.png");
@@ -46,7 +48,14 @@ namespace RomenMods.FestiveDecorMod
 				{
 					lutNight = null;
 				}
+
+				if (lutNight != null) Debug.Log("FestiveDecor: Loaded LUT for night.");
 			}
+		}
+
+		internal static KAnimFile GetAnim(string original)
+		{
+			return Assets.GetAnim($"{original}_{FestivalManager.FestivalAnimAffix}_kanim");
 		}
 	}
 }

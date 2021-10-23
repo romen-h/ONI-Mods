@@ -1,7 +1,10 @@
-﻿using Harmony;
+using HarmonyLib;
+
+using RomenH.Common;
+
 using UnityEngine;
 
-namespace RomenMods.FestiveDecorMod
+namespace RomenH.FestiveDecor
 {
 	/// <summary>
 	/// Ceiling Light
@@ -12,11 +15,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(BuildingDef __result)
 		{
-			if (FestivalManager.CurrentFestival != Festival.None)
-			{
-				KAnimFile anim = Assets.GetAnim($"ceilinglight_{FestivalManager.FestivalAnimAffix}_kanim");
-				if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
-			}
+			Util.ReplaceAnim(__result, "ceilinglight");
 		}
 	}
 
@@ -48,11 +47,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(BuildingDef __result)
 		{
-			if (FestivalManager.CurrentFestival != Festival.None)
-			{
-				KAnimFile anim = Assets.GetAnim($"floorlamp_{FestivalManager.FestivalAnimAffix}_kanim");
-				if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
-			}
+			Util.ReplaceAnim(__result, "floorlamp");
 		}
 	}
 }

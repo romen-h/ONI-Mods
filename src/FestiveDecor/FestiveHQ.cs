@@ -1,13 +1,8 @@
-using Harmony;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using HarmonyLib;
 
 using UnityEngine;
 
-namespace RomenMods.FestiveDecorMod
+namespace RomenH.FestiveDecor
 {
 	/// <summary>
 	/// Base Headquarters
@@ -18,7 +13,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(Telepad __instance)
 		{
-			if (Mod.Settings.EnableHQOverlay)
+			if (ModSettings.Instance.EnableHQOverlay)
 			{
 				KAnimFile anim = Assets.GetAnim("hqbase_festive_overlay_kanim");
 				if (anim != null)
@@ -44,23 +39,10 @@ namespace RomenMods.FestiveDecorMod
 					catch
 					{ }
 				}
-			}
-		}
-	}
-
-	/// <summary>
-	/// Ration Box
-	/// </summary>
-	[HarmonyPatch(typeof(RationBoxConfig))]
-	[HarmonyPatch("CreateBuildingDef")]
-	public static class RationBoxConfig_CreateBuildingDef_Patch
-	{
-		public static void Postfix(BuildingDef __result)
-		{
-			if (FestivalManager.CurrentFestival != Festival.None)
-			{
-				KAnimFile anim = Assets.GetAnim($"rationbox_{FestivalManager.FestivalAnimAffix}_kanim");
-				if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
+				else
+				{
+					Debug.Log("FestiveDecor: Could not find festive HQ overlay kanim.");
+				}
 			}
 		}
 	}

@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using UnityEngine;
-
-using static KAnim;
-
-namespace RomenMods.FestiveDecorMod
+namespace RomenH.FestiveDecor
 {
 	public class GlowInTheDark : KMonoBehaviour, ISim1000ms
 	{
-		[MyCmpGet]
+		[MyCmpReq]
 		KBatchedAnimController myAnim;
 
 		bool glowingEnabled = false;
 
 		public KAnimFile noGlowAnim;
 		public KAnimFile glowAnim;
+
+		protected override void OnPrefabInit()
+		{
+			base.OnPrefabInit();
+			myAnim.usingNewSymbolOverrideSystem = true;
+			gameObject.AddComponent<SymbolOverrideController>();
+		}
 
 		public void Sim1000ms(float dt)
 		{

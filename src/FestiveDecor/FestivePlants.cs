@@ -1,13 +1,10 @@
-﻿using Harmony;
+using HarmonyLib;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using RomenH.Common;
 
 using UnityEngine;
 
-namespace RomenMods.FestiveDecorMod
+namespace RomenH.FestiveDecor
 {
 	/// <summary>
 	/// Mealwood
@@ -18,15 +15,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(GameObject __result)
 		{
-			if (FestivalManager.CurrentFestival != Festival.None)
-			{
-				var anim = Assets.GetAnim($"meallice_{FestivalManager.FestivalAnimAffix}_kanim");
-				if (anim != null)
-				{
-					var ac = __result.GetComponent<KBatchedAnimController>();
-					ac.AnimFiles = new KAnimFile[1] { anim };
-				}
-			}
+			Util.ReplaceAnim(__result, "meallice");
 		}
 	}
 
@@ -39,15 +28,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(GameObject __result)
 		{
-			if (FestivalManager.CurrentFestival != Festival.None)
-			{
-				var anim = Assets.GetAnim($"meallice_grain_{FestivalManager.FestivalAnimAffix}_kanim");
-				if (anim != null)
-				{
-					var ac = __result.GetComponent<KBatchedAnimController>();
-					ac.AnimFiles = new KAnimFile[1] { anim };
-				}
-			}
+			Util.ReplaceAnim(__result, "meallice_grain");
 		}
 	}
 }

@@ -1,16 +1,26 @@
-using Harmony;
-
-using JetBrains.Annotations;
-
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
+using HarmonyLib;
+
+using RomenH.Common;
 
 using UnityEngine;
 
-namespace RomenMods.FestiveDecorMod
+namespace RomenH.FestiveDecor
 {
+	/// <summary>
+	/// Crown Moulding
+	/// </summary>
+	[HarmonyPatch(typeof(CrownMouldingConfig))]
+	[HarmonyPatch("CreateBuildingDef")]
+	public static class CrownMouldingConfig_CreateBuildingDef_Patch
+	{
+		public static void Postfix(BuildingDef __result)
+		{
+			Util.ReplaceAnim(__result, "crown_moulding");
+		}
+	}
+
 	/// <summary>
 	/// Corner Moulding
 	/// </summary>
@@ -20,11 +30,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(BuildingDef __result)
 		{
-			if (FestivalManager.CurrentFestival != Festival.None)
-			{
-				KAnimFile anim = Assets.GetAnim($"corner_tile_{FestivalManager.FestivalAnimAffix}_kanim");
-				if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
-			}
+			Util.ReplaceAnim(__result, "corner_tile");
 		}
 	}
 
@@ -32,28 +38,14 @@ namespace RomenMods.FestiveDecorMod
 	/// Ceiling Crawler Spawner
 	/// </summary>
 	[HarmonyPatch(typeof(CornerMouldingConfig))]
-	[HarmonyPatch("DoPostConfigureComplete")]
-	public static class CornerMouldingConfig_DoPostConfigureComplete_Patch
+	[HarmonyPatch("ConfigureBuildingTemplate")]
+	public static class CornerMouldingConfig_ConfigureBuildingTemplate_Patch
 	{
 		public static void Postfix(GameObject __0)
 		{
-			if (Mod.Settings.EnableSpiders && FestivalManager.CurrentFestival == Festival.Halloween)
+			if (FestivalManager.CurrentFestival == Festival.Halloween && ModSettings.Instance.EnableSpiders)
 			{
 				__0.AddComponent<MouldingSpiderSpawner>();
-			}
-		}
-	}
-
-	[HarmonyPatch(typeof(CrownMouldingConfig))]
-	[HarmonyPatch("CreateBuildingDef")]
-	public static class CrownMouldingConfig_CreateBuildingDef_Patch
-	{
-		public static void Postfix(BuildingDef __result)
-		{
-			if (FestivalManager.CurrentFestival != Festival.None)
-			{
-				KAnimFile anim = Assets.GetAnim($"crown_moulding_{FestivalManager.FestivalAnimAffix}_kanim");
-				if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
 			}
 		}
 	}
@@ -131,7 +123,7 @@ namespace RomenMods.FestiveDecorMod
 
 		private void MakeDecision()
 		{
-			
+
 
 			bool isInWeb = false;
 			var building = Grid.Objects[currentCell, (int)ObjectLayer.Building];

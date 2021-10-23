@@ -1,11 +1,8 @@
-﻿using Harmony;
+using HarmonyLib;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using RomenH.Common;
 
-namespace RomenMods.FestiveDecorMod
+namespace RomenH.FestiveDecor
 {
 	/// <summary>
 	/// Small Sculpture (1x2)
@@ -16,11 +13,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(BuildingDef __result)
 		{
-			if (FestivalManager.CurrentFestival != Festival.None)
-			{
-				KAnimFile anim = Assets.GetAnim($"sculpture_1x2_{FestivalManager.FestivalAnimAffix}_kanim");
-				if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
-			}
+			Util.ReplaceAnim(__result, "sculpture_1x2");
 		}
 	}
 
@@ -33,11 +26,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(BuildingDef __result)
 		{
-			if (FestivalManager.CurrentFestival != Festival.None)
-			{
-				KAnimFile anim = Assets.GetAnim($"sculpture_{FestivalManager.FestivalAnimAffix}_kanim");
-				if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
-			}
+			Util.ReplaceAnim(__result, "sculpture");
 		}
 	}
 
@@ -50,11 +39,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(BuildingDef __result)
 		{
-			if (FestivalManager.CurrentFestival != Festival.None)
-			{
-				KAnimFile anim = Assets.GetAnim($"sculpture_metal_{FestivalManager.FestivalAnimAffix}_kanim");
-				if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
-			}
+			Util.ReplaceAnim(__result, "sculpture_metal");
 		}
 	}
 
@@ -67,11 +52,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(BuildingDef __result)
 		{
-			if (FestivalManager.CurrentFestival != Festival.None)
-			{
-				KAnimFile anim = Assets.GetAnim($"sculpture_marble_{FestivalManager.FestivalAnimAffix}_kanim");
-				if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
-			}
+			Util.ReplaceAnim(__result, "sculpture_marble");
 		}
 	}
 }

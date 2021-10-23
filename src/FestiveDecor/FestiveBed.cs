@@ -1,11 +1,6 @@
-﻿using Harmony;
+using HarmonyLib;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace RomenMods.FestiveDecorMod
+namespace RomenH.FestiveDecor
 {
 	/// <summary>
 	/// Basic Bed
@@ -16,11 +11,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(BuildingDef __result)
 		{
-			if (FestivalManager.CurrentFestival != Festival.None)
-			{
-				KAnimFile anim = Assets.GetAnim($"bedlg_{FestivalManager.FestivalAnimAffix}_kanim");
-				if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
-			}
+			Util.ReplaceAnim(__result, "bedlg");
 		}
 	}
 
@@ -33,11 +24,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(BuildingDef __result)
 		{
-			if (FestivalManager.CurrentFestival != Festival.None)
-			{
-				KAnimFile anim = Assets.GetAnim($"elegantbed_{FestivalManager.FestivalAnimAffix}_kanim");
-				if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
-			}
+			Util.ReplaceAnim(__result, "elegantbed");
 		}
 	}
 }

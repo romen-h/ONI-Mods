@@ -1,21 +1,14 @@
-using JetBrains.Annotations;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace RomenMods.FestiveDecorMod
+namespace RomenH.FestiveDecor
 {
 	/// <summary>
 	/// Enumerates the festivals supported by this mod.
 	/// </summary>
 	public enum Festival : int
 	{
-		None = 0,
-		Easter = 1,
-		Halloween = 2,
-		WinterHolidays = 3
+		None,
+		SpringCandy,
+		Halloween,
+		WinterHolidays
 	}
 
 	/// <summary>
@@ -35,38 +28,38 @@ namespace RomenMods.FestiveDecorMod
 		public static string FestivalAnimAffix
 		{ get; private set; }
 
-		/// <summary>
-		/// Sets the current festival according to the given DateTime.
-		/// </summary>
-		internal static void SetFestival(System.DateTime date)
+		internal static Festival GetFestivalForDate(System.DateTime date)
 		{
-			PeterHan.PLib.PSharedData.PutData("FestiveDecor.Constants.iSpring", (int)Festival.Easter);
-			PeterHan.PLib.PSharedData.PutData("FestiveDecor.Constants.iHalloween", (int)Festival.Halloween);
-			PeterHan.PLib.PSharedData.PutData("FestiveDecor.Constants.iWinterHolidays", (int)Festival.WinterHolidays);
-
 			// Easter March 22 - April 25
-			if (FestivalEnabled(Festival.Easter) && ((date.Month == 3 && date.Day >= 22) || (date.Month == 4 && date.Day <= 25)))
+			if (FestivalEnabled(Festival.SpringCandy) && ((date.Month == 3 && date.Day >= 22) || (date.Month == 4 && date.Day <= 25)))
 			{
-				CurrentFestival = Festival.Easter;
+				return Festival.SpringCandy;
 			}
 			// Halloween in Oct & Nov 1st
 			else if (FestivalEnabled(Festival.Halloween) && (date.Month == 10 || (date.Month == 11 && date.Day <= 1)))
 			{
-				CurrentFestival = Festival.Halloween;
+				return Festival.Halloween;
 			}
 			// Winter Holidays in Dec
 			else if (FestivalEnabled(Festival.WinterHolidays) && date.Month == 12)
 			{
-				CurrentFestival = Festival.WinterHolidays;
+				return Festival.WinterHolidays;
 			}
 			else
 			{
-				CurrentFestival = Festival.None;
+				return Festival.None;
 			}
+		}
 
-			PeterHan.PLib.PSharedData.PutData("FestiveDecor.iCurrentFestival", (int)CurrentFestival);
-
+		/// <summary>
+		/// Sets the current festival according to the given DateTime.
+		/// </summary>
+		internal static void SetFestival(Festival festival)
+		{
+			CurrentFestival = festival;
 			FestivalAnimAffix = GetAnimAffix(CurrentFestival);
+
+			Debug.Log($"FestiveDecor: Current Festival = {CurrentFestival}");
 		}
 
 		private static bool FestivalEnabled(Festival f)
@@ -76,7 +69,7 @@ namespace RomenMods.FestiveDecorMod
 				case Festival.None:
 					return true;
 				case Festival.Halloween:
-					return Mod.Settings.EnableHalloween;
+					return ModSettings.Instance.EnableHalloween;
 				default:
 					return false;
 			}
@@ -86,7 +79,7 @@ namespace RomenMods.FestiveDecorMod
 		{
 			switch (f)
 			{
-				case Festival.Easter:
+				case Festival.SpringCandy:
 					return "spring";
 
 				case Festival.Halloween:

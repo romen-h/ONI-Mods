@@ -1,32 +1,35 @@
-using PeterHan.PLib;
-using RomenMods.Common;
+using System.Collections.Generic;
 
-namespace RomenMods.FestiveDecorMod
+using HarmonyLib;
+
+using KMod;
+
+using PeterHan.PLib.Core;
+using PeterHan.PLib.Options;
+
+using RomenH.Common;
+
+namespace RomenH.FestiveDecor
 {
-	public static class Mod
+	public class Mod : UserMod2
 	{
-		public static ModSettings Settings;
+		public static IDictionary<string, object> Registry
+		{ get; private set; }
 
-		public static void OnLoad()
+		public override void OnLoad(Harmony harmony)
 		{
 			PUtil.InitLibrary(true);
 
-			Settings = PeterHan.PLib.Options.POptions.ReadSettings<ModSettings>();
-			if (Settings == null)
-			{
-				Settings = new ModSettings();
-				
-				PeterHan.PLib.Options.POptions.WriteSettings<ModSettings>(Settings);
-			}
+			POptions popt = new POptions();
 
-			PeterHan.PLib.Options.POptions.RegisterOptions(typeof(ModSettings));
+			popt.RegisterOptions(this, typeof(ModSettings));
 
 			System.DateTime date = System.DateTime.Now;
-			if (Settings.UseOverrideDate)
+			if (ModSettings.Instance.UseOverrideDate)
 			{
 				try
 				{
-					date = new System.DateTime(date.Year, Settings.OverrideMonth, Settings.OverrideDayOfMonth);
+					date = new System.DateTime(date.Year, ModSettings.Instance.OverrideMonth, ModSettings.Instance.OverrideDayOfMonth);
 				}
 				catch
 				{
@@ -35,9 +38,25 @@ namespace RomenMods.FestiveDecorMod
 				}
 			}
 
-			FestivalManager.SetFestival(date);
+			Registry = RomenHRegistry.Init();
+
+			Festival festival = FestivalManager.GetFestivalForDate(date);
+			FestivalManager.SetFestival(festival);
 
 			ModAssets.LoadAssets();
+
+			base.OnLoad(harmony);
+		}
+
+		public override void OnAllModsLoaded(Harmony harmony, IReadOnlyList<KMod.Mod> mods)
+		{
+			foreach (var mod in mods)
+			{
+				if (mod.staticID == ModModules.LUTModuleID && ModSettings.Instance.EnableColorCorrection)
+				{
+					ModModules.EnableLUTModule(mod);
+				}
+			}
 		}
 	}
 }

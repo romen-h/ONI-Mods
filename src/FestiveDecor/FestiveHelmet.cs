@@ -1,15 +1,10 @@
-using Harmony;
+using HarmonyLib;
 
-using PeterHan.PLib;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using RomenH.Common;
 
 using UnityEngine;
 
-namespace RomenMods.FestiveDecorMod
+namespace RomenH.FestiveDecor
 {
 	/// <summary>
 	/// Atmo Suit
@@ -20,11 +15,11 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(EquipmentDef __result)
 		{
-			if (Mod.Settings.EnableCustomHelmets)
+			if (ModSettings.Instance.EnableCustomHelmets)
 			{
 				if (FestivalManager.CurrentFestival != Festival.None)
 				{
-					KAnimFile itemAnim = Assets.GetAnim($"suit_oxygen_{FestivalManager.FestivalAnimAffix}_kanim");
+					KAnimFile itemAnim = ModAssets.GetAnim("suit_oxygen");
 					KAnimFile suitAnim = Assets.GetAnim("body_oxygen_nohelm_kanim");
 					if (itemAnim != null && suitAnim != null)
 					{
@@ -45,13 +40,9 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(BuildingDef __result)
 		{
-			if (Mod.Settings.EnableCustomHelmets)
+			if (ModSettings.Instance.EnableCustomHelmets)
 			{
-				if (FestivalManager.CurrentFestival != Festival.None)
-				{
-					KAnimFile anim = Assets.GetAnim($"changingarea_{FestivalManager.FestivalAnimAffix}_kanim");
-					if (anim != null) __result.AnimFiles = new KAnimFile[1] { anim };
-				}
+				Util.ReplaceAnim(__result, "changingarea");
 			}
 		}
 	}
@@ -65,7 +56,7 @@ namespace RomenMods.FestiveDecorMod
 	{
 		public static void Postfix(GameObject __0)
 		{
-			if (Mod.Settings.EnableCustomHelmets)
+			if (ModSettings.Instance.EnableCustomHelmets)
 			{
 				if (FestivalManager.CurrentFestival == Festival.Halloween)
 				{
@@ -128,7 +119,16 @@ namespace RomenMods.FestiveDecorMod
 
 		private Vector3 previousPosition;
 
-		private void LateUpdate()
+		void Start()
+		{
+			if (FestivalManager.CurrentFestival == Festival.WinterHolidays)
+			{
+				// Attach a particle system
+			}
+		}
+
+		// This method syncs the object to the transform of the neck snap point in the dupe
+		void LateUpdate()
 		{
 			bool symbolVisible = false;
 			if (dupeAnim.CurrentAnim != null)
