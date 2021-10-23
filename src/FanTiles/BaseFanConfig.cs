@@ -1,4 +1,4 @@
-﻿using TUNING;
+using TUNING;
 using UnityEngine;
 
 namespace Fans
@@ -81,7 +81,6 @@ namespace Fans
             buildingDef.ObjectLayer = ObjectLayer.Building;
             buildingDef.SceneLayer = Grid.SceneLayer.TileMain;
             buildingDef.ForegroundLayer = Grid.SceneLayer.TileMain;
-            buildingDef.isSolidTile = true;
             buildingDef.DragBuild = true;
             return buildingDef;
         }

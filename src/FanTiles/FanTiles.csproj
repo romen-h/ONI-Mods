@@ -4,7 +4,7 @@
   <PropertyGroup>
     <TargetFramework>net471</TargetFramework>
     <AssemblyName>FanTiles</AssemblyName>
-    <Version>2.0.0</Version>
+    <Version>2.0.1</Version>
     <Authors>Test477, Romen</Authors>
     <Configurations>SpacedOut</Configurations>
     <RootNamespace>Fans</RootNamespace>
@@ -19,8 +19,8 @@
     <SupportedContent>ALL</SupportedContent>
     <MinimumSupportedBuild>469369</MinimumSupportedBuild>
     <Company />
-    <AssemblyVersion>2.0.0</AssemblyVersion>
-    <FileVersion>2.0.0</FileVersion>
+    <AssemblyVersion>2.0.1</AssemblyVersion>
+    <FileVersion>2.0.1</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SpacedOut|AnyCPU'">
