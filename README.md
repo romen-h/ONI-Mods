@@ -1,10 +1,10 @@
 # ONI-Mods
-Mods and code for the game Oxygen Not Included.
+A collection of my mods and modding tools for the game Oxygen Not Included.
 
 ## My Steam Workshop
 [<img src="docs/img/banner_browse_workshop.jpg"/>](https://steamcommunity.com/id/romenhurst/myworkshopfiles/?appid=457140)
 
-## My Other ONI Projects
+## Modding Tools
 
 ### [Kanim Explorer](https://github.com/romen-h/kanim-explorer)
 For inspecting and editing the ONI animation files.
