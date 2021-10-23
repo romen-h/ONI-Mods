@@ -12,6 +12,13 @@ A library that provides shared code used by multiple mods in this solution.
 
 ---
 
+## [Fan Tiles](src/FanTiles)
+[<img src="src/FanTiles/Assets/Workshop/preview.png" height="200px"/>](src/FanTiles)
+
+An updated fork of test447's Fan Tiles mod.
+
+---
+
 ## [Festive Decor](src/FestiveDecor)
 [<img src="src/FestiveDecor/Assets/Workshop/preview.png" height="200px"/>](src/FestiveDecor)
 
