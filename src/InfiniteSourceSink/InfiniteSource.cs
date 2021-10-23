@@ -113,12 +113,6 @@ namespace InfiniteSourceSink
 			bool invalidElement = (!tag.IsValid || tag == GameTags.Void);
             selectable.ToggleStatusItem(Db.Get().BuildingStatusItems.NoFilterElementSelected, invalidElement, null);
             operational.SetFlag(filterFlag, !invalidElement);
-
-			refreshing = true;
-
-			DetailsScreen.Instance.Refresh(gameObject);
-
-			refreshing = false;
         }
 
         private bool ShowInUtilityOverlay(HashedString mode, object data)

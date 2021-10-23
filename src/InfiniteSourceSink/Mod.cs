@@ -14,6 +14,8 @@ namespace InfiniteSourceSink
 			opt.RegisterOptions(this, typeof(ModSettings));
 
 			base.OnLoad(harmony);
+
+			Debug.Log($"Loaded Mod: ID={this.mod.staticID}, Version={this.mod.packagedModInfo.version}");
 		}
 	}
 }
