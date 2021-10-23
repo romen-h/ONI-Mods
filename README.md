@@ -4,6 +4,14 @@ Mods and code for the game Oxygen Not Included.
 ## My Steam Workshop
 [<img src="docs/img/banner_browse_workshop.jpg"/>](https://steamcommunity.com/id/romenhurst/myworkshopfiles/?appid=457140)
 
+## My Other ONI Projects
+
+### [Kanim Explorer](https://github.com/romen-h/kanim-explorer)
+For inspecting and editing the ONI animation files.
+
+### [ONI Runtime Unity Editor](https://github.com/romen-h/ONI-RuntimeUnityEditor)
+For inspecting Unity GameObjects and Components at runtime. Modified for ONI's mod support instead of BepInEx.
+
 ## Overview of Mods
 
 ### [CommonLib](src/CommonLib)
