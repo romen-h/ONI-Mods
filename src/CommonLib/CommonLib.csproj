@@ -10,8 +10,13 @@
     <RootNamespace>RomenH.CommonLib</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FMODUnity">
+      <HintPath>..\lib\FMODUnity.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="UnityEngine.ImageConversionModule">
       <HintPath>..\lib\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
 </Project>
