@@ -1,8 +1,16 @@
 # ONI-Mods
-Mods and code for the game Oxygen Not Included.
+A collection of my mods and modding tools for the game Oxygen Not Included.
 
 ## My Steam Workshop
 [<img src="docs/img/banner_browse_workshop.jpg"/>](https://steamcommunity.com/id/romenhurst/myworkshopfiles/?appid=457140)
+
+## Modding Tools
+
+### [Kanim Explorer](https://github.com/romen-h/kanim-explorer)
+For inspecting and editing the ONI animation files.
+
+### [ONI Runtime Editor](https://github.com/romen-h/ONI-RuntimeUnityEditor)
+Tools for inspecting Unity GameObjects and Components at runtime. Modified for ONI's mod support instead of BepInEx.
 
 ## Overview of Mods
 
@@ -12,8 +20,15 @@ A library that provides shared code used by multiple mods in this solution.
 
 ---
 
+## [Fan Tiles](src/FanTiles)
+[<img src="src/FanTiles/Assets/Workshop/preview.png" height="200px"/>](src/FanTiles)
+
+An updated fork of test447's Fan Tiles mod.
+
+---
+
 ## [Festive Decor](src/FestiveDecor)
-[<img src="src/FestiveDecor/Assets/preview.png" height="200px"/>](src/FestiveDecor)
+[<img src="src/FestiveDecor/Assets/Workshop/preview.png" height="200px"/>](src/FestiveDecor)
 
 A graphics replacer mod that adds a festive appearance to the colony.
 
@@ -81,6 +96,13 @@ A new building that converts heat energy directly into power.
 [<img src="src/TECBlock/Assets/Workshop/preview.png" height="200px"/>](src/TECBlock)
 
 Adds a thermoelectric cooler ("TEC") tile that can move heat from one side to the other while it is powered.
+
+---
+
+### [Threshold Walls](src/Thresholds)
+[<img src="src/Thresholds/Assets/Workshop/preview.png" height="200px"/>](src/Thresholds)
+
+Adds new backwall buildings that can divide spaces into rooms like a door would.
 
 ---
 
