@@ -34,7 +34,7 @@ namespace RomenH.CommonLib
 		{
 			base.OnSpawn();
 
-			sound = AudioUtil.CreateSound("PistonLoop");
+			sound = AudioUtil.CreateSound(soundName);
 		}
 
 		public void RenderEveryTick(float dt)
