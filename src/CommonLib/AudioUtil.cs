@@ -14,12 +14,15 @@ namespace RomenH.CommonLib
 	{
 		private static readonly Dictionary<string, FMOD.Sound> sounds = new Dictionary<string, FMOD.Sound>();
 
-		public static bool LoadSound(string key, string soundFile, bool looping = false)
+		public static bool LoadSound(string key, string soundFile, bool looping = false, bool oneAtATime = false)
 		{
-			FMOD.MODE mode = FMOD.MODE.UNIQUE | FMOD.MODE._2D | FMOD.MODE._3D | FMOD.MODE._3D_WORLDRELATIVE | FMOD.MODE.CREATESAMPLE;
+			FMOD.MODE mode = FMOD.MODE._2D | FMOD.MODE._3D | FMOD.MODE._3D_WORLDRELATIVE | FMOD.MODE.CREATESAMPLE;
 
 			if (looping)
 				mode |= FMOD.MODE.LOOP_NORMAL;
+
+			if (oneAtATime)
+				mode |= FMOD.MODE.UNIQUE;
 
 			FMOD.RESULT r1 = RuntimeManager.CoreSystem.createSound(soundFile, mode, out FMOD.Sound sound);
 			if (r1 == FMOD.RESULT.OK)
