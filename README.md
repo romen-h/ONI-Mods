@@ -71,6 +71,15 @@ A new building that deodorizes polluted oxygen with a vent input and output.
 
 ---
 
+### [Plastic Door](src/PlasticDoor)
+[<img src="src/PlasticDoor/Assets/preview.jpg" height="200px"/>](src/PlasticDoor)
+
+A new door made of plastic that blocks gas flow, but not liquids.
+
+*This mod was originally created by [Aki](https://github.com/aki-art/ONI-Mods), I will be maintaining it for now on.*
+
+---
+
 ### [Schedule Block Sensor](src/LogicScheduleSensor)
 [<img src="src/LogicScheduleSensor/Assets/Workshop/preview.png" height="200px"/>](src/LogicScheduleSensor)
 
