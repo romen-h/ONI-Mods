@@ -371,3 +371,6 @@ src/RisingLava
 src/FanTiles/Assets/spriter/*
 src/InfiniteSourceSink/Assets/anim_old/*
 src/InfiniteSourceSink/Assets/test447-Original/*
+src/ModTemplate/Mod.cs
+src/ModTemplate/ModSettings.cs
+src/ModTemplate/ModTemplate.csproj
