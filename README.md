@@ -76,6 +76,8 @@ A new building that deodorizes polluted oxygen with a vent input and output.
 
 A new door made of plastic that blocks gas flow, but not liquids.
 
+*This mod was originally created by [Aki](https://github.com/aki-art/ONI-Mods), I will be maintaining it for now on.*
+
 ---
 
 ### [Schedule Block Sensor](src/LogicScheduleSensor)
