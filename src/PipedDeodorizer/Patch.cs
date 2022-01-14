@@ -9,6 +9,8 @@ namespace RomenH.PipedDeodorizer
 	{
 		public static void Prefix()
 		{
+			Debug.Log("Piped Deodorizer: Adding strings...");
+
 			StringUtils.AddBuildingStrings(
 				PipedDeodorizerConfig.ID,
 				ModStrings.STRINGS.BUILDINGS.PIPEDDEODORIZER.NAME,
