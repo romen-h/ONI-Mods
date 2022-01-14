@@ -78,6 +78,13 @@ An automation sensor that turns on when the selected schedule enters a selected 
 
 ---
 
+### [Soggy Carpets](src/SoggyCarpets)
+[<img src="src/SoggyCarpets/Assets/Workshop/preview.png" height="200px"/>](src/SoggyCarpets)
+
+Modifies Carpet Tiles to absorb liquid from above and drip it out the bottom.
+
+---
+
 ### [Sharing Is Caring](src/SharingIsCaring)
 [<img src="src/SharingIsCaring/Assets/Workshop/preview.png" height="200px"/>](src/SharingIsCaring)
 
