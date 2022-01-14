@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Application: Oxygen Not IncludedPOT Version: 2.0\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.1\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: pt_BR\n"
+
+#. Curtain.STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.NAME
+msgctxt "Curtain.STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.NAME"
+msgid "Pending Door State Change: {CurrentState}"
+msgstr "Estado Atual{CurrentState}"
+
+#. Curtain.STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.TOOLTIP
+msgctxt ""
+"Curtain.STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.TOOLTIP"
+msgid "Waiting for a Duplicant to change control state"
+msgstr "Esperando um Duplicante mudar o estado de controle"
+
+#. Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.DESC
+msgctxt "Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.DESC"
+msgid "A transparent insulating door."
+msgstr "Porta isolante transparente."
+
+#. Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.EFFECT
+msgctxt "Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.EFFECT"
+msgid ""
+"Quarters off dangerous areas and prevents gases from seeping into the "
+"colony, while allowing <link=\"LIGHT\">Light</link> and <link=\"DECOR"
+"\">Decor</link> to pass through."
+msgstr ""
+"Bloqueia o fluxo de Líquido e Gases. Permite a passagem de <link=\"LIGHT"
+"\">Luz</link> and <link=\"DECOR\">Decor</link>."
+
+#. Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.NAME
+msgctxt "Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.NAME"
+msgid "Plastic Door"
+msgstr "Porta de Plástico"

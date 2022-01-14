@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Application: Oxygen Not IncludedPOT Version: 2.0\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: zh_CN\n"
+
+#. Curtain.STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.NAME
+msgctxt "Curtain.STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.NAME"
+msgid "Pending Door State Change: {CurrentState}"
+msgstr "透明的绝缘门帘。"
+
+#. Curtain.STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.TOOLTIP
+msgctxt ""
+"Curtain.STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.TOOLTIP"
+msgid "Waiting for a Duplicant to change control state"
+msgstr "改变塑料门帘状态: {CurrentState}"
+
+#. Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.DESC
+msgctxt "Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.DESC"
+msgid "A transparent insulating door."
+msgstr "等待复制人改变控制状态"
+
+#. Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.EFFECT
+msgctxt "Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.EFFECT"
+msgid ""
+"Quarters off dangerous areas and prevents gases from seeping into the colony "
+"while closed, while allowing <link=\"LIGHT\">Light</link> and <link=\"DECOR"
+"\">Decor</link> to pass through.\n"
+"\n"
+"Duplicants passing through will open the door for a short while, letting "
+"gases and liquids to pass through."
+msgstr ""
+"隔离危险区域，防止气体渗入基地，同时允许<link=\"LIGHT\">光线</link>进入, 并共"
+"享<link=\"DECOR\">装饰度</link>."
+
+#. Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.NAME
+msgctxt "Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.NAME"
+msgid "Plastic Door"
+msgstr "塑料门帘"

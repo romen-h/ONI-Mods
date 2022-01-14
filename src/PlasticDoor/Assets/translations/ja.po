@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Application: Oxygen Not IncludedPOT Version: 2.0\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ja_JP\n"
+
+#. Curtain.STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.NAME
+msgctxt "Curtain.STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.NAME"
+msgid "Pending Door State Change: {CurrentState}"
+msgstr "現在の状態:{CurrentState}"
+
+#. Curtain.STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.TOOLTIP
+msgctxt ""
+"Curtain.STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.TOOLTIP"
+msgid "Waiting for a Duplicant to change control state"
+msgstr "ドアモード変更待ち"
+
+#. Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.DESC
+msgctxt "Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.DESC"
+msgid "A transparent insulating door."
+msgstr "透明な断熱ドア"
+
+#. Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.EFFECT
+msgctxt "Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.EFFECT"
+msgid ""
+"Quarters off dangerous areas and prevents gases from seeping into the "
+"colony, while allowing <link=\"LIGHT\">Light</link> and <link=\"DECOR"
+"\">Decor</link> to pass through."
+msgstr ""
+"液体や気体の流入を防ぎ、断熱効果も高い透明なドア。　<link=\"LIGHT\">光</"
+"link> と<link=\"DECOR\">装飾値</link>を透過させます。"
+
+#. Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.NAME
+msgctxt "Curtain.STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.NAME"
+msgid "Plastic Door"
+msgstr "プラスティックドア"
