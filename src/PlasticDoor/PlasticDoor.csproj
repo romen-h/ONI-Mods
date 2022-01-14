@@ -2,22 +2,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>LogicScheduleSensor</AssemblyName>
-    <Version>2.0.0</Version>
+    <AssemblyName>PlasticDoor</AssemblyName>
+    <Version>3.0.0</Version>
     <TargetFramework>net471</TargetFramework>
     <Configurations>Release</Configurations>
-    <RootNamespace>RomenH.LogicScheduleSensor</RootNamespace>
+    <RootNamespace>RomenH.PlasticDoor</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
   </PropertyGroup>
 
   <PropertyGroup>
-    <ModName>Logic Schedule Sensor</ModName>
+    <ModName>Plastic Door</ModName>
     <SupportedContent>ALL</SupportedContent>
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="FMODUnity">
+      <HintPath>$(GameLibsFolder)/FMODUnity.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>$(GameLibsFolder)/UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>false</Private>

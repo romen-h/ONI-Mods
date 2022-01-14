@@ -9,6 +9,8 @@ namespace Fans
 	{
 		private static void Prefix()
 		{
+			Debug.Log("FanTiles: Adding strings...");
+
 			StringUtils.AddBuildingStrings(
 				GasFanConfig.Id,
 				GasFanConfig.DisplayName,

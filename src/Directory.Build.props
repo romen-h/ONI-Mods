@@ -1,47 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
 
-  <PropertyGroup Condition="'$(IsMod)' == 'true'">
-    <ClearOutputDirectory>True</ClearOutputDirectory>
+  <!-- Common properties for all mods/projects -->
+  <PropertyGroup>
+    <Authors>RomenH</Authors>
+    <Copyright>2022 RomenH</Copyright>
+    <RepositoryUrl>https://github.com/romen-h/ONI-Mods</RepositoryUrl>
+    <GameLibsFolder>../lib</GameLibsFolder>
+    <ClearOutputDirectory>true</ClearOutputDirectory>
+    <ModDescription>TODO</ModDescription>
+    <APIVersion>2</APIVersion>
+    <MinimumSupportedBuild>469369</MinimumSupportedBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutDir>bin</OutDir>
     <Optimize>true</Optimize>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)' == 'Vanilla'">
-    <DefineConstants>VANILLA</DefineConstants>
-    <GameLibsFolder>../lib-vanilla</GameLibsFolder>
-    <APIVersion>1</APIVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)' == 'SpacedOut'">
-    <DefineConstants>SPACED_OUT</DefineConstants>
-    <GameLibsFolder>../lib</GameLibsFolder>
-    <APIVersion>2</APIVersion>
-  </PropertyGroup>
-  
+  <!-- References for all ONI Mods -->
 	<ItemGroup Condition="'$(IsMod)' == 'true'">
+    <PackageReference Include="Cairath.ONIMetadataFileGenerator" Version="1.0.0">
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
+    <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.18.2">
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
     <Reference Include="Assembly-CSharp">
 	    <HintPath>$(GameLibsFolder)/Assembly-CSharp.dll</HintPath>
-	    <Private>False</Private>
+	    <Private>false</Private>
     </Reference>
 		<Reference Include="Assembly-CSharp-firstpass">
 			<HintPath>$(GameLibsFolder)/Assembly-CSharp-firstpass.dll</HintPath>
-			<Private>False</Private>
+			<Private>false</Private>
 		</Reference>
     <Reference Include="0Harmony">
       <HintPath>$(GameLibsFolder)/0Harmony.dll</HintPath>
-      <Private>False</Private>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>$(GameLibsFolder)/UnityEngine.dll</HintPath>
-      <Private>False</Private>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(GameLibsFolder)/UnityEngine.CoreModule.dll</HintPath>
-      <Private>False</Private>
+      <Private>false</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>$(GameLibsFolder)/Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
+      <Private>false</Private>
     </Reference>
 	</ItemGroup>
+
+  <ItemGroup Condition="'$(UseCommonLib)' == 'true'">
+    <ProjectReference Include="../CommonLib/CommonLib.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(UsePLib)' == 'true'">
+    <PackageReference Include="PLib" Version="4.6.0" />
+  </ItemGroup>
+
 </Project>

@@ -14,6 +14,8 @@ namespace RomenH.LogicScheduleSensor
 	{
 		public static void Prefix()
 		{
+			Debug.Log("Logic Schedule Sensor: Adding strings...");
+
 			StringUtils.AddBuildingStrings(
 				LogicScheduleSensorConfig.ID,
 				ModStrings.STRINGS.BUILDINGS.LOGICSCHEDULESENSOR.NAME,

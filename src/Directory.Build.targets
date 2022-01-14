@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project>
   
-  <Target Name="GenerateMetadataFiles" BeforeTargets="Build" Condition="'$(GenerateMetadata)' == 'true'">
+  <Target Name="GenerateMetadataFiles" BeforeTargets="Build" Condition="'$(IsMod)' == 'true'">
     <GenerateMetadataFiles
       OutputPath="$(TargetDir)"
 
@@ -16,7 +16,7 @@
     />
   </Target>
     
-  <Target Name="ILRepack" AfterTargets="Build" Condition="'$(IsPacked)' == 'true'">
+  <Target Name="ILRepack" AfterTargets="Build" Condition="'$(UsePLib)' == 'true' OR '$(UseCommonLib)' == 'true'">
     <ItemGroup>
       <InputAssemblies
         Include="$(TargetDir)\*.dll"
@@ -35,7 +35,7 @@
   <Target
       AfterTargets="ILRepack"
       Name="CleanReferenceCopyLocalPaths"
-      Condition="!Exists('$(ILRepackTargetsFile)') and '$(ClearOutputDirectory)' != 'False'">
+      Condition="!Exists('$(ILRepackTargetsFile)') and '$(ClearOutputDirectory)' != 'false'">
       <Delete Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
       <ItemGroup>
         <Directories Include="$([System.IO.Directory]::GetDirectories('$(OutDir)%(DestinationSubDirectory)', '*', System.IO.SearchOption.AllDirectories))" />
@@ -45,5 +45,9 @@
       </ItemGroup>
       <RemoveDir Directories="@(Directories)" Condition="%(Files)=='0'" />
     </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(ProjectDir)Assets\Workshop&quot; &quot;$(ProjectDir)bin\&quot; /s /i /y&#xD;&#xA;xcopy &quot;$(ProjectDir)Assets\Shared&quot; &quot;$(ProjectDir)bin\&quot; /s /i /y&#xD;&#xA;del &quot;$(TargetDir)\$(TargetName).pdb&quot;" />
+  </Target>
   
 </Project>

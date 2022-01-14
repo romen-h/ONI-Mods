@@ -1,22 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
+  
   <PropertyGroup>
-    <TargetFramework>net471</TargetFramework>
-    <Authors>RomenH</Authors>
+    <AssemblyName>CommonLib</AssemblyName>
     <Version>2.0.0</Version>
-    <RepositoryUrl>https://github.com/romen-h/ONI-Mods</RepositoryUrl>
-    <Configurations>SpacedOut</Configurations>
-    <IsMod>true</IsMod>
+    <TargetFramework>net471</TargetFramework>
+    <Configurations>Release</Configurations>
     <RootNamespace>RomenH.CommonLib</RootNamespace>
+    <IsMod>true</IsMod>
+    <UsePLib>false</UsePLib>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <ModName>CommonLib</ModName>
+    <SupportedContent>ALL</SupportedContent>
+  </PropertyGroup>
+  
   <ItemGroup>
     <Reference Include="FMODUnity">
-      <HintPath>..\lib\FMODUnity.dll</HintPath>
+      <HintPath>$(GameLibsFolder)/FMODUnity.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>..\lib\UnityEngine.ImageConversionModule.dll</HintPath>
+      <HintPath>$(GameLibsFolder)/UnityEngine.ImageConversionModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
+  
 </Project>

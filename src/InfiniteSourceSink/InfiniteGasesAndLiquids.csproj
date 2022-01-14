@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>Thresholds</AssemblyName>
-    <Version>1.1.0</Version>
+    <AssemblyName>InfiniteGasesAndLiquids</AssemblyName>
+    <Version>2.0.7</Version>
     <TargetFramework>net471</TargetFramework>
     <Configurations>Release</Configurations>
-    <RootNamespace>RomenH.Thresholds</RootNamespace>
+    <RootNamespace>RomenH.InfinitGasesAndLiquids</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
-    <UsePLib>false</UsePLib>
+    <UsePLib>true</UsePLib>
   </PropertyGroup>
 
   <PropertyGroup>
-    <ModName>Threshold Walls</ModName>
+    <ModName>Infinite Gases and Liquids</ModName>
     <SupportedContent>ALL</SupportedContent>
   </PropertyGroup>
 

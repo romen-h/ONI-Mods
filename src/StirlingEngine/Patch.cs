@@ -9,6 +9,8 @@ namespace RomenH.StirlingEngine
 	{
 		public static void Prefix()
 		{
+			Debug.Log("Stirling Engine: Adding strings...");
+
 			StringUtils.AddBuildingStrings(
 				StirlingEngineConfig.ID,
 				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE.NAME,

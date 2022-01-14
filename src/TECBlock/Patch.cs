@@ -9,6 +9,8 @@ namespace RomenH.TECBlock
 	{
 		public static void Prefix()
 		{
+			Debug.Log("TEC Tile: Adding strings...");
+
 			StringUtils.AddBuildingStrings(
 				TECTileConfig.ID,
 				TECTileConfig.Name,

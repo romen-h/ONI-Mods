@@ -2,54 +2,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net471</TargetFramework>
-    <PackageId>GermicidalLamps</PackageId>
-    <Version>4.0.1</Version>
-    <Authors>RomenH</Authors>
-    <Product>GermicidalLamps</Product>
-    <Copyright>2021 RomenH</Copyright>
-    <RepositoryUrl>https://github.com/romen-h/ONI-Mods</RepositoryUrl>
-    <Configurations>SpacedOut</Configurations>
     <AssemblyName>GermicidalLamps</AssemblyName>
+    <Version>4.0.2</Version>
+    <TargetFramework>net471</TargetFramework>
+    <Configurations>Release</Configurations>
     <RootNamespace>RomenH.GermicideLamp</RootNamespace>
     <IsMod>true</IsMod>
-    <GenerateMetadata>true</GenerateMetadata>
-    <IsPacked>true</IsPacked>
+    <UseCommonLib>true</UseCommonLib>
+    <UsePLib>true</UsePLib>
   </PropertyGroup>
 
   <PropertyGroup>
     <ModName>Germicidal Lamps</ModName>
-    <ModDescription>TODO</ModDescription>
     <SupportedContent>ALL</SupportedContent>
-    <MinimumSupportedBuild>469369</MinimumSupportedBuild>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SpacedOut|AnyCPU'">
-    <OutDir>bin</OutDir>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Cairath.ONIMetadataFileGenerator" Version="1.0.0">
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
-    <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.18.2">
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CommonLib\CommonLib.csproj">
-    </ProjectReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="PLib">
-      <HintPath>..\..\..\ModRepos\PeterHan-ONIMods\PLib\bin\Spaced Out\Release\net471\PLib.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)Assets\Workshop&quot; &quot;$(ProjectDir)bin\&quot; /s /i /y&#xD;&#xA;xcopy &quot;$(ProjectDir)Assets\Shared&quot; &quot;$(ProjectDir)bin\&quot; /s /i /y&#xD;&#xA;del &quot;$(TargetDir)\$(TargetName).pdb&quot;" />
-  </Target>
 
 </Project>

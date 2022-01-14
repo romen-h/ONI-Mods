@@ -9,6 +9,8 @@ namespace RomenH.GermicideLamp
 	{
 		public static void Prefix()
 		{
+			Debug.Log("Germicidal Lamps: Adding strings...");
+
 			StringUtils.AddBuildingStrings(
 				GermicideLampConfig.ID,
 				ModStrings.STRINGS.BUILDINGS.GERMICIDELAMP.NAME,
