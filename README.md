@@ -72,7 +72,7 @@ A new building that deodorizes polluted oxygen with a vent input and output.
 ---
 
 ### [Plastic Door](src/PlasticDoor)
-[<img src="src/PlasticDoor/Assets/Workshop/preview.png" height="200px"/>](src/PlasticDoor)
+[<img src="src/PlasticDoor/Assets/preview.jpg" height="200px"/>](src/PlasticDoor)
 
 A new door made of plastic that blocks gas flow, but not liquids.
 
