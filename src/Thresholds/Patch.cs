@@ -17,6 +17,8 @@ namespace RomenH.Thresholds
 	{
 		public static void Prefix()
 		{
+			Debug.Log("Threshold Walls: Adding strings...");
+
 			StringUtils.AddBuildingStrings(
 				ThresholdWallConfig.ID,
 				ThresholdWallConfig.Name,
@@ -36,34 +38,12 @@ namespace RomenH.Thresholds
 
 		public static void Postfix()
 		{
-			BuildingUtils.AddBuildingToPlanScreen(ThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Base);
-			BuildingUtils.AddBuildingToPlanScreen(CautionThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Base);
-			BuildingUtils.AddBuildingToPlanScreen(MetalThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Base);
-			BuildingUtils.AddBuildingToTech(CautionThresholdWallConfig.ID, GameStrings.Technology.Decor.InteriorDecor);
+			BuildingUtils.AddBuildingToPlanScreen(ThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Utilities);
+			BuildingUtils.AddBuildingToPlanScreen(CautionThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Utilities);
+			BuildingUtils.AddBuildingToPlanScreen(MetalThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Utilities);
+			BuildingUtils.AddBuildingToTech(CautionThresholdWallConfig.ID, GameStrings.Technology.Exosuits.HazardProtection);
 			BuildingUtils.AddBuildingToTech(ThresholdWallConfig.ID, GameStrings.Technology.Decor.HomeLuxuries);
 			BuildingUtils.AddBuildingToTech(MetalThresholdWallConfig.ID, GameStrings.Technology.SolidMaterial.RefinedRenovations);
 		}
 	}
-
-#if false
-	[HarmonyPatch]
-	public static class RoomProber_IsWall_Patch
-	{
-		public static MethodBase TargetMethod()
-		{
-			return typeof(RoomProber).GetNestedType("CavityFloodFiller", BindingFlags.NonPublic).GetMethod("IsWall", BindingFlags.Static | BindingFlags.NonPublic);
-		}
-
-		public static bool Prefix(ref bool __result, int cell)
-		{
-			if (Threshold.ThresholdCells.Contains(cell))
-			{
-				__result = true;
-				return false;
-			}
-
-			return true;
-		}
-	}
-#endif
 }
