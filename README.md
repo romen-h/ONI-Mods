@@ -71,6 +71,13 @@ A new building that deodorizes polluted oxygen with a vent input and output.
 
 ---
 
+### [Plastic Door](src/PlasticDoor)
+[<img src="src/PlasticDoor/Assets/Workshop/preview.png" height="200px"/>](src/PlasticDoor)
+
+A new door made of plastic that blocks gas flow, but not liquids.
+
+---
+
 ### [Schedule Block Sensor](src/LogicScheduleSensor)
 [<img src="src/LogicScheduleSensor/Assets/Workshop/preview.png" height="200px"/>](src/LogicScheduleSensor)
 
