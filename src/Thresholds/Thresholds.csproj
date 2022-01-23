@@ -9,7 +9,7 @@
     <RootNamespace>RomenH.Thresholds</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
-    <UsePLib>false</UsePLib>
+    <UsePLib>true</UsePLib>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 using HarmonyLib;
 
@@ -34,6 +28,8 @@ namespace RomenH.Thresholds
 				MetalThresholdWallConfig.Name,
 				MetalThresholdWallConfig.Desc,
 				MetalThresholdWallConfig.Effect);
+
+			StringUtils.ExportTranslationTemplates();
 		}
 
 		public static void Postfix()
@@ -44,6 +40,15 @@ namespace RomenH.Thresholds
 			BuildingUtils.AddBuildingToTech(CautionThresholdWallConfig.ID, GameStrings.Technology.Exosuits.HazardProtection);
 			BuildingUtils.AddBuildingToTech(ThresholdWallConfig.ID, GameStrings.Technology.Decor.HomeLuxuries);
 			BuildingUtils.AddBuildingToTech(MetalThresholdWallConfig.ID, GameStrings.Technology.SolidMaterial.RefinedRenovations);
+		}
+	}
+
+	[HarmonyPatch(typeof(Localization), "Initialize")]
+	public class Localization_Initialize_Patch
+	{
+		public static void Postfix()
+		{
+			StringUtils.LoadTranslations();
 		}
 	}
 }
