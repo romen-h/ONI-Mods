@@ -1,5 +1,4 @@
 using KSerialization;
-using UnityEngine;
 
 namespace RomenH.PipedDeodorizer
 {

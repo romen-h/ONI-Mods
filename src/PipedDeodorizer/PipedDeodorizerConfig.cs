@@ -1,4 +1,5 @@
 using TUNING;
+
 using UnityEngine;
 
 namespace RomenH.PipedDeodorizer
@@ -76,7 +77,7 @@ namespace RomenH.PipedDeodorizer
 			ConduitConsumer conduitConsumer = go.AddOrGet<ConduitConsumer>();
 			conduitConsumer.conduitType = ConduitType.Gas;
 			conduitConsumer.consumptionRate = AIR_INPUT_RATE;
-			conduitConsumer.capacityKG = 2*AIR_INPUT_RATE;
+			conduitConsumer.capacityKG = 2 * AIR_INPUT_RATE;
 			conduitConsumer.capacityTag = GameTags.Breathable;// ElementLoader.FindElementByHash(SimHashes.ContaminatedOxygen).tag;
 			conduitConsumer.wrongElementResult = ConduitConsumer.WrongElementResult.Dump;
 			conduitConsumer.forceAlwaysSatisfied = true;
