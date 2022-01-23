@@ -1,24 +1,21 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace CommonLib
+namespace RomenH.Common
 {
 	public static class AssetLoader
 	{
 		private static readonly TextureAtlas ReferenceTileAtlas = Assets.GetTextureAtlas("tiles_solid");
-		
 
-		public static TextureAtlas GetCustomTileAtlas(string path)
+
+		public static TextureAtlas GetCustomTileAtlas(string filename)
 		{
 			TextureAtlas textureAtlas = null;
 			try
 			{
+				string path = Path.Combine(ModCommon.Folder, "textures", filename);
 				var data = File.ReadAllBytes(path);
 				var tex = new Texture2D(2, 2);
 				tex.LoadImage(data);
@@ -27,9 +24,10 @@ namespace CommonLib
 				textureAtlas.scaleFactor = ReferenceTileAtlas.scaleFactor;
 				textureAtlas.items = ReferenceTileAtlas.items;
 			}
-			catch
+			catch (Exception ex)
 			{
-				Debug.LogError($"Could not load atlas image at path {path}");
+				Debug.LogError($"Could not load atlas image: {filename}");
+				Debug.LogException(ex);
 			}
 
 			return textureAtlas;

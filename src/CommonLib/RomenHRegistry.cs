@@ -1,20 +1,16 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 using UnityEngine;
 
 namespace RomenH.Common
 {
-	public class RomenHRegistry : MonoBehaviour, IDictionary<string,object>
+	public class RomenHRegistry : MonoBehaviour, IDictionary<string, object>
 	{
 		private Dictionary<string, object> registry = new Dictionary<string, object>();
 
-		public static IDictionary<string,object> Init()
+		public static IDictionary<string, object> Init()
 		{
 			Debug.Log($"RomenH.Registry: Initializing from {Assembly.GetCallingAssembly().GetName().Name}");
 
@@ -85,7 +81,7 @@ namespace RomenH.Common
 		{
 			return registry.TryGetValue(key, out value);
 		}
-		
+
 		public void Clear()
 		{
 			registry.Clear();
