@@ -1,8 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Klei;
 
@@ -15,6 +11,8 @@ namespace SoggyCarpets
 		internal static readonly HashSet<int> SoggyCells = new HashSet<int>();
 
 		public float dripRate = 0.5f;
+
+		public float maxEmitPressure = 500f;
 
 		private int myCell;
 		private int cellBelow;
@@ -78,6 +76,11 @@ namespace SoggyCarpets
 					carpetBelow = go.GetComponent<SoggyCarpet>();
 					if (carpetBelow != null) doDrip = true;
 				}
+			}
+			else if (Grid.Mass[cellBelow] > maxEmitPressure)
+			{
+				// Do not drip in non-solid tiles that are over 500kg of pressure
+				doDrip = false;
 			}
 
 			if (!doDrip) return;
