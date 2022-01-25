@@ -80,6 +80,13 @@ A new door made of plastic that blocks gas flow, but not liquids.
 
 ---
 
+### [Plastic Mesh & Airflow Tiles](src/PermeablePlasticTiles)
+[<img src="src/PermeablePlasticTiles/Assets/Workshop/preview.png" height="200px"/>](src/PermeablePlasticTiles)
+
+Adds plastic versions of the mesh and airflow tiles.
+
+---
+
 ### [Schedule Block Sensor](src/LogicScheduleSensor)
 [<img src="src/LogicScheduleSensor/Assets/Workshop/preview.png" height="200px"/>](src/LogicScheduleSensor)
 
