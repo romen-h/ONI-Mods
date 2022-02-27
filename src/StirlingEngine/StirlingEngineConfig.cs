@@ -1,4 +1,8 @@
+
+using STRINGS;
+
 using TUNING;
+
 using UnityEngine;
 
 namespace RomenH.StirlingEngine
@@ -8,6 +12,12 @@ namespace RomenH.StirlingEngine
 		internal const float MAX_TEMP = TUNING.BUILDINGS.OVERHEAT_TEMPERATURES.HIGH_3;
 
 		public const string ID = "StirlingEngine";
+
+		public const string Name = "Stirling Engine";
+
+		public static string Desc = "Draws up to 100 DTU/s of heat from the cell below the floor and converts it to power. The amount of heat drawn is based on the ratio of building temperature vs temperature below the floor tile.";
+
+		public static string Effect = "Stirling Engines draw " + UI.FormatAsLink("Heat", "HEAT") + " from the room below and harness that heat to generate " + UI.FormatAsLink("Power", "POWER") + ".";
 
 		public override BuildingDef CreateBuildingDef()
 		{
@@ -19,7 +29,7 @@ namespace RomenH.StirlingEngine
 				hitpoints: 30,
 				construction_time: 60f,
 				construction_mass: new float[] {
-					BUILDINGS.CONSTRUCTION_MASS_KG.TIER4[0]
+					TUNING.BUILDINGS.CONSTRUCTION_MASS_KG.TIER4[0]
 				},
 				construction_materials: TUNING.MATERIALS.ALL_METALS,
 				melting_point: 1600f,
@@ -68,6 +78,9 @@ namespace RomenH.StirlingEngine
 			var engine = go.AddOrGet<StirlingEngine>();
 			var tinkerable = Tinkerable.MakePowerTinkerable(go);
 			tinkerable.SetWorkTime(120f);
+
+			//var sounds = go.AddOrGet<CustomLoopingSounds>();
+			//sounds.soundName = "PistonLoop";
 
 			go.AddOrGetDef<PoweredActiveController.Def>();
 		}

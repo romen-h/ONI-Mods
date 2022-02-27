@@ -2,15 +2,54 @@
 #define USE_ALL_HEAT
 #define PRODUCE_PROPORTIONAL_HEAT
 
-using KSerialization;
 using System;
+
+using KSerialization;
+
+using STRINGS;
+
 using UnityEngine;
 
 namespace RomenH.StirlingEngine
 {
 	[SerializationConfig(MemberSerialization.OptIn)]
-	class StirlingEngine : Generator
+	public class StirlingEngine : Generator
 	{
+		public class ActiveStatusItem
+		{
+			public static string ID = "STIRLING_ACTIVE";
+			public static string Name = "Active";
+			public static string Tooltip = "This engine is running at <b>{Efficiency}</b> efficiency.";
+		}
+
+		public class NoHeatGradientStatusItem
+		{
+			public static string ID = "STIRLING_NO_HEAT_GRADIENT";
+			public static string Name = "Temperature gradient is less than <b>{Min_Temperature_Gradient}</b>.";
+			public static string Tooltip = "This engine requires a " + UI.PRE_KEYWORD + "Temperature" + UI.PST_KEYWORD + " difference of at least <b>{Min_Temperature_Gradient}</b> to generate power.";
+		}
+
+		public class TooHotStatusItem
+		{
+			public static string ID = "STIRLING_TOO_HOT";
+			public static string Name = "Engine Too Hot";
+			public static string Tooltip = "This engine must be below <b>{Overheat_Temperature}</b> to properly function.";
+		}
+
+		public class ActiveWattageStatusItem
+		{
+			public static string ID = "STIRLING_ACTIVE_WATTAGE";
+			public static string Name = "Current Wattage: {Wattage}";
+			public static string Tooltip = "This stirling engine is generating " + UI.FormatAsPositiveRate("{Wattage}") + "\n\nIt is running at <b>{Efficiency}</b> of full capacity. Increase the " + UI.PRE_KEYWORD + "Temperature" + UI.PST_KEYWORD + " gradient to improve output.";
+		}
+
+		public class HeatPumpedStatusItem
+		{
+			public static string ID = "STIRLING_HEAT_PUMPED";
+			public static string Name = "Heat Input: {HeatPumped}";
+			public static string Tooltip = "This stiling engine is moving " + UI.FormatAsPositiveRate("{HeatPumped}");
+		}
+
 		internal static float HeatToWatts(float dtu)
 		{
 			return dtu / ModSettings.Instance.DTUPerWatt;
@@ -126,7 +165,7 @@ namespace RomenH.StirlingEngine
 				float tempDiffK = hotTempK - coldTempK;
 				if (tempDiffK < 0) tempDiffK = 0;
 
-				
+
 
 				// Check if temperature gradient is sufficient
 				if (srcMass > 0f)
@@ -142,7 +181,7 @@ namespace RomenH.StirlingEngine
 				// Calculate efficiency
 				if (srcMass > 0f && coldTempK > 0 && hotTempK > 0)
 				{
-					base.master.currentEfficiency = Mathf.Clamp(1f - (coldTempK / hotTempK), 0f, 1.0f);
+					base.master.currentEfficiency = Mathf.Clamp(1f - (coldTempK / hotTempK), 0f, 1f);
 				}
 				else
 				{
@@ -254,17 +293,17 @@ namespace RomenH.StirlingEngine
 
 		public static void InitializeStatusItems()
 		{
-			activeStatusItem = new StatusItem(ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE.ID, "BUILDING", "", StatusItem.IconType.Info, NotificationType.Good, allow_multiples: false, OverlayModes.None.ID);
-			insufficientTemperatureGradientStatusItem = new StatusItem(ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_NO_HEAT_GRADIENT.ID, "BUILDING", "", StatusItem.IconType.Exclamation, NotificationType.BadMinor, allow_multiples: false, OverlayModes.None.ID);
+			activeStatusItem = new StatusItem(ActiveStatusItem.ID, "BUILDING", "", StatusItem.IconType.Info, NotificationType.Good, allow_multiples: false, OverlayModes.None.ID);
+			insufficientTemperatureGradientStatusItem = new StatusItem(NoHeatGradientStatusItem.ID, "BUILDING", "", StatusItem.IconType.Exclamation, NotificationType.BadMinor, allow_multiples: false, OverlayModes.None.ID);
 			insufficientTemperatureGradientStatusItem.resolveStringCallback = ResolveStrings;
 			insufficientTemperatureGradientStatusItem.resolveTooltipCallback = ResolveStrings;
-			buildingTooHotStatusItem = new StatusItem(ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_TOO_HOT.ID, "BUILDING", "status_item_plant_temperature", StatusItem.IconType.Custom, NotificationType.BadMinor, allow_multiples: false, OverlayModes.None.ID);
+			buildingTooHotStatusItem = new StatusItem(TooHotStatusItem.ID, "BUILDING", "status_item_plant_temperature", StatusItem.IconType.Custom, NotificationType.BadMinor, allow_multiples: false, OverlayModes.None.ID);
 			buildingTooHotStatusItem.resolveTooltipCallback = ResolveStrings;
-			activeWattageStatusItem = new StatusItem(ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE_WATTAGE.ID, "BUILDING", "", StatusItem.IconType.Info, NotificationType.Neutral, allow_multiples: false, OverlayModes.Power.ID);
+			activeWattageStatusItem = new StatusItem(ActiveWattageStatusItem.ID, "BUILDING", "", StatusItem.IconType.Info, NotificationType.Neutral, allow_multiples: false, OverlayModes.Power.ID);
 			activeWattageStatusItem.resolveStringCallback = ResolveWattageStatus;
 			heatProducedStatusItem = new StatusItem("OPERATINGENERGY", "BUILDING", "", StatusItem.IconType.Info, NotificationType.Neutral, allow_multiples: false, OverlayModes.Temperature.ID);
 			heatProducedStatusItem.resolveStringCallback = ResolveHeatStatus;
-			heatPumpedStatusItem = new StatusItem(ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_HEAT_PUMPED.ID, "BUILDING", "", StatusItem.IconType.Info, NotificationType.Neutral, allow_multiples: false, OverlayModes.Temperature.ID);
+			heatPumpedStatusItem = new StatusItem(HeatPumpedStatusItem.ID, "BUILDING", "", StatusItem.IconType.Info, NotificationType.Neutral, allow_multiples: false, OverlayModes.Temperature.ID);
 			heatPumpedStatusItem.resolveStringCallback = ResolveStrings;
 		}
 
@@ -281,7 +320,7 @@ namespace RomenH.StirlingEngine
 		private static string ResolveWattageStatus(string str, object data)
 		{
 			StirlingEngine engine = (StirlingEngine)data;
-			return str.Replace("{Wattage}", GameUtil.GetFormattedWattage(engine.currentGeneratedPower)).Replace("{Max_Wattage}", GameUtil.GetFormattedWattage(engine.WattageRating)).Replace("{Efficiency}", GameUtil.GetFormattedPercent(engine.currentEfficiency * 100f));
+			return str.Replace("{Wattage}", GameUtil.GetFormattedWattage(engine.currentGeneratedPower)).Replace("{Efficiency}", GameUtil.GetFormattedPercent(engine.currentEfficiency * 100f));
 		}
 
 		private static string ResolveHeatStatus(string str, object data)
@@ -296,6 +335,9 @@ namespace RomenH.StirlingEngine
 		private HandleVector<int>.Handle structureTemperature;
 		private int heatSourceCell;
 
+		[MyCmpGet]
+		public KBatchedAnimController anim;
+
 		// Configurable
 		private float maxBuildingTemperature = StirlingEngineConfig.MAX_TEMP;
 		private float minTemperatureDifferenceK;
@@ -308,6 +350,8 @@ namespace RomenH.StirlingEngine
 		private float currentEfficiency = 1.0f;
 		private float currentGeneratedPower = 0f;
 		private float currentGeneratedHeat = 0f;
+
+		private int audioChannel = -1;
 
 		protected override void OnSpawn()
 		{
@@ -328,6 +372,8 @@ namespace RomenH.StirlingEngine
 			minTemperatureDifferenceK = ModSettings.Instance.MinimumTemperatureDifference;
 			maxHeatToPumpDTU = WattsToHeat(ModSettings.Instance.MaxWattOutput);
 			wasteHeatRatio = ModSettings.Instance.WasteHeatRatio;
+
+			anim.PlaySpeedMultiplier = 1.5f;
 
 			// Set up state machine
 			smi = new Instance(this);
@@ -361,7 +407,7 @@ namespace RomenH.StirlingEngine
 			currentGeneratedHeat = 1f;
 #endif
 
-			currentGeneratedPower = Mathf.Clamp(HeatToWatts(workHeat), 0, heatToPumpDTU);
+			currentGeneratedPower = HeatToWatts(Mathf.Clamp(workHeat, 0, heatToPumpDTU));
 
 			SimMessages.ModifyEnergy(heatSourceCell, -(heatToPumpDTU * dt / 1000f), 5000f, SimMessages.EnergySourceID.StructureTemperature);
 		}

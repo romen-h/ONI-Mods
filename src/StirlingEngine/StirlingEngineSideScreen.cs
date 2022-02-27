@@ -1,4 +1,4 @@
-﻿#if ENABLE_SIDESCREEN
+#if ENABLE_SIDESCREEN
 using PeterHan.PLib;
 using PeterHan.PLib.UI;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace RomenMods.StirlingEngineMod
+namespace RomenH.StirlingEngineMod
 {
 	public class StirlingEngineSideScreen : SideScreenContent, ISim1000ms
 	{

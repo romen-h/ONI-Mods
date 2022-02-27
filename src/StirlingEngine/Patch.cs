@@ -1,4 +1,5 @@
 using HarmonyLib;
+
 using RomenH.Common;
 
 namespace RomenH.StirlingEngine
@@ -13,46 +14,57 @@ namespace RomenH.StirlingEngine
 
 			StringUtils.AddBuildingStrings(
 				StirlingEngineConfig.ID,
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE.NAME,
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE.DESC,
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE.EFFECT);
+				StirlingEngineConfig.Name,
+				StirlingEngineConfig.Desc,
+				StirlingEngineConfig.Effect
+			);
 
 			StringUtils.AddStatusItemStrings(
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE.ID,
+				StirlingEngine.ActiveStatusItem.ID,
 				"BUILDING",
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE.NAME,
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE.TOOLTIP);
+				StirlingEngine.ActiveStatusItem.Name,
+				StirlingEngine.ActiveStatusItem.Tooltip);
 
 			StringUtils.AddStatusItemStrings(
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_NO_HEAT_GRADIENT.ID,
+				StirlingEngine.NoHeatGradientStatusItem.ID,
 				"BUILDING",
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_NO_HEAT_GRADIENT.NAME,
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_NO_HEAT_GRADIENT.TOOLTIP);
+				StirlingEngine.NoHeatGradientStatusItem.Name,
+				StirlingEngine.NoHeatGradientStatusItem.Tooltip);
 
 			StringUtils.AddStatusItemStrings(
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_TOO_HOT.ID,
+				StirlingEngine.TooHotStatusItem.ID,
 				"BUILDING",
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_TOO_HOT.NAME,
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_TOO_HOT.TOOLTIP);
+				StirlingEngine.TooHotStatusItem.Name,
+				StirlingEngine.TooHotStatusItem.Tooltip);
 
 			StringUtils.AddStatusItemStrings(
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE_WATTAGE.ID,
+				StirlingEngine.ActiveWattageStatusItem.ID,
 				"BUILDING",
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE_WATTAGE.NAME,
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_ACTIVE_WATTAGE.TOOLTIP);
+				StirlingEngine.ActiveWattageStatusItem.Name,
+				StirlingEngine.ActiveWattageStatusItem.Tooltip);
 
 			StringUtils.AddStatusItemStrings(
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_HEAT_PUMPED.ID,
+				StirlingEngine.HeatPumpedStatusItem.ID,
 				"BUILDING",
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_HEAT_PUMPED.NAME,
-				ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE_HEAT_PUMPED.TOOLTIP);
+				StirlingEngine.HeatPumpedStatusItem.Name,
+				StirlingEngine.HeatPumpedStatusItem.Tooltip);
 
+			StringUtils.ExportTranslationTemplates();
 		}
 
 		public static void Postfix()
 		{
 			BuildingUtils.AddBuildingToPlanScreen(StirlingEngineConfig.ID, GameStrings.PlanMenuCategory.Power);
 			BuildingUtils.AddBuildingToTech(StirlingEngineConfig.ID, GameStrings.Technology.Gases.TemperatureModulation);
+		}
+	}
+
+	[HarmonyPatch(typeof(Localization), "Initialize")]
+	public class Localization_Initialize_Patch
+	{
+		public static void Postfix()
+		{
+			StringUtils.LoadTranslations();
 		}
 	}
 }

@@ -1,25 +1,31 @@
+using System.IO;
+using System.Reflection;
+
 using HarmonyLib;
+
 using KMod;
+
 using PeterHan.PLib.Core;
 using PeterHan.PLib.Options;
+
+using RomenH.Common;
+using RomenH.CommonLib;
 
 namespace RomenH.StirlingEngine
 {
 	public class Mod : UserMod2
 	{
-		internal static readonly ModSettings DefaultSettings = new ModSettings();
-
-		internal POptions Options
-		{ get; private set; }
-
 		public override void OnLoad(Harmony harmony)
 		{
+			ModCommon.Init("Stirling Engine");
 			PUtil.InitLibrary();
 
-			Options = new POptions();
-			Options.RegisterOptions(this, typeof(ModSettings));
+			//AudioUtil.LoadSound("PistonLoop", Path.Combine(ModCommon.Folder, "piston.wav"), true);
 
-			ModStrings.STRINGS.BUILDINGS.STIRLINGENGINE.DESC = $"Draws up to {StirlingEngine.WattsToHeat(ModSettings.Instance.MaxWattOutput):F0} DTU/s of heat from the cell below the floor and converts it to power. The amount of heat drawn is based on the ratio of building temperature vs temperature below the floor tile.";
+			var options = new POptions();
+			options.RegisterOptions(this, typeof(ModSettings));
+
+			StirlingEngineConfig.Desc = $"Draws up to {StirlingEngine.WattsToHeat(ModSettings.Instance.MaxWattOutput):F0} DTU/s of heat from the cell below the floor and converts it to power. The amount of heat drawn is based on the ratio of building temperature vs temperature below the floor tile.";
 
 			base.OnLoad(harmony);
 		}

@@ -11,23 +11,24 @@ namespace RomenH.StirlingEngine
 	{
 		[JsonProperty]
 		[Option("Minimum Temperature Difference", "Determines the minimum temperature difference between building and source tile that allows the building to operate.")]
-		[Limit(1,100)]
+		[Limit(1, 100)]
 		public float MinimumTemperatureDifference
 		{ get; set; }
 
 		[JsonProperty]
-		[Option("Power Scale", "Determines the max power output and amount of heat the engine will pump.")]
-		[Limit(10,1000)]
+		[Option("Max Power", "Determines the max power output and amount of heat the engine will pump.")]
+		[Limit(10, 1000)]
 		public float MaxWattOutput
 		{ get; set; }
 
 		[JsonProperty]
 		[Option("Waste Heat Ratio", "Determines the amount of heat that is taken into the building instead of generating power.")]
-		[Limit(0,1)]
+		[Limit(0, 1)]
 		public float WasteHeatRatio
 		{ get; set; }
 
 		[JsonProperty]
+		[Option("DTU/W Coefficient", "Determines how much thermal energy is equivalent to one Watt.\nDefault = 100 DTU/W")]
 		public float DTUPerWatt
 		{ get; set; }
 
