@@ -1,5 +1,11 @@
+using System.IO;
+using System.Reflection;
+
 using HarmonyLib;
+
 using KMod;
+
+using RomenH.Common;
 
 namespace Curtain
 {
@@ -7,6 +13,8 @@ namespace Curtain
 	{
 		public override void OnLoad(Harmony harmony)
 		{
+			ModCommon.Init("Plastic Door");
+
 			base.OnLoad(harmony);
 		}
 	}
