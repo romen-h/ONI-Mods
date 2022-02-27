@@ -8,7 +8,7 @@
     <Configurations>Release</Configurations>
     <RootNamespace>RomenH.MakeDirt</RootNamespace>
     <IsMod>true</IsMod>
-    <UseCommonLib>false</UseCommonLib>
+    <UseCommonLib>true</UseCommonLib>
     <UsePLib>false</UsePLib>
   </PropertyGroup>
 

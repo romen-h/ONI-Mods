@@ -1,5 +1,9 @@
-using HarmonyLib;
 using System.Collections.Generic;
+
+using HarmonyLib;
+
+using RomenH.Common;
+
 using UnityEngine;
 
 namespace RomenH.MakeDirt
@@ -71,6 +75,15 @@ namespace RomenH.MakeDirt
 					}
 				};
 			}
+		}
+	}
+
+	[HarmonyPatch(typeof(Localization), "Initialize")]
+	public class Localization_Initialize_Patch
+	{
+		public static void Postfix()
+		{
+			StringUtils.LoadTranslations();
 		}
 	}
 }
