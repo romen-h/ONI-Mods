@@ -1,4 +1,5 @@
 using TUNING;
+
 using UnityEngine;
 
 namespace RomenH.GermicideLamp
@@ -35,8 +36,8 @@ namespace RomenH.GermicideLamp
 				noise: NOISE_POLLUTION.NONE
 			);
 			def.RequiresPowerInput = true;
-			def.EnergyConsumptionWhenActive = Mod.Settings.BigLampPowerCost;
-			def.SelfHeatKilowattsWhenActive = Mod.Settings.BigLampHeat;
+			def.EnergyConsumptionWhenActive = ModSettings.Instance.BigLampPowerCost;
+			def.SelfHeatKilowattsWhenActive = ModSettings.Instance.BigLampHeat;
 			def.AudioCategory = "Metal";
 			def.Floodable = false;
 			def.Entombable = true;
@@ -61,15 +62,17 @@ namespace RomenH.GermicideLamp
 
 		public override void DoPostConfigureComplete(GameObject go)
 		{
+			ExtentsHelpers.CenteredUVExtents(ModSettings.Instance.BigLampRange, 1, 3, out int left, out int width, out int bottom, out int height);
+
 			go.AddOrGet<LoopingSounds>();
 			go.AddOrGet<EnergyConsumer>();
 			var lamp = go.AddOrGet<GermicideLamp>();
-			lamp.aoeLeft = UV_LEFT;
-			lamp.aoeWidth = UV_WIDTH;
-			lamp.aoeBottom = UV_BOTTOM;
-			lamp.aoeHeight = UV_HEIGHT;
-			lamp.applySunburn = Mod.Settings.BigLampGivesSunburn;
-			lamp.strength = Mod.Settings.BigLampGermicidalStrength;
+			lamp.aoeLeft = left;
+			lamp.aoeWidth = width;
+			lamp.aoeBottom = bottom;
+			lamp.aoeHeight = height;
+			lamp.applySunburn = ModSettings.Instance.BigLampGivesSunburn;
+			lamp.strength = ModSettings.Instance.BigLampGermicidalStrength;
 			go.AddOrGet<LogicOperationalController>();
 			go.AddOrGetDef<PoweredActiveController.Def>();
 			AddVisualizer(go, movable: false);
@@ -77,11 +80,13 @@ namespace RomenH.GermicideLamp
 
 		private static void AddVisualizer(GameObject prefab, bool movable)
 		{
+			ExtentsHelpers.CenteredUVExtents(ModSettings.Instance.BigLampRange, 1, 3, out int left, out int width, out int bottom, out int height);
+
 			StationaryChoreRangeVisualizer stationaryChoreRangeVisualizer = prefab.AddOrGet<StationaryChoreRangeVisualizer>();
-			stationaryChoreRangeVisualizer.x = UV_LEFT;
-			stationaryChoreRangeVisualizer.y = UV_BOTTOM;
-			stationaryChoreRangeVisualizer.width = UV_WIDTH;
-			stationaryChoreRangeVisualizer.height = UV_HEIGHT;
+			stationaryChoreRangeVisualizer.x = left;
+			stationaryChoreRangeVisualizer.y = bottom;
+			stationaryChoreRangeVisualizer.width = width;
+			stationaryChoreRangeVisualizer.height = height;
 			stationaryChoreRangeVisualizer.movable = movable;
 			stationaryChoreRangeVisualizer.blocking_tile_visible = true;
 
@@ -93,5 +98,7 @@ namespace RomenH.GermicideLamp
 				};
 			};
 		}
+
+
 	}
 }

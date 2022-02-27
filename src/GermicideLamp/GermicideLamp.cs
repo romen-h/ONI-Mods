@@ -1,6 +1,9 @@
-using Klei.AI;
-using KSerialization;
 using System.Collections.Generic;
+
+using Klei.AI;
+
+using KSerialization;
+
 using UnityEngine;
 
 namespace RomenH.GermicideLamp
@@ -12,8 +15,8 @@ namespace RomenH.GermicideLamp
 
 		public static void GetAOEBounds(int xOffset, int yOffset, int width, int height, out int left, out int bottom)
 		{
-			left = xOffset -width / 2;
-			bottom = yOffset -height / 2;
+			left = xOffset - width / 2;
+			bottom = yOffset - height / 2;
 		}
 
 		public bool FlashReachesCell(int cellX, int cellY)
@@ -54,18 +57,18 @@ namespace RomenH.GermicideLamp
 				diseasesKilled = new HashSet<byte>();
 				var db = Db.Get();
 
-				if (Mod.Settings.UVCKillsFoodPoisoning)
+				if (ModSettings.Instance.UVCKillsFoodPoisoning)
 					diseasesKilled.Add(db.Diseases.GetIndex(db.Diseases.FoodGerms.id));
 
-				if (Mod.Settings.UVCKillsSlimelung)
+				if (ModSettings.Instance.UVCKillsSlimelung)
 					diseasesKilled.Add(db.Diseases.GetIndex(db.Diseases.SlimeGerms.id));
 
-				if (Mod.Settings.UVCKillsZombieSpores)
+				if (ModSettings.Instance.UVCKillsZombieSpores)
 					diseasesKilled.Add(db.Diseases.GetIndex(db.Diseases.ZombieSpores.id));
 
 				if (DlcManager.IsExpansion1Active())
 				{
-					if (Mod.Settings.UVCKillsRadiation)
+					if (ModSettings.Instance.UVCKillsRadiation)
 						diseasesKilled.Add(db.Diseases.GetIndex(db.Diseases.RadiationPoisoning.id));
 				}
 			}
@@ -77,7 +80,7 @@ namespace RomenH.GermicideLamp
 		{
 			if (flicker && light != null)
 			{
-				float intensity = Mathf.Sin(100f*Time.time) * 0.025f + 0.975f;
+				float intensity = Mathf.Sin(100f * Time.time) * 0.025f + 0.975f;
 				light.IntensityAnimation = intensity;
 			}
 		}
@@ -105,109 +108,7 @@ namespace RomenH.GermicideLamp
 					for (int dx = aoeLeft; dx < aoeLeft + aoeWidth; dx++)
 					{
 						int x = lampXY.X + dx;
-						if (FlashReachesCell(x, y))
-						{
-							int cell = Grid.XYToCell(x, y);
-
-							// Delete germs in the cell
-
-							byte cellGermIndex = Grid.DiseaseIdx[cell];
-							if (diseasesKilled.Contains(cellGermIndex))
-							{
-								int cellGermCount = Grid.DiseaseCount[cell];
-								int cellGermsToKill = GermsToKill(cellGermCount);
-								SimMessages.ModifyDiseaseOnCell(cell, cellGermIndex, -cellGermsToKill);
-							}
-
-							// Delete germs on pickupables in the cell
-
-							var pickupablesInCell = Grid.Objects[cell, (int)ObjectLayer.Pickupables];
-							if (pickupablesInCell != null)
-							{
-								var currentPickupable = pickupablesInCell.GetComponent<Pickupable>().objectLayerListItem;
-								while (currentPickupable != null)
-								{
-									var pickupable = currentPickupable.gameObject.GetComponent<Pickupable>();
-									currentPickupable = currentPickupable.nextItem;
-
-									if (pickupable != null)
-									{
-										byte pickupableDiseaseIndex = pickupable.PrimaryElement.DiseaseIdx;
-										if (diseasesKilled.Contains(pickupableDiseaseIndex))
-										{
-											int pickupableGermCount = pickupable.PrimaryElement.DiseaseCount;
-											int pickupableGermsToKill = GermsToKill(pickupableGermCount);
-											pickupable.PrimaryElement.ModifyDiseaseCount(-pickupableGermsToKill, GermicideLampConfig.ID);
-										}
-
-										if (applySunburn)
-										{
-											var minion = pickupable.GetComponent<MinionIdentity>();
-											if (minion != null)
-											{
-												var sunburn = new SicknessExposureInfo(Db.Get().Sicknesses.Sunburn.Id, ModStrings.STRINGS.BUILDINGS.GERMICIDELAMP.NAME);
-												var sicknesses = minion.GetSicknesses();
-
-												bool hasSunburn = false;
-
-												if (sicknesses.IsInfected())
-												{
-													foreach (SicknessInstance item in sicknesses)
-													{
-														if (item.ExposureInfo.sicknessID == Db.Get().Sicknesses.Sunburn.Id)
-														{
-															hasSunburn = true;
-															break;
-														}
-													}
-												}
-
-												if (!hasSunburn) sicknesses.Infect(sunburn);
-											}
-										}
-									}
-								}
-							}
-
-							// Delete germs on solid conduit items in the cell
-
-							var conduit = Game.Instance.solidConduitFlow.GetConduit(cell);
-							if (!conduit.Equals(SolidConduitFlow.Conduit.Invalid()))
-							{
-								var conduitContents = conduit.GetContents(Game.Instance.solidConduitFlow);
-								var conduitPickupable = Game.Instance.solidConduitFlow.GetPickupable(conduitContents.pickupableHandle);
-								if (conduitPickupable != null)
-								{
-									byte conduitDiseaseIndex = conduitPickupable.PrimaryElement.DiseaseIdx;
-									if (diseasesKilled.Contains(conduitDiseaseIndex))
-									{
-										int cpuCount = conduitPickupable.PrimaryElement.DiseaseCount;
-										int cpuGermsToKill = GermsToKill(cpuCount);
-										conduitPickupable.PrimaryElement.ModifyDiseaseCount(-cpuGermsToKill, GermicideLampConfig.ID);
-									}
-								}
-							}
-
-							// Delete germs on buildings in the cell
-
-							var buildingInCell = Grid.Objects[cell, (int)ObjectLayer.Building];
-							if (buildingInCell != null && !buildingsAlreadySeen.Contains(buildingInCell))
-							{
-								var buildingElement = buildingInCell.GetComponent<PrimaryElement>();
-								if (buildingElement != null)
-								{
-									byte buildingDiseaseIndex = buildingElement.DiseaseIdx;
-									if (diseasesKilled.Contains(buildingDiseaseIndex))
-									{
-										int buildingGermCount = buildingElement.DiseaseCount;
-										int buildingGermsToKill = GermsToKill(buildingGermCount);
-										buildingElement.ModifyDiseaseCount(-buildingGermsToKill, GermicideLampConfig.ID);
-									}
-								}
-
-								buildingsAlreadySeen.Add(buildingInCell);
-							}
-						}
+						UpdateCell(dt, x, y, buildingsAlreadySeen);
 					}
 				}
 			}
@@ -216,6 +117,113 @@ namespace RomenH.GermicideLamp
 				if (operational != null)
 				{
 					operational.SetActive(false);
+				}
+			}
+		}
+
+		private void UpdateCell(float dt, int x, int y, HashSet<GameObject> buildingsAlreadySeen)
+		{
+			if (FlashReachesCell(x, y))
+			{
+				int cell = Grid.XYToCell(x, y);
+
+				// Delete germs in the cell
+
+				byte cellGermIndex = Grid.DiseaseIdx[cell];
+				if (diseasesKilled.Contains(cellGermIndex))
+				{
+					int cellGermCount = Grid.DiseaseCount[cell];
+					int cellGermsToKill = GermsToKill(cellGermCount);
+					SimMessages.ModifyDiseaseOnCell(cell, cellGermIndex, -cellGermsToKill);
+				}
+
+				// Delete germs on pickupables in the cell
+
+				var pickupablesInCell = Grid.Objects[cell, (int)ObjectLayer.Pickupables];
+				if (pickupablesInCell != null)
+				{
+					var currentPickupable = pickupablesInCell.GetComponent<Pickupable>().objectLayerListItem;
+					while (currentPickupable != null)
+					{
+						var pickupable = currentPickupable.gameObject.GetComponent<Pickupable>();
+						currentPickupable = currentPickupable.nextItem;
+
+						if (pickupable != null)
+						{
+							byte pickupableDiseaseIndex = pickupable.PrimaryElement.DiseaseIdx;
+							if (diseasesKilled.Contains(pickupableDiseaseIndex))
+							{
+								int pickupableGermCount = pickupable.PrimaryElement.DiseaseCount;
+								int pickupableGermsToKill = GermsToKill(pickupableGermCount);
+								pickupable.PrimaryElement.ModifyDiseaseCount(-pickupableGermsToKill, GermicideLampConfig.ID);
+							}
+
+							if (applySunburn)
+							{
+								var minion = pickupable.GetComponent<MinionIdentity>();
+								if (minion != null)
+								{
+									var sunburn = new SicknessExposureInfo(Db.Get().Sicknesses.Sunburn.Id, ModStrings.STRINGS.BUILDINGS.GERMICIDELAMP.NAME);
+									var sicknesses = minion.GetSicknesses();
+
+									bool hasSunburn = false;
+
+									if (sicknesses.IsInfected())
+									{
+										foreach (SicknessInstance item in sicknesses)
+										{
+											if (item.ExposureInfo.sicknessID == Db.Get().Sicknesses.Sunburn.Id)
+											{
+												hasSunburn = true;
+												break;
+											}
+										}
+									}
+
+									if (!hasSunburn) sicknesses.Infect(sunburn);
+								}
+							}
+						}
+					}
+				}
+
+				// Delete germs on solid conduit items in the cell
+
+				var conduit = Game.Instance.solidConduitFlow.GetConduit(cell);
+				if (!conduit.Equals(SolidConduitFlow.Conduit.Invalid()))
+				{
+					var conduitContents = conduit.GetContents(Game.Instance.solidConduitFlow);
+					var conduitPickupable = Game.Instance.solidConduitFlow.GetPickupable(conduitContents.pickupableHandle);
+					if (conduitPickupable != null)
+					{
+						byte conduitDiseaseIndex = conduitPickupable.PrimaryElement.DiseaseIdx;
+						if (diseasesKilled.Contains(conduitDiseaseIndex))
+						{
+							int cpuCount = conduitPickupable.PrimaryElement.DiseaseCount;
+							int cpuGermsToKill = GermsToKill(cpuCount);
+							conduitPickupable.PrimaryElement.ModifyDiseaseCount(-cpuGermsToKill, GermicideLampConfig.ID);
+						}
+					}
+				}
+
+				// Delete germs on buildings in the cell
+
+				var buildingInCell = Grid.Objects[cell, (int)ObjectLayer.Building];
+				if (buildingInCell != null && !buildingsAlreadySeen.Contains(buildingInCell))
+				{
+					var buildingElement = buildingInCell.GetComponent<PrimaryElement>();
+					if (buildingElement != null)
+					{
+						byte buildingDiseaseIndex = buildingElement.DiseaseIdx;
+						if (diseasesKilled.Contains(buildingDiseaseIndex))
+						{
+							int buildingGermCount = buildingElement.DiseaseCount;
+							int buildingGermsToKill = GermsToKill(buildingGermCount);
+							buildingElement.ModifyDiseaseCount(-buildingGermsToKill, GermicideLampConfig.ID);
+						}
+					}
+
+					buildingsAlreadySeen.Add(buildingInCell);
 				}
 			}
 		}

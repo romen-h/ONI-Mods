@@ -1,4 +1,5 @@
 using HarmonyLib;
+
 using RomenH.Common;
 
 namespace RomenH.GermicideLamp
@@ -21,6 +22,8 @@ namespace RomenH.GermicideLamp
 				ModStrings.STRINGS.BUILDINGS.CEILINGGERMICIDELAMP.NAME,
 				ModStrings.STRINGS.BUILDINGS.CEILINGGERMICIDELAMP.DESC,
 				ModStrings.STRINGS.BUILDINGS.CEILINGGERMICIDELAMP.EFFECT);
+
+			StringUtils.ExportTranslationTemplates();
 		}
 
 		public static void Postfix()
@@ -30,6 +33,15 @@ namespace RomenH.GermicideLamp
 
 			BuildingUtils.AddBuildingToTech(GermicideLampConfig.ID, GameStrings.Technology.Medicine.PathogenDiagnostics);
 			BuildingUtils.AddBuildingToTech(CeilingGermicideLampConfig.ID, GameStrings.Technology.Medicine.PathogenDiagnostics);
+		}
+	}
+
+	[HarmonyPatch(typeof(Localization), "Initialize")]
+	public class Localization_Initialize_Patch
+	{
+		public static void Postfix()
+		{
+			StringUtils.LoadTranslations();
 		}
 	}
 }

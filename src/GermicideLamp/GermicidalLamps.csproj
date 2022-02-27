@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <AssemblyName>GermicidalLamps</AssemblyName>
-    <Version>4.0.2</Version>
+    <Version>4.0.3</Version>
     <TargetFramework>net471</TargetFramework>
     <Configurations>Release</Configurations>
     <RootNamespace>RomenH.GermicideLamp</RootNamespace>

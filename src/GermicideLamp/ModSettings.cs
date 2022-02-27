@@ -1,15 +1,15 @@
 using Newtonsoft.Json;
-using UnityEngine;
 
-using Option = PeterHan.PLib.Options.OptionAttribute;
-using Limit = PeterHan.PLib.Options.LimitAttribute;
+using PeterHan.PLib.Options;
+
+using UnityEngine;
 
 namespace RomenH.GermicideLamp
 {
 	[PeterHan.PLib.Options.RestartRequired]
 	[JsonObject(MemberSerialization.OptIn)]
 	[PeterHan.PLib.Options.ModInfo("Germicidal UV Lamps", "https://github.com/romen-h/ONI-Mods")]
-	public class ModSettings
+	public class ModSettings : SingletonOptions<ModSettings>
 	{
 		#region General
 
@@ -31,12 +31,10 @@ namespace RomenH.GermicideLamp
 		public bool UVCKillsZombieSpores
 		{ get; set; }
 
-#if SPACED_OUT
 		[JsonProperty]
-		[DlcOnlyOption("Kill Radiation Contaminents", "Determines whether UVC light kills radiation contaminents.", category: "General")]
+		[Option("Kill Radiation Contaminents (Spaced Out!)", "Determines whether UVC light kills radiation contaminents.", category: "General")]
 		public bool UVCKillsRadiation
 		{ get; set; }
-#endif
 
 		#endregion
 
@@ -59,13 +57,18 @@ namespace RomenH.GermicideLamp
 		{ get; set; }
 
 		[JsonProperty]
+		[Option("Range", "The range of the light from the lamp.", category: "Germicidal UV Lamp")]
+		public int BigLampRange
+		{ get; set; }
+
+		[JsonProperty]
 		[Option("Heat Output", "The amount of heat produced by the lamp in kDTU/s.", category: "Germicidal UV Lamp (Big)", Format = "F3")]
 		public float BigLampHeat
 		{ get; set; }
 
-#endregion
+		#endregion
 
-#region Ceiling Light
+		#region Ceiling Light
 
 		[JsonProperty]
 		[Option("Gives Dupes Sunburn", "Determines whether dupes that go near the lamp will receive sunburn.", category: "Germicidal Ceiling Light")]
@@ -84,6 +87,16 @@ namespace RomenH.GermicideLamp
 		{ get; set; }
 
 		[JsonProperty]
+		[Option("Horiztonal Range", "The horiztonal range of the tiles affected by the lamp.", category: "Germicidal Ceiling Light")]
+		public int CeilingLampRangeWidth
+		{ get; set; }
+
+		[JsonProperty]
+		[Option("Vertical Range", "The vertical range of the tiles affected by the lamp.", category: "Germicidal Ceiling Light")]
+		public int CeilingLampRangeHeight
+		{ get; set; }
+
+		[JsonProperty]
 		[Option("Lux", "The power of the light in lux.", category: "Germicidal Ceiling Light")]
 		public int CeilingLampLux
 		{ get; set; }
@@ -93,9 +106,9 @@ namespace RomenH.GermicideLamp
 		public float CeilingLampHeat
 		{ get; set; }
 
-#endregion
+		#endregion
 
-#region ShineBugs
+		#region ShineBugs
 
 		[JsonProperty]
 		[Option("Enable UV Sun Bugs", "Determines whether Sun Bugs will emit UVC light.", "Shine Bugs")]
@@ -109,6 +122,12 @@ namespace RomenH.GermicideLamp
 		{ get; set; }
 
 		[JsonProperty]
+		[Option("Sun Bug Range", "The range of UV light from Sun Bugs.", category: "Shine Bugs")]
+		[Limit(1, 5)]
+		public int SunBugRange
+		{ get; set; }
+
+		[JsonProperty]
 		[Option("Enable UV Royal Bugs", "Determines whether Royal Bugs will emit UVC light.", "Shine Bugs")]
 		public bool EnableUVRoyalBugs
 		{ get; set; }
@@ -119,7 +138,13 @@ namespace RomenH.GermicideLamp
 		public float RoyalBugStrength
 		{ get; set; }
 
-#endregion
+		[JsonProperty]
+		[Option("Royal Bug Range", "The range of UV light from Royal Bugs.", category: "Shine Bugs")]
+		[Limit(1, 5)]
+		public int RoyalBugRange
+		{ get; set; }
+
+		#endregion
 
 		public ModSettings()
 		{
@@ -133,18 +158,24 @@ namespace RomenH.GermicideLamp
 			BigLampGivesSunburn = true;
 			BigLampPowerCost = 1000f;
 			BigLampGermicidalStrength = 0.6f;
+			BigLampRange = 2;
 			BigLampHeat = 1f;
 
 			CeilingLampGivesSunburn = false;
 			CeilingLampPowerCost = 50f;
 			CeilingLampGermicidalStrength = 0.2f;
+			CeilingLampRangeWidth = 4;
+			CeilingLampRangeHeight = 4;
 			CeilingLampLux = 600;
 			CeilingLampHeat = 0.1f;
 
 			EnableUVSunBugs = true;
 			SunBugStrength = 0.1f;
+			SunBugRange = 2;
+
 			EnableUVRoyalBugs = true;
 			RoyalBugStrength = 0.5f;
+			RoyalBugRange = 3;
 		}
 	}
 }

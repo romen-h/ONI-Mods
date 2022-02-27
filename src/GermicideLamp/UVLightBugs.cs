@@ -1,4 +1,5 @@
 using HarmonyLib;
+
 using UnityEngine;
 
 namespace RomenH.GermicideLamp
@@ -9,16 +10,18 @@ namespace RomenH.GermicideLamp
 	{
 		public static void Postfix(GameObject __result)
 		{
-			if (Mod.Settings.EnableUVSunBugs)
+			if (ModSettings.Instance.EnableUVSunBugs)
 			{
+				ExtentsHelpers.CenteredUVExtents(ModSettings.Instance.SunBugRange, 1, 1, out int left, out int width, out int bottom, out int height);
+
 				var lamp = __result.AddOrGet<GermicideLamp>();
 				lamp.alwaysOn = true;
 				lamp.mobileLamp = true;
-				lamp.aoeLeft = -2;
-				lamp.aoeWidth = 5;
-				lamp.aoeBottom = -2;
-				lamp.aoeHeight = 5;
-				lamp.strength = Mod.Settings.SunBugStrength;
+				lamp.aoeLeft = left; // -2
+				lamp.aoeWidth = width; // 5
+				lamp.aoeBottom = bottom; // -2
+				lamp.aoeHeight = height; // 5
+				lamp.strength = ModSettings.Instance.SunBugStrength;
 			}
 		}
 	}
@@ -29,16 +32,18 @@ namespace RomenH.GermicideLamp
 	{
 		public static void Postfix(GameObject __result)
 		{
-			if (Mod.Settings.EnableUVRoyalBugs)
+			if (ModSettings.Instance.EnableUVRoyalBugs)
 			{
+				ExtentsHelpers.CenteredUVExtents(ModSettings.Instance.RoyalBugRange, 1, 1, out int left, out int width, out int bottom, out int height);
+
 				var lamp = __result.AddOrGet<GermicideLamp>();
 				lamp.alwaysOn = true;
 				lamp.mobileLamp = true;
-				lamp.aoeLeft = -3;
-				lamp.aoeWidth = 7;
-				lamp.aoeBottom = -3;
-				lamp.aoeHeight = 7;
-				lamp.strength = Mod.Settings.RoyalBugStrength;
+				lamp.aoeLeft = left; // -3
+				lamp.aoeWidth = width; // 7
+				lamp.aoeBottom = bottom; // -3
+				lamp.aoeHeight = height; // 7
+				lamp.strength = ModSettings.Instance.RoyalBugStrength;
 			}
 		}
 	}

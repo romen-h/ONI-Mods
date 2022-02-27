@@ -1,4 +1,5 @@
 using TUNING;
+
 using UnityEngine;
 
 namespace RomenH.GermicideLamp
@@ -35,15 +36,15 @@ namespace RomenH.GermicideLamp
 				noise: NOISE_POLLUTION.NONE
 			);
 			def.RequiresPowerInput = true;
-			def.EnergyConsumptionWhenActive = Mod.Settings.CeilingLampPowerCost;
-			def.SelfHeatKilowattsWhenActive = Mod.Settings.CeilingLampHeat;
+			def.EnergyConsumptionWhenActive = ModSettings.Instance.CeilingLampPowerCost;
+			def.SelfHeatKilowattsWhenActive = ModSettings.Instance.CeilingLampHeat;
 			def.AudioCategory = "Metal";
 			def.Floodable = false;
 			def.Entombable = true;
 			def.Overheatable = false;
 			def.ViewMode = OverlayModes.Disease.ID;
 			def.LogicInputPorts = LogicOperationalController.CreateSingleInputPortList(new CellOffset(0, 0));
-			def.PermittedRotations = PermittedRotations.FlipH;
+			def.PermittedRotations = PermittedRotations.Unrotatable;
 			GeneratedBuildings.RegisterWithOverlay(OverlayScreen.DiseaseIDs, ID);
 
 			return def;
@@ -53,7 +54,7 @@ namespace RomenH.GermicideLamp
 		{
 			AddVisualizer(go, movable: true);
 			LightShapePreview lightShapePreview = go.AddComponent<LightShapePreview>();
-			lightShapePreview.lux = Mod.Settings.CeilingLampLux;
+			lightShapePreview.lux = ModSettings.Instance.CeilingLampLux;
 			lightShapePreview.radius = 8f;
 			lightShapePreview.shape = LightShape.Cone;
 		}
@@ -70,14 +71,16 @@ namespace RomenH.GermicideLamp
 
 		public override void DoPostConfigureComplete(GameObject go)
 		{
+			ExtentsHelpers.CeilingUVExtents(ModSettings.Instance.CeilingLampRangeWidth, ModSettings.Instance.CeilingLampRangeHeight, out int left, out int width, out int bottom, out int height);
+
 			go.AddOrGet<LoopingSounds>();
 			GermicideLamp lamp = go.AddOrGet<GermicideLamp>();
-			lamp.aoeLeft = UV_LEFT;
-			lamp.aoeWidth = UV_WIDTH;
-			lamp.aoeBottom = UV_BOTTOM;
-			lamp.aoeHeight = UV_HEIGHT;
-			lamp.applySunburn = Mod.Settings.CeilingLampGivesSunburn;
-			lamp.strength = Mod.Settings.CeilingLampGermicidalStrength;
+			lamp.aoeLeft = left;
+			lamp.aoeWidth = width;
+			lamp.aoeBottom = bottom;
+			lamp.aoeHeight = height;
+			lamp.applySunburn = ModSettings.Instance.CeilingLampGivesSunburn;
+			lamp.strength = ModSettings.Instance.CeilingLampGermicidalStrength;
 			lamp.flicker = true;
 			go.AddOrGet<LogicOperationalController>();
 			go.AddOrGetDef<PoweredActiveController.Def>();
@@ -85,14 +88,14 @@ namespace RomenH.GermicideLamp
 
 			var light2D = go.AddOrGet<Light2D>();
 			light2D.overlayColour = LIGHT2D.CEILINGLIGHT_OVERLAYCOLOR;
-			light2D.Color = Mod.Settings.LightColor;
+			light2D.Color = ModSettings.Instance.LightColor;
 			light2D.Range = 6f;
 			light2D.Angle = 2.6f;
 			light2D.Direction = LIGHT2D.CEILINGLIGHT_DIRECTION;
 			light2D.Offset = new Vector2(0.55f, 0.65f);
 			light2D.shape = LightShape.Cone;
 			light2D.drawOverlay = true;
-			light2D.Lux = Mod.Settings.CeilingLampLux;
+			light2D.Lux = ModSettings.Instance.CeilingLampLux;
 			go.AddOrGetDef<LightController.Def>();
 
 			// TODO: Add a right Light on child object?
@@ -100,11 +103,13 @@ namespace RomenH.GermicideLamp
 
 		private static void AddVisualizer(GameObject prefab, bool movable)
 		{
+			ExtentsHelpers.CeilingUVExtents(ModSettings.Instance.CeilingLampRangeWidth, ModSettings.Instance.CeilingLampRangeHeight, out int left, out int width, out int bottom, out int height);
+
 			StationaryChoreRangeVisualizer stationaryChoreRangeVisualizer = prefab.AddOrGet<StationaryChoreRangeVisualizer>();
-			stationaryChoreRangeVisualizer.x = UV_LEFT;
-			stationaryChoreRangeVisualizer.y = UV_BOTTOM;
-			stationaryChoreRangeVisualizer.width = UV_WIDTH;
-			stationaryChoreRangeVisualizer.height = UV_HEIGHT;
+			stationaryChoreRangeVisualizer.x = left;
+			stationaryChoreRangeVisualizer.y = bottom;
+			stationaryChoreRangeVisualizer.width = width;
+			stationaryChoreRangeVisualizer.height = height;
 			stationaryChoreRangeVisualizer.movable = movable;
 			stationaryChoreRangeVisualizer.blocking_tile_visible = true;
 			prefab.GetComponent<KPrefabID>().instantiateFn += delegate (GameObject go)
