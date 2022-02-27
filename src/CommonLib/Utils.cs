@@ -21,24 +21,40 @@ namespace RomenH.Common
 				if (menu.category == category) return menu;
 			}
 
-			throw new System.Exception("The plan menu was not found in TUNING.BUILDINGS.PLANORDER.");
+			Debug.LogWarning($"Failed to find plan menu.");
+			throw new Exception();
 		}
 
-		public static void AddBuildingToPlanScreen(string buildingID, HashedString category, string addAferID = null)
+		public static void AddBuildingToPlanScreen(string buildingID, HashedString category, string addAferID = null, string subcategory = "")
 		{
-			var categoryMenu = GetMenu(category);
-			if (categoryMenu.data is List<string> buildings)
+			bool fallback = false;
+			if (addAferID != null)
 			{
-				if (addAferID != null)
+				try
 				{
-					var i = buildings.IndexOf(addAferID);
-					if (i == -1 || i == buildings.Count - 1) buildings.Add(buildingID);
-					else buildings.Insert(i + 1, buildingID);
+					var categoryMenu = GetMenu(category);
+					var buildings = categoryMenu.buildingAndSubcategoryData;
+					var entry = new KeyValuePair<string, string>(buildingID, subcategory);
+					var i = buildings.FindIndex(kvp => kvp.Key == addAferID);
+					if (i == -1 || i == buildings.Count - 1) buildings.Add(entry);
+					else buildings.Insert(i + 1, entry);
+
+					return;
 				}
-				else
+				catch (Exception ex)
 				{
-					buildings.Add(buildingID);
+					Debug.LogWarning("Failed to insert building at specific index. Adding building to end of list instead.");
+					fallback = true;
 				}
+			}
+			else
+			{
+				fallback = true;
+			}
+
+			if (fallback)
+			{
+				ModUtil.AddBuildingToPlanScreen(category, buildingID);
 			}
 		}
 
@@ -51,7 +67,7 @@ namespace RomenH.Common
 			}
 			else
 			{
-				Debug.LogWarning($"AddBuildingToTech() Failed to find tech ID: {techID}");
+				Debug.LogWarning($"Failed to find tech ID: {techID}");
 			}
 		}
 	}

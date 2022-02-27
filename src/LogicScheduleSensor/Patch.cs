@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using HarmonyLib;
+
 using PeterHan.PLib.UI;
 
 using RomenH.Common;
@@ -21,6 +22,8 @@ namespace RomenH.LogicScheduleSensor
 				ModStrings.STRINGS.BUILDINGS.LOGICSCHEDULESENSOR.NAME,
 				ModStrings.STRINGS.BUILDINGS.LOGICSCHEDULESENSOR.DESC,
 				ModStrings.STRINGS.BUILDINGS.LOGICSCHEDULESENSOR.EFFECT);
+
+			StringUtils.ExportTranslationTemplates();
 		}
 
 		public static void Postfix()
@@ -63,6 +66,15 @@ namespace RomenH.LogicScheduleSensor
 		{
 			var fi = AccessTools.Field(typeof(ScheduleScreen), "paintStyles");
 			blockColors = (Dictionary<string, ColorStyleSetting>)fi.GetValue(__instance);
+		}
+	}
+
+	[HarmonyPatch(typeof(Localization), "Initialize")]
+	public class Localization_Initialize_Patch
+	{
+		public static void Postfix()
+		{
+			StringUtils.LoadTranslations();
 		}
 	}
 }
