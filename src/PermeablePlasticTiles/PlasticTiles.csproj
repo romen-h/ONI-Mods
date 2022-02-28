@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>PermeablePlasticTiles</AssemblyName>
-    <Version>1.0.0</Version>
+    <AssemblyName>PlasticTiles</AssemblyName>
+    <Version>1.0.1</Version>
     <TargetFramework>net471</TargetFramework>
     <Configurations>Release</Configurations>
-    <RootNamespace>RomenH.PermeablePlasticTiles</RootNamespace>
+    <RootNamespace>RomenH.PlasticTiles</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>false</UsePLib>
   </PropertyGroup>
 
   <PropertyGroup>
-    <ModName>Permeable Plastic Tiles</ModName>
+    <ModName>Plastic Mesh and Airflow Tiles</ModName>
     <SupportedContent>ALL</SupportedContent>
   </PropertyGroup>
 

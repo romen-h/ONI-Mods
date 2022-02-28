@@ -12,7 +12,7 @@ namespace RomenH.PermeablePlasticTiles
 	{
 		public override void OnLoad(Harmony harmony)
 		{
-			ModCommon.Init("Permeable Plastic Tiles");
+			ModCommon.Init("Plastic Mesh & Airflow Tiles");
 
 			base.OnLoad(harmony);
 		}
