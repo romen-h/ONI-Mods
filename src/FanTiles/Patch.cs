@@ -1,4 +1,5 @@
 using HarmonyLib;
+
 using RomenH.Common;
 
 namespace Fans
@@ -12,49 +13,60 @@ namespace Fans
 			Debug.Log("FanTiles: Adding strings...");
 
 			StringUtils.AddBuildingStrings(
-				GasFanConfig.Id,
-				GasFanConfig.DisplayName,
-				GasFanConfig.Description,
-				GasFanConfig.Effect);
+				FanConfig.ID,
+				FanConfig.Name,
+				FanConfig.Desc,
+				FanConfig.Effect);
 
 			StringUtils.AddBuildingStrings(
-				HighPressureGasFan.Id,
-				HighPressureGasFan.DisplayName,
-				HighPressureGasFan.Description,
-				HighPressureGasFan.Effect);
+				HighPressureFanConfig.ID,
+				HighPressureFanConfig.Name,
+				HighPressureFanConfig.Desc,
+				HighPressureFanConfig.Effect);
 
 			StringUtils.AddBuildingStrings(
-				CompressorGasFanConfig.Id,
-				CompressorGasFanConfig.DisplayName,
-				CompressorGasFanConfig.Description,
-				CompressorGasFanConfig.Effect);
+				CompressorFanConfig.ID,
+				CompressorFanConfig.Name,
+				CompressorFanConfig.Desc,
+				CompressorFanConfig.Effect);
 
 			StringUtils.AddBuildingStrings(
-				CompressorLiquidFanConfig.Id,
-				CompressorLiquidFanConfig.DisplayName,
-				CompressorLiquidFanConfig.Description,
-				CompressorLiquidFanConfig.Effect);
+				LiquidTurbineConfig.ID,
+				LiquidTurbineConfig.Name,
+				LiquidTurbineConfig.Desc,
+				LiquidTurbineConfig.Effect);
 
 			StringUtils.AddBuildingStrings(
-				LiquidFanConfig.Id,
-				LiquidFanConfig.DisplayName,
-				LiquidFanConfig.Description,
-				LiquidFanConfig.Effect);
+				CompressorTurbineConfig.ID,
+				CompressorTurbineConfig.Name,
+				CompressorTurbineConfig.Desc,
+				CompressorTurbineConfig.Effect);
+
+			StringUtils.ExportTranslationTemplates();
 		}
 
 		private static void Postfix()
 		{
-			BuildingUtils.AddBuildingToPlanScreen(GasFanConfig.Id, GameStrings.PlanMenuCategory.Ventilation);
-			BuildingUtils.AddBuildingToPlanScreen(HighPressureGasFan.Id, GameStrings.PlanMenuCategory.Ventilation);
-			BuildingUtils.AddBuildingToPlanScreen(CompressorGasFanConfig.Id, GameStrings.PlanMenuCategory.Ventilation);
-			BuildingUtils.AddBuildingToPlanScreen(LiquidFanConfig.Id, GameStrings.PlanMenuCategory.Plumbing);
-			BuildingUtils.AddBuildingToPlanScreen(CompressorLiquidFanConfig.Id, GameStrings.PlanMenuCategory.Plumbing);
+			BuildingUtils.AddBuildingToPlanScreen(FanConfig.ID, GameStrings.PlanMenuCategory.Ventilation);
+			BuildingUtils.AddBuildingToPlanScreen(HighPressureFanConfig.ID, GameStrings.PlanMenuCategory.Ventilation);
+			BuildingUtils.AddBuildingToPlanScreen(CompressorFanConfig.ID, GameStrings.PlanMenuCategory.Ventilation);
+			BuildingUtils.AddBuildingToPlanScreen(LiquidTurbineConfig.ID, GameStrings.PlanMenuCategory.Plumbing);
+			BuildingUtils.AddBuildingToPlanScreen(CompressorTurbineConfig.ID, GameStrings.PlanMenuCategory.Plumbing);
 
-			BuildingUtils.AddBuildingToTech(GasFanConfig.Id, GameStrings.Technology.Gases.Ventilation);
-			BuildingUtils.AddBuildingToTech(HighPressureGasFan.Id, GameStrings.Technology.Gases.ImprovedVentilation);
-			BuildingUtils.AddBuildingToTech(CompressorGasFanConfig.Id, GameStrings.Technology.Gases.HVAC);
-			BuildingUtils.AddBuildingToTech(LiquidFanConfig.Id, GameStrings.Technology.Liquids.Plumbing);
-			BuildingUtils.AddBuildingToTech(CompressorLiquidFanConfig.Id, GameStrings.Technology.Liquids.LiquidTuning);
+			BuildingUtils.AddBuildingToTech(FanConfig.ID, GameStrings.Technology.Gases.Ventilation);
+			BuildingUtils.AddBuildingToTech(HighPressureFanConfig.ID, GameStrings.Technology.Gases.ImprovedVentilation);
+			BuildingUtils.AddBuildingToTech(CompressorFanConfig.ID, GameStrings.Technology.Gases.HVAC);
+			BuildingUtils.AddBuildingToTech(LiquidTurbineConfig.ID, GameStrings.Technology.Liquids.Plumbing);
+			BuildingUtils.AddBuildingToTech(CompressorTurbineConfig.ID, GameStrings.Technology.Liquids.LiquidTuning);
+		}
+	}
+
+	[HarmonyPatch(typeof(Localization), "Initialize")]
+	public class Localization_Initialize_Patch
+	{
+		public static void Postfix()
+		{
+			StringUtils.LoadTranslations();
 		}
 	}
 }
