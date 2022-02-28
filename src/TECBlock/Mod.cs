@@ -1,3 +1,6 @@
+using System.IO;
+using System.Reflection;
+
 using HarmonyLib;
 
 using KMod;
@@ -5,21 +8,19 @@ using KMod;
 using PeterHan.PLib.Core;
 using PeterHan.PLib.Options;
 
+using RomenH.Common;
+
 namespace RomenH.TECBlock
 {
 	public class Mod : UserMod2
 	{
-		internal static readonly ModSettings DefaultSettings = new ModSettings();
-
-		internal POptions Options
-		{ get; private set; }
-
 		public override void OnLoad(Harmony harmony)
 		{
+			ModCommon.Init("Thermoelectric Cooler");
 			PUtil.InitLibrary();
 
-			Options = new POptions();
-			Options.RegisterOptions(this, typeof(ModSettings));
+			var options = new POptions();
+			options.RegisterOptions(this, typeof(ModSettings));
 
 			base.OnLoad(harmony);
 		}

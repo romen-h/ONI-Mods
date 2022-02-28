@@ -1,4 +1,5 @@
 using TUNING;
+
 using UnityEngine;
 
 namespace RomenH.TECBlock
@@ -7,11 +8,11 @@ namespace RomenH.TECBlock
 	{
 		public const string ID = "TECTile";
 
-		public static readonly LocString Name = "TEC Tile";
+		public const string Name = "TEC Tile";
 
-		public static readonly LocString Desc = "";
+		public const string Desc = "";
 
-		public static readonly LocString Effect = $"Uses electricity to transfer heat from one side of the tile to the other. As the temperature difference approaches {70}{STRINGS.UI.UNITSUFFIXES.DEGREES} the TEC transfers less heat.";
+		public const string Effect = "Uses electricity to transfer heat from one side of the tile to the other. As the temperature difference approaches its maximum heat gradient, the TEC transfers less heat.";
 
 		public override BuildingDef CreateBuildingDef()
 		{
@@ -39,6 +40,10 @@ namespace RomenH.TECBlock
 
 			def.RequiresPowerInput = true;
 			def.EnergyConsumptionWhenActive = Mathf.Max(0f, ModSettings.Instance.Wattage);
+			if (ModSettings.Instance.GenerateInefficiencyHeat)
+			{
+				def.SelfHeatKilowattsWhenActive = ModSettings.Instance.Wattage * ModSettings.Instance.KiloDTUPerWatt * (1f - ModSettings.Instance.Efficiency);
+			}
 			def.Floodable = false;
 			def.Entombable = false;
 			def.Overheatable = true;
@@ -63,7 +68,7 @@ namespace RomenH.TECBlock
 			BuildingConfigManager.Instance.IgnoreDefaultKComponent(typeof(RequiresFoundation), prefab_tag);
 			SimCellOccupier simcelloccupier = go.AddOrGet<SimCellOccupier>();
 			simcelloccupier.doReplaceElement = true;
-			simcelloccupier.movementSpeedMultiplier = DUPLICANTSTATS.MOVEMENT.PENALTY_4;
+			simcelloccupier.movementSpeedMultiplier = ModSettings.Instance.RunSpeedPenalty;
 			simcelloccupier.notifyOnMelt = true;
 
 			go.AddOrGet<TileTemperature>();
@@ -78,9 +83,10 @@ namespace RomenH.TECBlock
 		{
 			go.GetComponent<KPrefabID>().AddTag(GameTags.FloorTiles, false);
 			go.AddOrGet<LogicOperationalController>();
-			go.AddOrGet<Insulator>();
+			//go.AddOrGet<Insulator>();
 
 			var tec = go.AddOrGet<TECTile>();
+			tec.minColdTemp = Mathf.Max(1f, ModSettings.Instance.MinColdTemperature);
 			tec.maxTempDiff = Mathf.Max(1f, ModSettings.Instance.MaxTemperatureDifference);
 			tec.kDTUsPerWatt = Mathf.Max(0.01f, ModSettings.Instance.KiloDTUPerWatt);
 			tec.efficiency = Mathf.Max(0.1f, ModSettings.Instance.Efficiency);

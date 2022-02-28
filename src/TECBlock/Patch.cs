@@ -1,4 +1,5 @@
 using HarmonyLib;
+
 using RomenH.Common;
 
 namespace RomenH.TECBlock
@@ -16,12 +17,23 @@ namespace RomenH.TECBlock
 				TECTileConfig.Name,
 				TECTileConfig.Desc,
 				TECTileConfig.Effect);
+
+			StringUtils.ExportTranslationTemplates();
 		}
 
 		public static void Postfix()
 		{
 			BuildingUtils.AddBuildingToPlanScreen(TECTileConfig.ID, GameStrings.PlanMenuCategory.Utilities);
 			BuildingUtils.AddBuildingToTech(TECTileConfig.ID, GameStrings.Technology.Power.LowResistanceConductors);
+		}
+	}
+
+	[HarmonyPatch(typeof(Localization), "Initialize")]
+	public class Localization_Initialize_Patch
+	{
+		public static void Postfix()
+		{
+			StringUtils.LoadTranslations();
 		}
 	}
 }

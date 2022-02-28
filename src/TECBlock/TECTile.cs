@@ -19,13 +19,13 @@ namespace RomenH.TECBlock
 		private int coldCell;
 		private int hotCell;
 
+		public float minColdTemp = 50f;
 		public float maxTempDiff = 70f;
 		public float kDTUsPerWatt = 0.1f;
 		public float efficiency = 0.25f;
 
 		private float heatPowerkDTU;
 		private float maxHeatMovedkDTU;
-		private float wasteHeatkDTU;
 
 		private float heatMovedPerDegree;
 
@@ -48,7 +48,6 @@ namespace RomenH.TECBlock
 			{
 				maxHeatMovedkDTU = heatPowerkDTU;
 			}
-			wasteHeatkDTU = 0f;
 
 			heatMovedPerDegree = maxHeatMovedkDTU / maxTempDiff;
 
@@ -74,22 +73,28 @@ namespace RomenH.TECBlock
 				float hotTemp = Grid.Temperature[hotCell];
 
 				float dTemp = Mathf.Clamp(hotTemp - coldTemp, 0f, maxTempDiff);
+				float heatMoved = 0f;
 
-				float heatMoved = maxHeatMovedkDTU - (heatMovedPerDegree * dTemp);
-				heatMoved = Mathf.Clamp(heatMoved, 0, maxHeatMovedkDTU);
-
-				float heatInColdCell = (coldTemp * Grid.Mass[coldCell] * Grid.Element[coldCell].specificHeatCapacity);
-				if (heatMoved > heatInColdCell)
+				// Only move heat if over min temp and under max temp difference
+				if (coldTemp > minColdTemp && dTemp < maxTempDiff)
 				{
-					heatMoved = heatInColdCell - 1;
+					// Heat to move is negatively proportional to the temp difference
+					heatMoved = maxHeatMovedkDTU - (heatMovedPerDegree * dTemp);
+					heatMoved = Mathf.Clamp(heatMoved, 0, maxHeatMovedkDTU) * dt;
+
+					// Clamp heat to move if it's more energy than the cold side has
+					float heatInColdCell = (coldTemp * Grid.Mass[coldCell] * Grid.Element[coldCell].specificHeatCapacity);
+					if (heatMoved > heatInColdCell)
+					{
+						heatMoved = heatInColdCell - 1;
+					}
 				}
 
 				if (heatMoved > 0)
 				{
 					isMovingHeat = true;
-					float heatProduced = heatMoved + wasteHeatkDTU;
 					SimMessages.ModifyEnergy(coldCell, -heatMoved * 1000f, 5000f, SimMessages.EnergySourceID.StructureTemperature);
-					SimMessages.ModifyEnergy(hotCell, heatProduced * 1000f, 5000f, SimMessages.EnergySourceID.StructureTemperature);
+					SimMessages.ModifyEnergy(hotCell, heatMoved * 1000f, 5000f, SimMessages.EnergySourceID.StructureTemperature);
 				}
 				else
 				{
@@ -112,10 +117,10 @@ namespace RomenH.TECBlock
 			if (operational.IsActive && isMovingHeat)
 			{
 				float t = 0.5f + 0.5f * Mathf.Sin(Time.time * Mathf.PI / 2f);
-				Color32 hotGlow = Color32.Lerp(whiteColor, hotColor, t);
-				Color32 coldGlow = Color32.Lerp(coldColor, whiteColor, t);
+				Color hotGlow = Color.Lerp(whiteColor, hotColor, t);
+				Color coldGlow = Color.Lerp(coldColor, whiteColor, t);
 
-				anim.SetSymbolTint("plate", coldGlow);
+				anim.SetSymbolTint("plate", coldGlow * 2);
 				anim.SetSymbolTint("fins", hotGlow);
 			}
 			else
