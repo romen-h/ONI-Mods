@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <AssemblyName>SharingIsCaring</AssemblyName>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <TargetFramework>net471</TargetFramework>
     <Configurations>Release</Configurations>
     <RootNamespace>RomenH.SharingIsCaring</RootNamespace>

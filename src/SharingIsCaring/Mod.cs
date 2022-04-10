@@ -1,8 +1,14 @@
+using System.IO;
+using System.Reflection;
+
 using HarmonyLib;
 
 using KMod;
 
+using PeterHan.PLib.Core;
 using PeterHan.PLib.Options;
+
+using RomenH.Common;
 
 namespace RomenH.SharingIsCaring
 {
@@ -10,8 +16,11 @@ namespace RomenH.SharingIsCaring
 	{
 		public override void OnLoad(Harmony harmony)
 		{
-			POptions opt = new POptions();
-			opt.RegisterOptions(this, typeof(ModSettings));
+			ModCommon.Init("Sharing is Caring");
+			PUtil.InitLibrary();
+
+			var options = new POptions();
+			options.RegisterOptions(this, typeof(ModSettings));
 
 			base.OnLoad(harmony);
 		}

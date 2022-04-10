@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
@@ -12,7 +7,6 @@ namespace RomenH.SharingIsCaring
 {
 	[JsonObject(MemberSerialization.OptIn)]
 	[ModInfo("https://github.com/romen-h/ONI-Mods")]
-	[RestartRequired]
 	public class ModSettings : SingletonOptions<ModSettings>
 	{
 		[JsonProperty]
