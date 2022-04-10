@@ -47,6 +47,7 @@ namespace Fans
 		private Guid overPressureStatusGuid;
 		private Guid noElementStatusGuid;
 
+		private int cell = 1;
 		private int inputCell = -1;
 		private int outputCell = -1;
 
@@ -63,12 +64,26 @@ namespace Fans
 			Rotatable rotatable = GetComponent<Rotatable>();
 			Vector3 rotatedInputOffset = Rotatable.GetRotatedOffset(new Vector3(0, -1), rotatable.GetOrientation());
 			Vector3 rotatedOutputOffset = Rotatable.GetRotatedOffset(new Vector3(0, 1), rotatable.GetOrientation());
+			cell = Grid.PosToCell(position);
 			inputCell = Grid.PosToCell(position + rotatedInputOffset);
 			outputCell = Grid.PosToCell(position + rotatedOutputOffset);
+
+			//StructureTemperatureComponents structureTemperatures = GameComps.StructureTemperatures;
+			//HandleVector<int>.Handle handle = structureTemperatures.GetHandle(base.gameObject);
+			//structureTemperatures.Bypass(handle);
 
 			elapsedTime = 0.0f;
 			pumpable = UpdatePumpOperational();
 			ventable = UpdateVentOperational();
+
+			SimMessages.SetCellProperties(cell, (byte)Sim.Cell.Properties.Unbreakable);
+		}
+
+		protected override void OnCleanUp()
+		{
+			base.OnCleanUp();
+
+			SimMessages.ClearCellProperties(cell, (byte)Sim.Cell.Properties.Unbreakable);
 		}
 
 		public Vent.State GetEndPointState()
@@ -135,7 +150,8 @@ namespace Fans
 				ventable = UpdateVentOperational();
 				elapsedTime = 0.0f;
 			}
-			// perform pumping
+
+			// Perform pumping
 			DoFan();
 			if (operational.IsOperational && pumpable && ventable)
 				operational.SetActive(true, false);

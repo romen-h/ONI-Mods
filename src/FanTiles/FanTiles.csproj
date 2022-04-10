@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <AssemblyName>FanTiles</AssemblyName>
-    <Version>2.1.1</Version>
+    <Version>2.1.2</Version>
     <TargetFramework>net471</TargetFramework>
     <Configurations>Release</Configurations>
     <RootNamespace>RomenH.FanTiles</RootNamespace>
