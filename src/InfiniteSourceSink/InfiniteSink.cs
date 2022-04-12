@@ -1,7 +1,10 @@
+using KSerialization;
+
 using UnityEngine;
 
 namespace InfiniteSourceSink
 {
+	[SerializationConfig(MemberSerialization.OptIn)]
 	public class InfiniteSink : KMonoBehaviour
 	{
 		[SerializeField]
@@ -11,7 +14,6 @@ namespace InfiniteSourceSink
 		public KBatchedAnimController anim;
 
 		private int inputCell;
-
 		private Operational.Flag incomingFlag = new Operational.Flag("incoming", Operational.Flag.Type.Requirement);
 
 		protected override void OnPrefabInit()

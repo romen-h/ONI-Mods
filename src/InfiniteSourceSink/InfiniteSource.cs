@@ -1,21 +1,30 @@
 using System;
-using System.Runtime.Serialization;
+
 using KSerialization;
+
 using STRINGS;
+
 using UnityEngine;
 
 namespace InfiniteSourceSink
 {
-    [SerializationConfig(MemberSerialization.OptIn)]
-    public class InfiniteSource : KMonoBehaviour
-    {
-        private static StatusItem filterStatusItem = null;
+	[SerializationConfig(MemberSerialization.OptIn)]
+	public class InfiniteSource : KMonoBehaviour
+	{
+		private static StatusItem filterStatusItem = null;
 
-        [SerializeField]
-        public float Flow = 10000f;
+		[SerializeField]
+		public ConduitType conduitType = ConduitType.None;
 
-        [SerializeField]
-        public float Temp = 300f;
+		[SerializeField]
+		[Serialize]
+		public float Flow
+		{ get; set; } = 10000f;
+
+		[SerializeField]
+		[Serialize]
+		public float Temp
+		{ get; set; } = 300f;
 
 		[MyCmpGet]
 		public KSelectable selectable;
@@ -32,21 +41,17 @@ namespace InfiniteSourceSink
 		[MyCmpGet]
 		public Filterable filterable;
 
-        private int outputCell = -1;
-
-		public ConduitType conduitType = ConduitType.None;
-
+		private int outputCell = -1;
 		private SimHashes filteredElement = SimHashes.Vacuum;
-		public float minTemp;
-		public float maxTemp;
-
+		private float minTemp;
+		private float maxTemp;
 		private Operational.Flag filterFlag = new Operational.Flag("filter", Operational.Flag.Type.Requirement);
 
 		protected override void OnPrefabInit()
-        {
-            base.OnPrefabInit();
-            InitializeStatusItems();
-        }
+		{
+			base.OnPrefabInit();
+			InitializeStatusItems();
+		}
 
 		private void InitializeStatusItems()
 		{
@@ -71,35 +76,37 @@ namespace InfiniteSourceSink
 		}
 
 		protected override void OnSpawn()
-        {
-            base.OnSpawn();
+		{
+			base.OnSpawn();
 
-            outputCell = building.GetUtilityOutputCell();
+			outputCell = building.GetUtilityOutputCell();
 
-            Conduit.GetFlowManager(conduitType).AddConduitUpdater(ConduitUpdate);
+			Conduit.GetFlowManager(conduitType).AddConduitUpdater(ConduitUpdate);
 
-            filterable.onFilterChanged += new Action<Tag>(OnFilterChanged);
+			filterable.onFilterChanged += new Action<Tag>(OnFilterChanged);
 			OnFilterChanged(filterable.SelectedTag);
 
-            selectable.SetStatusItem(Db.Get().StatusItemCategories.Main, filterStatusItem, this);
-        }
+			selectable.SetStatusItem(Db.Get().StatusItemCategories.Main, filterStatusItem, this);
+		}
 
-        protected override void OnCleanUp()
-        {
-            Conduit.GetFlowManager(conduitType).RemoveConduitUpdater(ConduitUpdate);
-            base.OnCleanUp();
-        }
+		protected override void OnCleanUp()
+		{
+			Conduit.GetFlowManager(conduitType).RemoveConduitUpdater(ConduitUpdate);
+			base.OnCleanUp();
+		}
 
 		private bool refreshing = false;
 
-        private void OnFilterChanged(Tag tag)
-        {
+		private void OnFilterChanged(Tag tag)
+		{
 			if (refreshing) return;
 
-            Element element = ElementLoader.GetElement(tag);
-            if (element != null)
-            {
-                filteredElement = element.id;
+			refreshing = true;
+
+			Element element = ElementLoader.GetElement(tag);
+			if (element != null)
+			{
+				filteredElement = element.id;
 				anim.SetSymbolTint("gasframes", element.substance.uiColour);
 				anim.SetSymbolTint("liquid", element.substance.uiColour);
 				anim.SetSymbolTint("liquid_top", element.substance.uiColour);
@@ -111,27 +118,42 @@ namespace InfiniteSourceSink
 			}
 
 			bool invalidElement = (!tag.IsValid || tag == GameTags.Void);
-            selectable.ToggleStatusItem(Db.Get().BuildingStatusItems.NoFilterElementSelected, invalidElement, null);
-            operational.SetFlag(filterFlag, !invalidElement);
-        }
+			selectable.ToggleStatusItem(Db.Get().BuildingStatusItems.NoFilterElementSelected, invalidElement, null);
+			operational.SetFlag(filterFlag, !invalidElement);
 
-        private bool ShowInUtilityOverlay(HashedString mode, object data)
-        {
-            bool flag = false;
-            switch (conduitType)
-            {
-                case ConduitType.Gas:
-                    flag = mode == OverlayModes.GasConduits.ID;
-                    break;
-                case ConduitType.Liquid:
-                    flag = mode == OverlayModes.LiquidConduits.ID;
-                    break;
-            }
-            return flag;
-        }
+			RefreshSideScreen();
 
-        private void ConduitUpdate(float dt)
-        {
+			refreshing = false;
+		}
+
+		private void RefreshSideScreen()
+		{
+			if (refreshing)
+
+			if (base.GetComponent<KSelectable>().IsSelected)
+			{
+				refreshing = true;
+				DetailsScreen.Instance.Refresh(base.gameObject);
+			}
+		}
+
+		private bool ShowInUtilityOverlay(HashedString mode, object data)
+		{
+			bool flag = false;
+			switch (conduitType)
+			{
+				case ConduitType.Gas:
+					flag = mode == OverlayModes.GasConduits.ID;
+					break;
+				case ConduitType.Liquid:
+					flag = mode == OverlayModes.LiquidConduits.ID;
+					break;
+			}
+			return flag;
+		}
+
+		private void ConduitUpdate(float dt)
+		{
 			if (operational.IsOperational)
 			{
 				if (filteredElement == SimHashes.Void || filteredElement == SimHashes.Vacuum) return;
@@ -143,6 +165,6 @@ namespace InfiniteSourceSink
 					flowManager.AddElement(outputCell, filteredElement, Flow / 1000, Temp, 0, 0);
 				}
 			}
-        }
-    }
+		}
+	}
 }

@@ -1,14 +1,17 @@
 using HarmonyLib;
+
 using KSerialization;
+
 using STRINGS;
 
 namespace InfiniteSourceSink
 {
 	[SerializationConfig(MemberSerialization.OptIn)]
-	public class InfiniteSourceControl : KMonoBehaviour, IIntSliderControl
-    {
-        public const string Title = "Flow Rate";
-		public static readonly string Tooltip = $"Flow Rate";
+	public class InfiniteSourceFlowControl : KMonoBehaviour, IIntSliderControl
+	{
+		public const string Title = "Flow Rate";
+
+		public const string Tooltip = "Flow Rate";
 
 		public string SliderTitleKey => "STRINGS.UI.UISIDESCREENS.INFINITESOURCE.FLOW.TITLE";
 
@@ -38,19 +41,19 @@ namespace InfiniteSourceSink
 		}
 
 		public float GetSliderMax(int index)
-        {
+		{
 			var flowManager = Conduit.GetFlowManager(source.conduitType);
 			return Traverse.Create(flowManager).Field("MaxMass").GetValue<float>() * 1000f;
-        }
+		}
 
-        public float GetSliderValue(int index)
-        {
+		public float GetSliderValue(int index)
+		{
 			return source.Flow;
-        }
+		}
 
-        public void SetSliderValue(float percent, int index)
-        {
+		public void SetSliderValue(float percent, int index)
+		{
 			source.Flow = percent;
-        }
-    }
+		}
+	}
 }

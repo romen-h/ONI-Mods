@@ -17,7 +17,7 @@ namespace SoggyCarpets
 			storage.capacityKg = 500f;
 			storage.showCapacityStatusItem = true;
 
-			var elementConsumer = go.AddOrGet<ElementConsumer>();
+			var elementConsumer = go.AddOrGet<PassiveElementConsumer>();
 			elementConsumer.configuration = ElementConsumer.Configuration.AllLiquid;
 			elementConsumer.consumptionRate = 1f;
 			elementConsumer.storeOnConsume = true;
