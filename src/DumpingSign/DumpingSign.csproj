@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>DumpingSign</AssemblyName>
+    <Version>1.0.1</Version>
+    <TargetFramework>net471</TargetFramework>
+    <Configurations>Release</Configurations>
+    <RootNamespace>RomenH.DumpingSign</RootNamespace>
+    <IsMod>true</IsMod>
+    <UseCommonLib>true</UseCommonLib>
+    <UsePLib>true</UsePLib>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ModName>Dumping Sign</ModName>
+    <SupportedContent>ALL</SupportedContent>
+    <MinimumSupportedBuild>498381</MinimumSupportedBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Update="PLib" Version="4.8.1" />
+  </ItemGroup>
+
+</Project>
