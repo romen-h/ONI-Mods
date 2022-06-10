@@ -46,8 +46,10 @@
       <RemoveDir Directories="@(Directories)" Condition="%(Files)=='0'" />
     </Target>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)Assets\Workshop&quot; &quot;$(ProjectDir)bin\&quot; /s /i /y&#xD;&#xA;xcopy &quot;$(ProjectDir)Assets\Shared&quot; &quot;$(ProjectDir)bin\&quot; /s /i /y&#xD;&#xA;del &quot;$(TargetDir)\$(TargetName).pdb&quot;" />
+  <Target Name="CopyAssets" AfterTargets="PostBuildEvent" Condition="'$(IsMod)' == 'true'">
+    <Exec Command='xcopy "$(ProjectDir)Assets\Workshop" "$(ProjectDir)bin\" /s /i /y' ContinueOnError='true' />
+    <Exec Command='xcopy "$(ProjectDir)Assets\Shared" "$(ProjectDir)bin\" /s /i /y' ContinueOnError='true' />
+    <Exec Command='xcopy "$(ProjectDIr)Archive" "$(ProjectDir)bin\archived_versions\" /s /i /y' ContinueOnError='true' />
   </Target>
   
 </Project>

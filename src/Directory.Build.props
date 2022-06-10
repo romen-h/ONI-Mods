@@ -10,7 +10,7 @@
     <ClearOutputDirectory>true</ClearOutputDirectory>
     <ModDescription>TODO</ModDescription>
     <APIVersion>2</APIVersion>
-    <MinimumSupportedBuild>469369</MinimumSupportedBuild>
+    <MinimumSupportedBuild>510738</MinimumSupportedBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

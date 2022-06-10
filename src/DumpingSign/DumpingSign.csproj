@@ -14,7 +14,6 @@
   <PropertyGroup>
     <ModName>Dumping Sign</ModName>
     <SupportedContent>ALL</SupportedContent>
-    <MinimumSupportedBuild>498381</MinimumSupportedBuild>
   </PropertyGroup>
 
   <ItemGroup>

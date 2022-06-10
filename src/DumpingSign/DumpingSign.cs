@@ -146,16 +146,21 @@ namespace RomenH.DumpingSign
 					}
 					else
 					{
-						Tag category = GetBiggestCategory(tags);
+						int discoveredCount = DiscoveredResources.Instance.GetDiscovered().Count;
 
-						if (categoryKanims.TryGetValue(category, out KAnimFile kanim))
+						if (tags.Length != discoveredCount)
 						{
-							if (kanim != null)
+							Tag category = GetMajorityCategory(tags);
+
+							if (categoryKanims.TryGetValue(category, out KAnimFile kanim))
 							{
-								animFiles = new KAnimFile[] { kanim };
-								animToPlay = "ui";
-								offset = new Vector2(0, -0.2f);
-								scale *= 1.25f;
+								if (kanim != null)
+								{
+									animFiles = new KAnimFile[] { kanim };
+									animToPlay = "ui";
+									offset = new Vector2(0, -0.2f);
+									scale *= 1.25f;
+								}
 							}
 						}
 					}
@@ -190,32 +195,24 @@ namespace RomenH.DumpingSign
 			}
 		}
 
-		private Tag GetBiggestCategory(Tag[] tags)
+		private Tag GetMajorityCategory(Tag[] tags)
 		{
-			bool tied = false;
-			Tag biggestCategory = Tag.Invalid;
-			int biggestCategoryCount = 0;
+			Tag majorityCategory = Tag.Invalid;
 
 			foreach (Tag category in storage.storageFilters)
 			{
 				int count = GetNumTagsFromCategory(category, tags);
 
-				if (count > biggestCategoryCount)
+				bool majority = count > (tags.Length - count);
+
+				if (majority)
 				{
-					biggestCategory = category;
-					biggestCategoryCount = count;
-					tied = false;
-				}
-				else if (count == biggestCategoryCount)
-				{
-					tied = true;
+					majorityCategory = category;
+					break;
 				}
 			}
 
-			if (tied)
-				return Tag.Invalid;
-			else
-				return biggestCategory;
+			return majorityCategory;
 		}
 
 		private int GetNumTagsFromCategory(Tag category, Tag[] tags)
