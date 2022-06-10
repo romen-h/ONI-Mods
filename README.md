@@ -20,6 +20,13 @@ A library that provides shared code used by multiple mods in this solution.
 
 ---
 
+### [Dumping Sign](src/DumpingSign)
+[<img src="src/DumpingSign/Assets/Workshop/preview.png" height="200px"/>](src/DumpingSign)
+
+A new "storage" building that allows sweep-only materials to be delivered to a specific location and immediately dumped on the floor.
+
+---
+
 ## [Fan Tiles](src/FanTiles)
 [<img src="src/FanTiles/Assets/Workshop/preview.png" height="200px"/>](src/FanTiles)
 
