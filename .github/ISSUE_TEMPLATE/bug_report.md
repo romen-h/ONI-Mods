@@ -1,8 +1,8 @@
 ---
 name: Bug Report
 about: Use this template for reporting a problem with a mod.
-title: "[MOD NAME]: [BUG DESCRIPTION]"
-labels: bug
+title: "[Mod Name] Bug description."
+labels: Bug
 ---
 
 ## REQUIRED: Describe the bug
