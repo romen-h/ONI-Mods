@@ -6,6 +6,8 @@ param (
     [Parameter(Mandatory=$true)]
     [String]$TargetDir,
     [Parameter(Mandatory=$true)]
+    [String]$CurrentGameVersion,
+    [Parameter(Mandatory=$true)]
     [Int]$PreviousGameVersion
 )
 
@@ -23,7 +25,7 @@ $SelectedBackup = ""
 foreach ($z in $Backups) {
     $Cmps = $z.Basename -split "_"
     [Int]$GameVersion = $Cmps[1]
-    if ($GameVersion -ge $PreviousGameVersion) {
+    if ($GameVersion -ge $PreviousGameVersion -and $GameVersion -lt $CurrentGameVersion) {
         $SelectedBackup = $z.FullName
     }
     else {

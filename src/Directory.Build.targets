@@ -21,7 +21,7 @@
   </Target>
   
   <Target Name="CopyPreviousVersion" AfterTargets="Merge" Condition="'$(IsMod)' == 'true'">
-    <Exec Command="powershell.exe -File $(SolutionDir)CopyArchivedVersions.ps1 -ModID $(AssemblyName) -SolutionDir $(SolutionDir) -TargetDir $(TargetDir) -PreviousGameVersion $(PreviousGameVersion)" />
+    <Exec Command="powershell.exe -File $(SolutionDir)CopyArchivedVersions.ps1 -ModID $(AssemblyName) -SolutionDir $(SolutionDir) -TargetDir $(TargetDir) -CurrentGameVersion $(CurrentGameVersion) -PreviousGameVersion $(PreviousGameVersion)" />
   </Target>
 
   <Target Name="CopyAssets" AfterTargets="PostBuildEvent" Condition="'$(IsMod)' == 'true'">
