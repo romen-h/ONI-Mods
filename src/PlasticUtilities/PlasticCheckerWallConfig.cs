@@ -42,7 +42,7 @@ namespace RomenH.PlasticUtilities
 			def.BaseTimeUntilRepair = -1f;
 			def.DefaultAnimState = "off";
 			def.ObjectLayer = ObjectLayer.Backwall;
-			def.SceneLayer = Grid.SceneLayer.Backwall;
+			def.SceneLayer = ModSettings.Instance.HidePipesAndWires ? Grid.SceneLayer.LogicGatesFront : Grid.SceneLayer.Backwall;
 			return def;
 		}
 
