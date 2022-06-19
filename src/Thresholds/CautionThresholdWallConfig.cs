@@ -30,6 +30,7 @@ namespace RomenH.Thresholds
 				build_location_rule: BuildLocationRule.NotInTiles,
 				decor: DECOR.PENALTY.TIER0,
 				noise: NOISE_POLLUTION.NONE);
+			buildingDef.PermittedRotations = PermittedRotations.FlipH;
 			buildingDef.IsFoundation = true;
 			buildingDef.Entombable = false;
 			buildingDef.Floodable = false;
@@ -39,7 +40,7 @@ namespace RomenH.Thresholds
 			buildingDef.BaseTimeUntilRepair = -1f;
 			buildingDef.DefaultAnimState = "off";
 			buildingDef.ObjectLayer = ObjectLayer.Backwall;
-			buildingDef.SceneLayer = Grid.SceneLayer.Backwall;
+			buildingDef.SceneLayer = ModSettings.Instance.HidePipesAndWires ? Grid.SceneLayer.LogicGatesFront : Grid.SceneLayer.Backwall;
 			return buildingDef;
 		}
 

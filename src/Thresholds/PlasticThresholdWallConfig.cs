@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 using TUNING;
 
@@ -5,11 +10,11 @@ using UnityEngine;
 
 namespace RomenH.Thresholds
 {
-	public class ThresholdWallConfig : IBuildingConfig
+	public class PlasticThresholdWallConfig : IBuildingConfig
 	{
-		public const string ID = "RomenH_ThresholdWall";
+		public const string ID = "RomenH_PlasticThresholdWall";
 
-		public static LocString Name = "Threshold Wall";
+		public static LocString Name = "Plastic Threshold Wall";
 
 		public static LocString Desc = "";
 
@@ -21,14 +26,14 @@ namespace RomenH.Thresholds
 				id: ID,
 				width: 1,
 				height: 1,
-				anim: "threshold_walls_kanim",
+				anim: "plastic_threshold_walls_kanim",
 				hitpoints: 30,
 				construction_time: 10f,
 				construction_mass: BUILDINGS.CONSTRUCTION_MASS_KG.TIER2,
-				construction_materials: MATERIALS.RAW_MINERALS,
+				construction_materials: new string[]{ MATERIALS.PLASTIC },
 				melting_point: 1600f,
 				build_location_rule: BuildLocationRule.NotInTiles,
-				decor: DECOR.NONE,
+				decor: DECOR.BONUS.TIER0,
 				noise: NOISE_POLLUTION.NONE);
 			buildingDef.PermittedRotations = PermittedRotations.FlipH;
 			buildingDef.IsFoundation = true;

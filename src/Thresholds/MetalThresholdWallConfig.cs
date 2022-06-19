@@ -39,7 +39,7 @@ namespace RomenH.Thresholds
 			buildingDef.BaseTimeUntilRepair = -1f;
 			buildingDef.DefaultAnimState = "off";
 			buildingDef.ObjectLayer = ObjectLayer.Backwall;
-			buildingDef.SceneLayer = Grid.SceneLayer.Backwall;
+			buildingDef.SceneLayer = ModSettings.Instance.HidePipesAndWires ? Grid.SceneLayer.LogicGatesFront : Grid.SceneLayer.Backwall;
 			return buildingDef;
 		}
 
