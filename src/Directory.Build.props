@@ -10,22 +10,23 @@
     <ClearOutputDirectory>true</ClearOutputDirectory>
     <ModDescription>TODO</ModDescription>
     <APIVersion>2</APIVersion>
-    <MinimumSupportedBuild>510738</MinimumSupportedBuild>
+    <CurrentGameVersion>510738</CurrentGameVersion>
+    <PreviousGameVersion>498381</PreviousGameVersion>
+    <MinimumSupportedBuild>$(CurrentGameVersion)</MinimumSupportedBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutDir>bin</OutDir>
     <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
   <!-- References for all ONI Mods -->
 	<ItemGroup Condition="'$(IsMod)' == 'true'">
-    <PackageReference Include="Cairath.ONIMetadataFileGenerator" Version="1.0.0">
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
-    <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.18.2">
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
+    
+    <PackageReference Include="Cairath.ONIMetadataFileGenerator" Version="1.0.0" PrivateAssets="all" ExcludeAssets="runtime"/>
+    
     <Reference Include="Assembly-CSharp">
 	    <HintPath>$(GameLibsFolder)/Assembly-CSharp.dll</HintPath>
 	    <Private>false</Private>
@@ -53,11 +54,15 @@
 	</ItemGroup>
 
   <ItemGroup Condition="'$(UseCommonLib)' == 'true'">
-    <ProjectReference Include="../CommonLib/CommonLib.csproj"/>
+    <ProjectReference Include="../CommonLib/CommonLib.csproj">
+      <PrivateAssets>all</PrivateAssets>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup Condition="'$(UsePLib)' == 'true'">
-    <PackageReference Include="PLib" Version="4.6.0" />
+    <PackageReference Include="PLib" Version="4.8.1">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

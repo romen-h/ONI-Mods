@@ -27,34 +27,13 @@ namespace RomenH.Common
 
 		public static void AddBuildingToPlanScreen(string buildingID, HashedString category, string addAferID = null, string subcategory = "")
 		{
-			bool fallback = false;
 			if (addAferID != null)
 			{
-				try
-				{
-					var categoryMenu = GetMenu(category);
-					var buildings = categoryMenu.buildingAndSubcategoryData;
-					var entry = new KeyValuePair<string, string>(buildingID, subcategory);
-					var i = buildings.FindIndex(kvp => kvp.Key == addAferID);
-					if (i == -1 || i == buildings.Count - 1) buildings.Add(entry);
-					else buildings.Insert(i + 1, entry);
-
-					return;
-				}
-				catch (Exception ex)
-				{
-					Debug.LogWarning("Failed to insert building at specific index. Adding building to end of list instead.");
-					fallback = true;
-				}
+				ModUtil.AddBuildingToPlanScreen(category, buildingID, subcategory, addAferID, ModUtil.BuildingOrdering.After);
 			}
 			else
 			{
-				fallback = true;
-			}
-
-			if (fallback)
-			{
-				ModUtil.AddBuildingToPlanScreen(category, buildingID);
+				ModUtil.AddBuildingToPlanScreen(category, buildingID, subcategory);
 			}
 		}
 

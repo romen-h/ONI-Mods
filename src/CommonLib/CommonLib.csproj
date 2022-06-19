@@ -7,7 +7,7 @@
     <TargetFramework>net471</TargetFramework>
     <Configurations>Release</Configurations>
     <RootNamespace>RomenH.Common</RootNamespace>
-    <IsMod>true</IsMod>
+    <IsMod>false</IsMod>
     <UsePLib>false</UsePLib>
   </PropertyGroup>
 
@@ -17,6 +17,30 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(GameLibsFolder)/Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>$(GameLibsFolder)/Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(GameLibsFolder)/0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(GameLibsFolder)/UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(GameLibsFolder)/UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(GameLibsFolder)/Newtonsoft.Json.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="FMODUnity">
       <HintPath>$(GameLibsFolder)/FMODUnity.dll</HintPath>
       <Private>false</Private>

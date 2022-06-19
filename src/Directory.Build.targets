@@ -15,36 +15,14 @@
       APIVersion="$(APIVersion)"
     />
   </Target>
-    
-  <Target Name="ILRepack" AfterTargets="Build" Condition="'$(UsePLib)' == 'true' OR '$(UseCommonLib)' == 'true'">
-    <ItemGroup>
-      <InputAssemblies
-        Include="$(TargetDir)\*.dll"
-        Exclude="**/0Harmony.dll; **/System.*; **/Microsoft.*" />
-    </ItemGroup>
-    <ILRepack
-      TargetPlatformVersion="v4"
-      TargetKind="SameAsPrimaryAssembly"
-      InputAssemblies="@(InputAssemblies)"
-      Wildcards="true"
-      LibraryPath="$(GameLibsFolder)"
-      Parallel="true"
-      OutputFile="$(TargetPath)"/>
+  
+  <Target Name="Merge" AfterTargets="Build" Condition="'$(UsePLib)' == 'true' OR '$(UseCommonLib)' == 'true'">
+    <Exec Command="powershell.exe -File $(SolutionDir)Merge.ps1 -SolutionDir $(SolutionDir) -TargetDir $(TargetDir) -MainAssemblyPath $(TargetPath) -LibsDir $(GameLibsFolder)" />
   </Target>
   
-  <Target
-      AfterTargets="ILRepack"
-      Name="CleanReferenceCopyLocalPaths"
-      Condition="!Exists('$(ILRepackTargetsFile)') and '$(ClearOutputDirectory)' != 'false'">
-      <Delete Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
-      <ItemGroup>
-        <Directories Include="$([System.IO.Directory]::GetDirectories('$(OutDir)%(DestinationSubDirectory)', '*', System.IO.SearchOption.AllDirectories))" />
-        <Directories>
-          <Files>$([System.IO.Directory]::GetFiles("%(Directories.Identity)", "*", System.IO.SearchOption.AllDirectories).get_Length())</Files>
-        </Directories>
-      </ItemGroup>
-      <RemoveDir Directories="@(Directories)" Condition="%(Files)=='0'" />
-    </Target>
+  <Target Name="CopyPreviousVersion" AfterTargets="Merge" Condition="'$(IsMod)' == 'true'">
+    <Exec Command="powershell.exe -File $(SolutionDir)CopyArchivedVersions.ps1 -ModID $(AssemblyName) -SolutionDir $(SolutionDir) -TargetDir $(TargetDir) -PreviousGameVersion $(PreviousGameVersion)" />
+  </Target>
 
   <Target Name="CopyAssets" AfterTargets="PostBuildEvent" Condition="'$(IsMod)' == 'true'">
     <Exec Command='xcopy "$(ProjectDir)Assets\Workshop" "$(ProjectDir)bin\" /s /i /y' ContinueOnError='true' />
