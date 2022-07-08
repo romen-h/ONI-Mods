@@ -95,7 +95,7 @@ Adds plastic versions of the mesh and airflow tiles.
 ---
 
 ### [Plastic Utilities](src/PlasticUtilities)
-[<img src="src/PlasticUtilities/Asserts/Workshop/preview.png" height="200px"/>](src/PlasticUtilities)
+[<img src="src/PlasticUtilities/Assets/Workshop/preview.png" height="200px"/>](src/PlasticUtilities)
 
 Adds plastic liquid and gas pipes and some decorative plastic backwalls.
 
