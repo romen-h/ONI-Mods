@@ -2,7 +2,7 @@ using Database;
 
 using STRINGS;
 
-namespace Curtain
+namespace RomenH.PlasticDoor
 {
 	public class ModAssets
 	{

@@ -16,7 +16,7 @@
     />
   </Target>
   
-  <Target Name="Merge" AfterTargets="Build" Condition="'$(UsePLib)' == 'true' OR '$(UseCommonLib)' == 'true'">
+  <Target Name="Merge" AfterTargets="Build" Condition="('$(UsePLib)' == 'true' OR '$(UseCommonLib)' == 'true') AND '$(DoMerge)' != 'false'">
     <Exec Command="powershell.exe -File $(SolutionDir)Merge.ps1 -SolutionDir $(SolutionDir) -TargetDir $(TargetDir) -MainAssemblyPath $(TargetPath) -LibsDir $(GameLibsFolder)" />
   </Target>
   

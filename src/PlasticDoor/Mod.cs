@@ -7,7 +7,7 @@ using KMod;
 
 using RomenH.Common;
 
-namespace Curtain
+namespace RomenH.PlasticDoor
 {
 	public class Mod : UserMod2
 	{

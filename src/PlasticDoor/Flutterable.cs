@@ -3,7 +3,7 @@ using System.Linq;
 
 using KSerialization;
 
-namespace Curtain
+namespace RomenH.PlasticDoor
 {
 	[SerializationConfig(MemberSerialization.OptIn)]
 	public class Flutterable : StateMachineComponent<Flutterable.StatesInstance>

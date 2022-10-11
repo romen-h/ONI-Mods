@@ -6,6 +6,8 @@ using System;
 
 using KSerialization;
 
+using RomenH.Common;
+
 using STRINGS;
 
 using UnityEngine;
@@ -17,37 +19,37 @@ namespace RomenH.StirlingEngine
 	{
 		public class ActiveStatusItem
 		{
-			public static string ID = "STIRLING_ACTIVE";
-			public static string Name = "Active";
-			public static string Tooltip = "This engine is running at <b>{Efficiency}</b> efficiency.";
+			public const string ID = "STIRLING_ACTIVE";
+			public static readonly LocString Name = StringUtils.StatusItemName(ID, "BUILDING", "Active");
+			public static readonly LocString Tooltip = StringUtils.StatusItemTooltip(ID, "BUILDING", "This engine is running at <b>{Efficiency}</b> efficiency.");
 		}
 
 		public class NoHeatGradientStatusItem
 		{
-			public static string ID = "STIRLING_NO_HEAT_GRADIENT";
-			public static string Name = "Temperature gradient is less than <b>{Min_Temperature_Gradient}</b>.";
-			public static string Tooltip = "This engine requires a " + UI.PRE_KEYWORD + "Temperature" + UI.PST_KEYWORD + " difference of at least <b>{Min_Temperature_Gradient}</b> to generate power.";
+			public const string ID = "STIRLING_NO_HEAT_GRADIENT";
+			public static readonly LocString Name = StringUtils.StatusItemName(ID, "BUILDING", "Temperature gradient is less than <b>{Min_Temperature_Gradient}</b>.");
+			public static readonly LocString Tooltip = StringUtils.StatusItemTooltip(ID, "BUILDING", "This engine requires a " + UI.PRE_KEYWORD + "Temperature" + UI.PST_KEYWORD + " difference of at least <b>{Min_Temperature_Gradient}</b> to generate power.");
 		}
 
 		public class TooHotStatusItem
 		{
-			public static string ID = "STIRLING_TOO_HOT";
-			public static string Name = "Engine Too Hot";
-			public static string Tooltip = "This engine must be below <b>{Overheat_Temperature}</b> to properly function.";
+			public const string ID = "STIRLING_TOO_HOT";
+			public static readonly LocString Name = StringUtils.StatusItemName(ID, "BUILDING", "Engine Too Hot");
+			public static readonly LocString Tooltip = StringUtils.StatusItemTooltip(ID, "BUILDING", "This engine must be below <b>{Overheat_Temperature}</b> to properly function.");
 		}
 
 		public class ActiveWattageStatusItem
 		{
-			public static string ID = "STIRLING_ACTIVE_WATTAGE";
-			public static string Name = "Current Wattage: {Wattage}";
-			public static string Tooltip = "This stirling engine is generating " + UI.FormatAsPositiveRate("{Wattage}") + "\n\nIt is running at <b>{Efficiency}</b> of full capacity. Increase the " + UI.PRE_KEYWORD + "Temperature" + UI.PST_KEYWORD + " gradient to improve output.";
+			public const string ID = "STIRLING_ACTIVE_WATTAGE";
+			public static readonly LocString Name = StringUtils.StatusItemName(ID, "BUILDING", "Current Wattage: {Wattage}");
+			public static readonly LocString Tooltip = StringUtils.StatusItemTooltip(ID, "BUILDING", "This stirling engine is generating " + UI.FormatAsPositiveRate("{Wattage}") + "\n\nIt is running at <b>{Efficiency}</b> of full capacity. Increase the " + UI.PRE_KEYWORD + "Temperature" + UI.PST_KEYWORD + " gradient to improve output.");
 		}
 
 		public class HeatPumpedStatusItem
 		{
-			public static string ID = "STIRLING_HEAT_PUMPED";
-			public static string Name = "Heat Input: {HeatPumped}";
-			public static string Tooltip = "This stiling engine is moving " + UI.FormatAsPositiveRate("{HeatPumped}");
+			public const string ID = "STIRLING_HEAT_PUMPED";
+			public static readonly LocString Name = StringUtils.StatusItemName(ID, "BUILDING", "Heat Input: {HeatPumped}");
+			public static readonly LocString Tooltip = StringUtils.StatusItemTooltip(ID, "BUILDING", "This stiling engine is moving " + UI.FormatAsPositiveRate("{HeatPumped}"));
 		}
 
 		internal static float HeatToWatts(float dtu)
@@ -336,7 +338,7 @@ namespace RomenH.StirlingEngine
 		private int heatSourceCell;
 
 		[MyCmpGet]
-		public KBatchedAnimController anim;
+		private KBatchedAnimController anim;
 
 		// Configurable
 		private float maxBuildingTemperature = StirlingEngineConfig.MAX_TEMP;
@@ -391,11 +393,7 @@ namespace RomenH.StirlingEngine
 
 		private void PumpHeat(float dt)
 		{
-#if CONSUME_ALL_HEAT
 			float workHeat = heatToPumpDTU;
-#else
-			float workHeat = heatToPumpDTU * currentEfficiency;
-#endif
 
 #if PRODUCE_LEFTOVER_HEAT
 			currentGeneratedHeat = Mathf.Clamp(heatToPumpDTU - workHeat, 0, heatToPumpDTU);

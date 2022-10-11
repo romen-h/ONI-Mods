@@ -1,10 +1,11 @@
-using System.Collections.Generic;
-using System.IO;
 using HarmonyLib;
+
+using PeterHan.PLib.Core;
 
 using RomenH.Common;
 
 using UnityEngine;
+
 using UnityStandardAssets.ImageEffects;
 
 namespace RomenH.LUTNotIncluded
@@ -15,38 +16,18 @@ namespace RomenH.LUTNotIncluded
 	{
 		public static void Postfix(CameraController __instance)
 		{
-			ModAssets.defaultDayLUT = __instance.dayColourCube;
-			ModAssets.defaultNightLUT = __instance.nightColourCube;
-#if DUMP_TEXTURES
-			try
+			if (ModSettings.Instance.EnableColorCorrection)
 			{
-				byte[] pngBytes = ModAssets.defaultDayLUT.EncodeToPNG();
-				string path = Path.Combine(ModAssets.TextureDirectory, "Defaults", "default_day_lut.png");
-				File.WriteAllBytes(path, pngBytes);
-			}
-			catch
-			{ }
+				// Get this mod's LUT textures (might not exist)
+				Texture2D dayTexture = ModAssets.dayLUT;
+				Texture2D nightTexture = ModAssets.nightLUT;
 
-			try
-			{
-				byte[] pngBytes = ModAssets.defaultNightLUT.EncodeToPNG();
-				string path = Path.Combine(ModAssets.TextureDirectory, "Defaults", "default_night_lut.png");
-				File.WriteAllBytes(path, pngBytes);
-			}
-			catch
-			{ }
-#endif
-
-			Texture2D dayTexture = ModAssets.dayLUT;
-			Texture2D nightTexture = ModAssets.nightLUT;
-
-			if (Mod.Settings.EnableColorCorrection)
-			{
-				if (Mod.Registry != null)
+				// Load overrides from mod interop Registry
+				if (ModCommon.Registry != null)
 				{
-					if (Mod.Registry.ContainsKey(RegistryKeys.LUTNotIncluded_DayLUT))
+					if (ModCommon.Registry.ContainsKey(RegistryKeys.LUTNotIncluded_DayLUT))
 					{
-						var dayObj = Mod.Registry[RegistryKeys.LUTNotIncluded_DayLUT];
+						var dayObj = ModCommon.Registry[RegistryKeys.LUTNotIncluded_DayLUT];
 						if (dayObj is Texture2D tex)
 						{
 							Debug.Log("LUT Not Included: Found override texture for day LUT.");
@@ -54,9 +35,9 @@ namespace RomenH.LUTNotIncluded
 						}
 					}
 
-					if (Mod.Registry.ContainsKey(RegistryKeys.LUTNotIncluded_NightLUT))
+					if (ModCommon.Registry.ContainsKey(RegistryKeys.LUTNotIncluded_NightLUT))
 					{
-						var nightObj = Mod.Registry[RegistryKeys.LUTNotIncluded_NightLUT];
+						var nightObj = ModCommon.Registry[RegistryKeys.LUTNotIncluded_NightLUT];
 						if (nightObj is Texture2D tex)
 						{
 							Debug.Log("LUT Not Included: Found override texture for night LUT.");
@@ -65,34 +46,31 @@ namespace RomenH.LUTNotIncluded
 					}
 				}
 
-				bool changes = false;
+				// Set textures to defaults if still null
+				if (dayTexture == null) dayTexture = __instance.dayColourCube;
+				if (nightTexture == null) nightTexture = __instance.nightColourCube;
 
-				if (dayTexture != null)
+				// Update LUT textures based on setting
+				if (ModSettings.Instance.ForceLUT == ForceLUTOptions.AlwaysDay)
 				{
-					__instance.dayColourCube = ModAssets.dayLUT;
-					changes = true;
+					__instance.dayColourCube = dayTexture;
+					__instance.nightColourCube = dayTexture;
+				}
+				else if (ModSettings.Instance.ForceLUT == ForceLUTOptions.AlwaysNight)
+				{
+					__instance.dayColourCube = nightTexture;
+					__instance.nightColourCube = nightTexture;
+				}
+				else
+				{
+					__instance.dayColourCube = dayTexture;
+					__instance.nightColourCube = nightTexture;
 				}
 
-				if (Mod.Settings.AlwaysDay)
+				// Apply new LUTs
+				var cc = __instance.overlayCamera.GetComponent<ColorCorrectionLookup>();
+				if (cc != null)
 				{
-					if (dayTexture != null)
-						__instance.nightColourCube = dayTexture;
-					else
-						__instance.nightColourCube = __instance.dayColourCube;
-					changes = true;
-				}
-				else 
-				{
-					if (nightTexture != null)
-					{
-						__instance.nightColourCube = nightTexture;
-						changes = true;
-					}
-				}
-
-				if (changes)
-				{
-					var cc = __instance.overlayCamera.GetComponent<ColorCorrectionLookup>();
 					cc.Convert(__instance.dayColourCube, "");
 					cc.Convert2(__instance.nightColourCube, "");
 				}

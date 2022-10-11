@@ -10,8 +10,8 @@
     <ClearOutputDirectory>true</ClearOutputDirectory>
     <ModDescription>TODO</ModDescription>
     <APIVersion>2</APIVersion>
-    <CurrentGameVersion>510738</CurrentGameVersion>
-    <PreviousGameVersion>498381</PreviousGameVersion>
+    <CurrentGameVersion>525812</CurrentGameVersion>
+    <PreviousGameVersion>514967</PreviousGameVersion>
     <MinimumSupportedBuild>$(CurrentGameVersion)</MinimumSupportedBuild>
   </PropertyGroup>
 
@@ -60,7 +60,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(UsePLib)' == 'true'">
-    <PackageReference Include="PLib" Version="4.8.1">
+    <PackageReference Include="PLib" Version="4.9.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>

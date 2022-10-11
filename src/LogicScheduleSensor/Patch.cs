@@ -13,19 +13,6 @@ namespace RomenH.LogicScheduleSensor
 	[HarmonyPatch("Initialize")]
 	public static class Db_Initialize_Patch
 	{
-		public static void Prefix()
-		{
-			Debug.Log("Logic Schedule Sensor: Adding strings...");
-
-			StringUtils.AddBuildingStrings(
-				LogicScheduleSensorConfig.ID,
-				ModStrings.STRINGS.BUILDINGS.LOGICSCHEDULESENSOR.NAME,
-				ModStrings.STRINGS.BUILDINGS.LOGICSCHEDULESENSOR.DESC,
-				ModStrings.STRINGS.BUILDINGS.LOGICSCHEDULESENSOR.EFFECT);
-
-			StringUtils.ExportTranslationTemplates();
-		}
-
 		public static void Postfix()
 		{
 			BuildingUtils.AddBuildingToPlanScreen(LogicScheduleSensorConfig.ID, GameStrings.PlanMenuCategory.Automation);

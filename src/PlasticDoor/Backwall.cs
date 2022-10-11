@@ -1,4 +1,4 @@
-namespace Curtain
+namespace RomenH.PlasticDoor
 {
 	public class Backwall : KMonoBehaviour
 	{

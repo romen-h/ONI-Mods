@@ -8,19 +8,6 @@ namespace RomenH.PipedDeodorizer
 	[HarmonyPatch("Initialize")]
 	public static class Db_Initialize_Patch
 	{
-		public static void Prefix()
-		{
-			Debug.Log("Piped Deodorizer: Adding strings...");
-
-			StringUtils.AddBuildingStrings(
-				PipedDeodorizerConfig.ID,
-				ModStrings.STRINGS.BUILDINGS.PIPEDDEODORIZER.NAME,
-				ModStrings.STRINGS.BUILDINGS.PIPEDDEODORIZER.DESC,
-				ModStrings.STRINGS.BUILDINGS.PIPEDDEODORIZER.EFFECT);
-
-			StringUtils.ExportTranslationTemplates();
-		}
-
 		public static void Postfix()
 		{
 			BuildingUtils.AddBuildingToPlanScreen(PipedDeodorizerConfig.ID, GameStrings.PlanMenuCategory.Oxygen);

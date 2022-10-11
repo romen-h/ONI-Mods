@@ -25,7 +25,7 @@ $SelectedBackup = ""
 foreach ($z in $Backups) {
     $Cmps = $z.Basename -split "_"
     [Int]$GameVersion = $Cmps[1]
-    if ($GameVersion -ge $PreviousGameVersion -and $GameVersion -lt $CurrentGameVersion) {
+    if ($GameVersion -lt $CurrentGameVersion) {
         $SelectedBackup = $z.FullName
     }
     else {

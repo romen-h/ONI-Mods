@@ -9,19 +9,6 @@ namespace RomenH.DumpingSign
 	[HarmonyPatch(nameof(Db.Initialize))]
 	public class Db_Initialize_Patch
 	{
-		public static void Prefix()
-		{
-			Debug.Log("Dumping Sign: Adding strings...");
-
-			StringUtils.AddBuildingStrings(
-				DumpingSignConfig.ID,
-				DumpingSignConfig.Name,
-				DumpingSignConfig.Desc,
-				DumpingSignConfig.Effect);
-
-			StringUtils.ExportTranslationTemplates();
-		}
-
 		public static void Postfix()
 		{
 			BuildingUtils.AddBuildingToPlanScreen(DumpingSignConfig.ID, GameStrings.PlanMenuCategory.Base);

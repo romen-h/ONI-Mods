@@ -6,6 +6,7 @@ using HarmonyLib;
 using KMod;
 
 using PeterHan.PLib.Core;
+using PeterHan.PLib.Options;
 
 using RomenH.Common;
 
@@ -17,6 +18,9 @@ namespace RomenH.PipedDeodorizer
 		{
 			ModCommon.Init("Piped Deodorizer");
 			PUtil.InitLibrary();
+
+			var options = new POptions();
+			options.RegisterOptions(this, typeof(ModSettings));
 
 			base.OnLoad(harmony);
 		}

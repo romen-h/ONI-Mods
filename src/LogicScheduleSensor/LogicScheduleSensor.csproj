@@ -10,6 +10,7 @@
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
+    <SteamID>2126597863</SteamID>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -1,4 +1,6 @@
 
+using RomenH.Common;
+
 using STRINGS;
 
 using TUNING;
@@ -13,11 +15,11 @@ namespace RomenH.StirlingEngine
 
 		public const string ID = "StirlingEngine";
 
-		public const string Name = "Stirling Engine";
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Stirling Engine");
 
-		public static string Desc = "Draws up to 100 DTU/s of heat from the cell below the floor and converts it to power. The amount of heat drawn is based on the ratio of building temperature vs temperature below the floor tile.";
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "Draws heat from the cell below the floor and converts it to power. The amount of heat drawn is based on the ratio of building temperature vs temperature below the floor tile.");
 
-		public static string Effect = "Stirling Engines draw " + UI.FormatAsLink("Heat", "HEAT") + " from the room below and harness that heat to generate " + UI.FormatAsLink("Power", "POWER") + ".";
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, "Stirling Engines draw " + UI.FormatAsLink("Heat", "HEAT") + " from the room below and harness that heat to generate " + UI.FormatAsLink("Power", "POWER") + ".");
 
 		public override BuildingDef CreateBuildingDef()
 		{
@@ -58,18 +60,6 @@ namespace RomenH.StirlingEngine
 		{
 			go.GetComponent<KPrefabID>().AddTag(RoomConstraints.ConstraintTags.IndustrialMachinery);
 			Prioritizable.AddRef(go);
-
-#if ENABLE_GAS_DELIVERY
-			Storage storage = go.AddOrGet<Storage>();
-			storage.capacityKg = 10f;
-			ManualDeliveryKG manualDeliveryKG = go.AddOrGet<ManualDeliveryKG>();
-			manualDeliveryKG.SetStorage(storage);
-			manualDeliveryKG.requestedItemTag = GameTags.Hydrogen;
-			manualDeliveryKG.capacity = 10f;
-			manualDeliveryKG.refillMass = 0f;
-			manualDeliveryKG.minimumMass = 10f;
-			manualDeliveryKG.choreTypeIDHash = Db.Get().ChoreTypes.MachineFetch.IdHash;
-#endif
 		}
 
 		public override void DoPostConfigureComplete(GameObject go)
@@ -78,9 +68,6 @@ namespace RomenH.StirlingEngine
 			var engine = go.AddOrGet<StirlingEngine>();
 			var tinkerable = Tinkerable.MakePowerTinkerable(go);
 			tinkerable.SetWorkTime(120f);
-
-			//var sounds = go.AddOrGet<CustomLoopingSounds>();
-			//sounds.soundName = "PistonLoop";
 
 			go.AddOrGetDef<PoweredActiveController.Def>();
 		}

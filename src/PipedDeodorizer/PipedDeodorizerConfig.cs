@@ -1,3 +1,5 @@
+using RomenH.Common;
+
 using TUNING;
 
 using UnityEngine;
@@ -8,11 +10,15 @@ namespace RomenH.PipedDeodorizer
 	{
 		public const string ID = "PipedDeodorizer";
 
-		private const float AIR_INPUT_RATE = 0.5f;
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Piped Deodorizer");
 
-		private const float AIR_OUTPUT_RATE = 0.49f;
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "");
 
-		private const float DIRT_OUTPUT_RATE = 0.01f;
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, "Filters " + STRINGS.UI.FormatAsKeyWord("Polluted Oxygen") + " from the air pumped through it.");
+
+		private const float AIR_OUTPUT_RATIO = 0.9f;
+
+		private const float FILTER_CONSUMPTION_RATIO = 1.2f;
 
 		public override BuildingDef CreateBuildingDef()
 		{
@@ -31,8 +37,8 @@ namespace RomenH.PipedDeodorizer
 				decor: BUILDINGS.DECOR.PENALTY.TIER1
 			);
 			def.RequiresPowerInput = true;
-			def.EnergyConsumptionWhenActive = 120f;
-			def.SelfHeatKilowattsWhenActive = 1f;
+			def.EnergyConsumptionWhenActive = ModSettings.Instance.Wattage;
+			def.SelfHeatKilowattsWhenActive = ModSettings.Instance.HeatGenerated;
 			def.InputConduitType = ConduitType.Gas;
 			def.OutputConduitType = ConduitType.Gas;
 			def.ViewMode = OverlayModes.GasConduits.ID;
@@ -56,28 +62,64 @@ namespace RomenH.PipedDeodorizer
 			storage.capacityKg = 30000f;
 			storage.SetDefaultStoredItemModifiers(Storage.StandardSealedStorage);
 
-			go.AddOrGet<PipedDeodorizer>();
-
 			ElementConverter elementConverter = go.AddOrGet<ElementConverter>();
-			elementConverter.consumedElements = new ElementConverter.ConsumedElement[1]
-			{
-				new ElementConverter.ConsumedElement(SimHashes.ContaminatedOxygen.CreateTag(), AIR_INPUT_RATE),
-			};
-			elementConverter.outputElements = new ElementConverter.OutputElement[2]
-			{
-				new ElementConverter.OutputElement(AIR_OUTPUT_RATE, SimHashes.Oxygen, 0f, useEntityTemperature: false, storeOutput: true),
-				new ElementConverter.OutputElement(DIRT_OUTPUT_RATE, SimHashes.ToxicSand, 0f, useEntityTemperature: false, storeOutput: true)
-			};
 
-			ElementDropper elementDropper = go.AddComponent<ElementDropper>();
-			elementDropper.emitMass = 10f;
-			elementDropper.emitTag = new Tag("ToxicSand");
-			elementDropper.emitOffset = new Vector3(1f, 1f, 0f);
+			float intakeRate = ModSettings.Instance.IntakeRate;
+			float airOutputRate = intakeRate * AIR_OUTPUT_RATIO;
+
+			if (ModSettings.Instance.ClassicDeodorizer)
+			{
+				float filterConsumptionRate = intakeRate * FILTER_CONSUMPTION_RATIO;
+
+				float clayOutputRate = filterConsumptionRate + (intakeRate - airOutputRate);
+
+				elementConverter.consumedElements = new ElementConverter.ConsumedElement[]
+				{
+					new ElementConverter.ConsumedElement(GameTags.Filter, filterConsumptionRate),
+					new ElementConverter.ConsumedElement(SimHashes.ContaminatedOxygen.CreateTag(), intakeRate),
+				};
+				elementConverter.outputElements = new ElementConverter.OutputElement[]
+				{
+					new ElementConverter.OutputElement(airOutputRate, SimHashes.Oxygen, 0f, useEntityTemperature: false, storeOutput: true),
+					new ElementConverter.OutputElement(clayOutputRate, SimHashes.Clay, 0f, useEntityTemperature: false, storeOutput: true)
+				};
+
+				ManualDeliveryKG manualDeliveryKG = go.AddComponent<ManualDeliveryKG>();
+				manualDeliveryKG.SetStorage(storage);
+				manualDeliveryKG.RequestedItemTag = GameTags.Filter;
+				manualDeliveryKG.capacity = 1000f;
+				manualDeliveryKG.refillMass = 50f;
+				manualDeliveryKG.choreTypeIDHash = Db.Get().ChoreTypes.FetchCritical.IdHash;
+			}
+			else
+			{
+				float dirtOutputRate = intakeRate - airOutputRate;
+
+				elementConverter.consumedElements = new ElementConverter.ConsumedElement[]
+				{
+					new ElementConverter.ConsumedElement(SimHashes.ContaminatedOxygen.CreateTag(), intakeRate),
+				};
+				elementConverter.outputElements = new ElementConverter.OutputElement[]
+				{
+					new ElementConverter.OutputElement(airOutputRate, SimHashes.Oxygen, 0f, useEntityTemperature: false, storeOutput: true),
+					new ElementConverter.OutputElement(dirtOutputRate, SimHashes.ToxicSand, 0f, useEntityTemperature: false, storeOutput: true)
+				};
+			}
+
+			ElementDropper pollutedDirtDropper = go.AddComponent<ElementDropper>();
+			pollutedDirtDropper.emitMass = 10f;
+			pollutedDirtDropper.emitTag = SimHashes.ToxicSand.CreateTag();
+			pollutedDirtDropper.emitOffset = new Vector3(1f, 1f, 0f);
+
+			ElementDropper clayDropper = go.AddComponent<ElementDropper>();
+			clayDropper.emitMass = 10f;
+			clayDropper.emitTag = SimHashes.Clay.CreateTag();
+			clayDropper.emitOffset = new Vector3(1f, 1f, 0f);
 
 			ConduitConsumer conduitConsumer = go.AddOrGet<ConduitConsumer>();
 			conduitConsumer.conduitType = ConduitType.Gas;
-			conduitConsumer.consumptionRate = AIR_INPUT_RATE;
-			conduitConsumer.capacityKG = 2 * AIR_INPUT_RATE;
+			conduitConsumer.consumptionRate = intakeRate;
+			conduitConsumer.capacityKG = 2 * intakeRate;
 			conduitConsumer.capacityTag = GameTags.Breathable;// ElementLoader.FindElementByHash(SimHashes.ContaminatedOxygen).tag;
 			conduitConsumer.wrongElementResult = ConduitConsumer.WrongElementResult.Dump;
 			conduitConsumer.forceAlwaysSatisfied = true;
@@ -90,6 +132,8 @@ namespace RomenH.PipedDeodorizer
 			{
 				SimHashes.ContaminatedOxygen
 			};
+
+			go.AddOrGet<PipedDeodorizer>();
 
 			go.AddOrGet<KBatchedAnimController>().randomiseLoopedOffset = true;
 		}

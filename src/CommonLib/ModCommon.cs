@@ -33,6 +33,8 @@ namespace RomenH.Common
 			Debug.Log($"Initializing Mod: {Name} ({Version}) by Romen");
 
 			Registry = RomenHRegistry.Init();
+
+			StringUtils.RegisterAllLocStrings();
 		}
 	}
 }

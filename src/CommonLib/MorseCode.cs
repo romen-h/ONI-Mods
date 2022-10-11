@@ -1,8 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CommonLib
 {
@@ -72,23 +68,23 @@ namespace CommonLib
 			List<bool> data = new List<bool>();
 			foreach (char c in code)
 			{
-				if (c=='.')
+				if (c == '.')
 				{
-					for (int i=0; i<pulseLength; i++)
+					for (int i = 0; i < pulseLength; i++)
 						data.Add(true);
 				}
-				else if (c=='-')
+				else if (c == '-')
 				{
-					for (int i=0; i<pulseLength; i++)
+					for (int i = 0; i < pulseLength; i++)
 					{
 						data.Add(true);
 						data.Add(true);
 						data.Add(true);
 					}
 				}
-				else if (c==' ')
+				else if (c == ' ')
 				{
-					for (int i=0; i<pulseLength; i++)
+					for (int i = 0; i < pulseLength; i++)
 					{
 						data.Add(false);
 						data.Add(false);
@@ -96,7 +92,7 @@ namespace CommonLib
 					}
 				}
 
-				for (int i=0; i<pulseLength; i++)
+				for (int i = 0; i < pulseLength; i++)
 				{
 					data.Add(false);
 				}

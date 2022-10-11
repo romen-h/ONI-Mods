@@ -25,8 +25,6 @@ namespace RomenH.StirlingEngine
 			var options = new POptions();
 			options.RegisterOptions(this, typeof(ModSettings));
 
-			StirlingEngineConfig.Desc = $"Draws up to {StirlingEngine.WattsToHeat(ModSettings.Instance.MaxWattOutput):F0} DTU/s of heat from the cell below the floor and converts it to power. The amount of heat drawn is based on the ratio of building temperature vs temperature below the floor tile.";
-
 			base.OnLoad(harmony);
 		}
 	}

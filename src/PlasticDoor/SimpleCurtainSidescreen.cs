@@ -3,7 +3,7 @@ using PeterHan.PLib.UI;
 
 using UnityEngine;
 
-namespace Curtain
+namespace RomenH.PlasticDoor
 {
 	public class SimpleCurtainSidescreen : SideScreenContent
 	{

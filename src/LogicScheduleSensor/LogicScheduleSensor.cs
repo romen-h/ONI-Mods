@@ -9,16 +9,16 @@ namespace RomenH.LogicScheduleSensor
 	[SerializationConfig(MemberSerialization.OptIn)]
 	public class LogicScheduleSensor : Switch, ISaveLoadable, ISim200ms
 	{
-		[MyCmpGet]
-		public KBatchedAnimController anim;
-
-		private MeterController meter;
-
 		[Serialize]
 		public int scheduleIndex = 0;
 
 		[Serialize]
 		public int blockTypeIndex = 0;
+
+		[MyCmpGet]
+		public KBatchedAnimController anim;
+
+		private MeterController meter;
 
 		private bool wasOn = false;
 

@@ -3,13 +3,14 @@
 
   <PropertyGroup>
     <AssemblyName>LUTNotIncluded</AssemblyName>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <TargetFramework>net471</TargetFramework>
     <Configurations>Release</Configurations>
     <RootNamespace>RomenH.LUTNotIncluded</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
+    <SteamID>2547366806</SteamID>
   </PropertyGroup>
 
   <PropertyGroup>

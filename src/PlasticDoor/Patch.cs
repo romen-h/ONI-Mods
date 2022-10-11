@@ -6,31 +6,11 @@ using PeterHan.PLib.UI;
 
 using RomenH.Common;
 
-namespace Curtain
+namespace RomenH.PlasticDoor
 {
-	[HarmonyPatch(typeof(Db))]
-	[HarmonyPatch("Initialize")]
+	[HarmonyPatch(typeof(Db), "Initialize")]
 	public static class Db_Initialize_Patch
 	{
-		public static void Prefix()
-		{
-			Debug.Log("Plastic Door: Adding strings...");
-
-			StringUtils.AddBuildingStrings(
-				PlasticCurtainConfig.ID,
-				STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.NAME,
-				STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.DESC,
-				STRINGS.BUILDINGS.PREFABS.AC_PLASTICCURTAIN.EFFECT);
-
-			StringUtils.AddStatusItemStrings(
-				STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.ID,
-				"BUILDING",
-				STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.NAME,
-				STRINGS.BUILDING.STATUSITEMS.CHANGECURTAINCONTROLSTATE.TOOLTIP);
-
-			StringUtils.ExportTranslationTemplates();
-		}
-
 		public static void Postfix()
 		{
 			BuildingUtils.AddBuildingToPlanScreen(PlasticCurtainConfig.ID, PlasticCurtainConfig.PlanMenu);
@@ -38,8 +18,7 @@ namespace Curtain
 		}
 	}
 
-	[HarmonyPatch(typeof(DetailsScreen))]
-	[HarmonyPatch("OnPrefabInit")]
+	[HarmonyPatch(typeof(DetailsScreen), "OnPrefabInit")]
 	public static class DetailsScreen_OnPrefabInit_Patch
 	{
 		internal static void Postfix()
@@ -48,26 +27,14 @@ namespace Curtain
 		}
 	}
 
-#if false
-    [HarmonyPatch(typeof(Localization), "Initialize")]
-    class StringLocalisationPatch
-    {
-        public static void Postfix()
-        {
-            Loc.Translate(typeof(STRINGS));
-        }
-    }
-
-    [HarmonyPatch(typeof(DetailsScreen), "OnPrefabInit")]
-    public static class DetailsScreen_OnPrefabInit_Patch
-    {
-        public static void Postfix()
-        {
-            Log.Info("Cloning side screen...");
-            AddClonedSideScreen<CurtainSideScreen>("Curtain Side Screen", "Door Toggle Side Screen", typeof(DoorToggleSideScreen));
-        }
-    }
-#endif
+	[HarmonyPatch(typeof(Localization), "Initialize")]
+	public class Localization_Initialize_Patch
+	{
+		public static void Postfix()
+		{
+			StringUtils.LoadTranslations();
+		}
+	}
 
 	[HarmonyPatch(typeof(Database.BuildingStatusItems), "CreateStatusItems")]
 	public static class Database_BuildingStatusItems_CreateStatusItems_Patch
@@ -96,15 +63,6 @@ namespace Curtain
 				Element element = ElementLoader.FindElementByHash(hash);
 				element.oreTags = element.oreTags.Append(ModAssets.plasticTag);
 			}
-		}
-	}
-
-	[HarmonyPatch(typeof(Localization), "Initialize")]
-	public class Localization_Initialize_Patch
-	{
-		public static void Postfix()
-		{
-			StringUtils.LoadTranslations();
 		}
 	}
 }

@@ -1,5 +1,9 @@
 using System.Collections.Generic;
 
+using RomenH.Common;
+
+using STRINGS;
+
 using TUNING;
 
 using UnityEngine;
@@ -8,9 +12,23 @@ namespace RomenH.LogicScheduleSensor
 {
 	public class LogicScheduleSensorConfig : IBuildingConfig
 	{
-		public static string ID = "LogicScheduleSensor";
+		public const string ID = "LogicScheduleSensor";
 
-		public static readonly LogicPorts.Port OUTPUT_PORT = LogicPorts.Port.OutputPort(LogicSwitch.PORT_ID, new CellOffset(0, 0), ModStrings.STRINGS.BUILDINGS.LOGICSCHEDULESENSOR.LOGIC_PORT, ModStrings.STRINGS.BUILDINGS.LOGICSCHEDULESENSOR.LOGIC_PORT_ACTIVE, ModStrings.STRINGS.BUILDINGS.LOGICSCHEDULESENSOR.LOGIC_PORT_INACTIVE);
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Logic Schedule Sensor");
+
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "Schedule sensors allow systems to be synchronized to a specific schedule and shift.");
+
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, string.Concat("Sends a ",
+					UI.FormatAsAutomationState("Green Signal", UI.AutomationState.Active),
+					" when the selected ",
+					UI.FormatAsLink("Schedule", "SCHEDULE"),
+					" enters the selected shift."));
+
+		public static readonly LocString LogicPort = StringUtils.BuildingLogicPortName(ID, "Schedule Shift");
+
+		public static readonly LocString LogicPortActive = StringUtils.BuildingLogicPortActive(ID, "Sends a " + UI.FormatAsAutomationState("Green Signal", UI.AutomationState.Active) + " when the selected " + UI.FormatAsLink("Schedule", "SCHEDULE") + " enters the selected shift");
+
+		public static readonly LocString LogicPortInactive = StringUtils.BuildingLogicPortInactive(ID, "Otherwise, sends a " + UI.FormatAsAutomationState("Red Signal", UI.AutomationState.Standby));
 
 		public override BuildingDef CreateBuildingDef()
 		{
@@ -37,7 +55,7 @@ namespace RomenH.LogicScheduleSensor
 
 			buildingDef.LogicOutputPorts = new List<LogicPorts.Port>
 			{
-				OUTPUT_PORT
+				LogicPorts.Port.OutputPort(LogicSwitch.PORT_ID, new CellOffset(0, 0), LogicPort.ToString(), LogicPortActive.ToString(), LogicPortInactive.ToString())
 			};
 
 			GeneratedBuildings.RegisterWithOverlay(OverlayModes.Logic.HighlightItemIDs, ID);
@@ -48,12 +66,7 @@ namespace RomenH.LogicScheduleSensor
 		public override void DoPostConfigureComplete(GameObject go)
 		{
 			GeneratedBuildings.MakeBuildingAlwaysOperational(go);
-			LogicPorts logicPorts = go.AddOrGet<LogicPorts>();
-			logicPorts.inputPortInfo = null;
-			logicPorts.outputPortInfo = new LogicPorts.Port[1]
-			{
-				OUTPUT_PORT
-			};
+
 			LogicScheduleSensor logicScheduleSensor = go.AddOrGet<LogicScheduleSensor>();
 			logicScheduleSensor.manuallyControlled = false;
 		}

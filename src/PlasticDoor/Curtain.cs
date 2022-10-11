@@ -2,7 +2,7 @@ using KSerialization;
 
 using UnityEngine;
 
-namespace Curtain
+namespace RomenH.PlasticDoor
 {
 	[SerializationConfig(MemberSerialization.OptIn)]
 	public partial class Curtain : Workable, ISaveLoadable

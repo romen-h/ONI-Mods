@@ -1,4 +1,6 @@
 
+using RomenH.Common;
+
 using UnityEngine;
 
 namespace RomenH.DumpingSign
@@ -7,11 +9,11 @@ namespace RomenH.DumpingSign
 	{
 		public const string ID = "RomenH_DumpingSign";
 
-		public const string Name = "Dumping Sign";
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Dumping Sign");
 
-		public const string Desc = "Desc Todo";
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "");
 
-		public const string Effect = "Effect Todo";
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, "Allows Duplicants to deliver materials to this sign which drops them on the ground immediately.");
 
 		public static readonly Tag CopyGroupTag = TagManager.Create(ID);
 
@@ -48,7 +50,7 @@ namespace RomenH.DumpingSign
 			storage.fetchCategory = Storage.FetchCategory.StorageSweepOnly;
 			storage.showCapacityStatusItem = false;
 			storage.showCapacityAsMainStatus = false;
-			storage.capacityKg = 1000;
+			storage.capacityKg = 10000;
 
 			go.AddOrGet<TreeFilterable>();
 

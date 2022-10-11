@@ -60,7 +60,7 @@ namespace RomenH.DumpingSign
 
 			ChoreType choreType = Db.Get().ChoreTypes.Get(Db.Get().ChoreTypes.StorageFetch.Id);
 
-			filteredStorage = new FilteredStorage(this, null, null, null, false, choreType);
+			filteredStorage = new FilteredStorage(this, null, null, false, choreType);
 			filteredStorage.SetHasMeter(false);
 		}
 
@@ -82,7 +82,7 @@ namespace RomenH.DumpingSign
 			signObject.SetActive(true);
 			signAnim.enabled = false;
 
-			filterable.OnFilterChanged = (Action<Tag[]>)Delegate.Combine(filterable.OnFilterChanged, new Action<Tag[]>(this.OnFilterChanged));
+			filterable.OnFilterChanged = (Action<HashSet<Tag>>)Delegate.Combine(filterable.OnFilterChanged, new Action<HashSet<Tag>>(this.OnFilterChanged));
 			storage.SetOnlyFetchMarkedItems(true);
 			Subscribe((int)GameHashes.OnStorageChange, OnStorageChanged);
 
@@ -91,7 +91,7 @@ namespace RomenH.DumpingSign
 
 		protected override void OnCleanUp()
 		{
-			filterable.OnFilterChanged = (Action<Tag[]>)Delegate.Remove(filterable.OnFilterChanged, new Action<Tag[]>(this.OnFilterChanged));
+			filterable.OnFilterChanged = (Action<HashSet<Tag>>)Delegate.Remove(filterable.OnFilterChanged, new Action<HashSet<Tag>>(this.OnFilterChanged));
 			filteredStorage.CleanUp();
 
 			GameObject.DestroyImmediate(signObject);
@@ -107,11 +107,11 @@ namespace RomenH.DumpingSign
 			OnFilterChanged(filterable.GetTags());
 		}
 
-		private void OnFilterChanged(Tag[] tags)
+		private void OnFilterChanged(HashSet<Tag> tags)
 		{
 			try
 			{
-				if (tags == null || tags.Length == 0)
+				if (tags == null || tags.Count == 0)
 				{
 					anim.SetSymbolVisiblity("disabled", true);
 					signAnim.enabled = false;
@@ -125,9 +125,9 @@ namespace RomenH.DumpingSign
 					Vector2 offset = Vector2.zero;
 					float scale = 0.0015f;
 
-					if (tags.Length == 1)
+					if (tags.Count == 1)
 					{
-						var prefab = Assets.GetPrefab(tags[0]);
+						var prefab = Assets.GetPrefab(tags.First());
 						if (prefab != null)
 						{
 							animFiles = prefab.GetComponent<KBatchedAnimController>()?.AnimFiles;
@@ -148,7 +148,7 @@ namespace RomenH.DumpingSign
 					{
 						int discoveredCount = DiscoveredResources.Instance.GetDiscovered().Count;
 
-						if (tags.Length != discoveredCount)
+						if (tags.Count != discoveredCount)
 						{
 							Tag category = GetMajorityCategory(tags);
 
@@ -195,7 +195,7 @@ namespace RomenH.DumpingSign
 			}
 		}
 
-		private Tag GetMajorityCategory(Tag[] tags)
+		private Tag GetMajorityCategory(HashSet<Tag> tags)
 		{
 			Tag majorityCategory = Tag.Invalid;
 
@@ -203,7 +203,7 @@ namespace RomenH.DumpingSign
 			{
 				int count = GetNumTagsFromCategory(category, tags);
 
-				bool majority = count > (tags.Length - count);
+				bool majority = count > (tags.Count - count);
 
 				if (majority)
 				{
@@ -215,7 +215,7 @@ namespace RomenH.DumpingSign
 			return majorityCategory;
 		}
 
-		private int GetNumTagsFromCategory(Tag category, Tag[] tags)
+		private int GetNumTagsFromCategory(Tag category, HashSet<Tag> tags)
 		{
 			int c = 0;
 			foreach (Tag tag in DiscoveredResources.Instance.GetDiscoveredResourcesFromTag(category))

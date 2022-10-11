@@ -4,53 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 
 using STRINGS;
 
 namespace RomenH.Common
 {
-	/// <summary>
-	/// A class that provides static utility methods for buildings.
-	/// </summary>
-	public static class BuildingUtils
-	{
-		private static PlanScreen.PlanInfo GetMenu(HashedString category)
-		{
-			foreach (var menu in TUNING.BUILDINGS.PLANORDER)
-			{
-				if (menu.category == category) return menu;
-			}
-
-			Debug.LogWarning($"Failed to find plan menu.");
-			throw new Exception();
-		}
-
-		public static void AddBuildingToPlanScreen(string buildingID, HashedString category, string addAferID = null, string subcategory = "")
-		{
-			if (addAferID != null)
-			{
-				ModUtil.AddBuildingToPlanScreen(category, buildingID, subcategory, addAferID, ModUtil.BuildingOrdering.After);
-			}
-			else
-			{
-				ModUtil.AddBuildingToPlanScreen(category, buildingID, subcategory);
-			}
-		}
-
-		public static void AddBuildingToTech(string buildingID, string techID)
-		{
-			var tech = Db.Get().Techs.Get(techID);
-			if (tech != null)
-			{
-				tech.unlockedItemIDs.Add(buildingID);
-			}
-			else
-			{
-				Debug.LogWarning($"Failed to find tech ID: {techID}");
-			}
-		}
-	}
-
 	/// <summary>
 	/// A class that provides static utility methods for strings.
 	/// </summary>
@@ -58,7 +17,117 @@ namespace RomenH.Common
 	{
 		private static Dictionary<string, string> registeredStrings = new Dictionary<string, string>();
 
-		public static void ExportTranslationTemplates()
+		public static LocString BuildingName(string ID, string value)
+		{
+			return new LocString(UI.FormatAsLink(value, ID.ToUpperInvariant()), "STRINGS.BUILDINGS.PREFABS." + ID.ToUpperInvariant() + ".NAME");
+		}
+
+		public static LocString BuildingDesc(string ID, string value)
+		{
+			return new LocString(value, "STRINGS.BUILDINGS.PREFABS." + ID.ToUpperInvariant() + ".DESC");
+		}
+
+		public static LocString BuildingEffect(string ID, string value)
+		{
+			return new LocString(value, "STRINGS.BUILDINGS.PREFABS." + ID.ToUpperInvariant() + ".EFFECT");
+		}
+
+		public static LocString BuildingLogicPortName(string ID, string value)
+		{
+			return new LocString(value, "STRINGS.BUILDINGS.PREFABS." + ID.ToUpperInvariant() + ".LOGIC_PORT");
+		}
+
+		public static LocString BuildingLogicPortActive(string ID, string value)
+		{
+			return new LocString(value, "STRINGS.BUILDINGS.PREFABS." + ID.ToUpperInvariant() + ".LOGIC_PORT_ACTIVE");
+		}
+
+		public static LocString BuildingLogicPortInactive(string ID, string value)
+		{
+			return new LocString(value, "STRINGS.BUILDINGS.PREFABS." + ID.ToUpperInvariant() + ".LOGIC_PORT_INACTIVE");
+		}
+
+		public static LocString CreatureName(string ID, string value)
+		{
+			return new LocString(value, "STRINGS.CREATURES.SPECIES." + ID.ToUpperInvariant() + ".NAME");
+		}
+
+		public static LocString CreatureDesc(string ID, string value)
+		{
+			return new LocString(value, "STRINGS.CREATURES.SPECIES." + ID.ToUpperInvariant() + ".DESC");
+		}
+
+		public static LocString CreatureVariantName(string ID, string variant, string value)
+		{
+			return new LocString(value, "STRINGS.CREATURES.SPECIES." + ID.ToUpperInvariant() + "." + variant.ToUpperInvariant() + ".NAME");
+		}
+
+		public static LocString CreatureVariantDesc(string ID, string variant, string value)
+		{
+			return new LocString(value, "STRINGS.CREATURES.SPECIES." + ID.ToUpperInvariant() + "." + variant.ToUpperInvariant() + ".DESC");
+		}
+
+		public static LocString StatusItemName(string ID, string prefix, string value)
+		{
+			return new LocString(value, "STRINGS." + prefix.ToUpperInvariant() + ".STATUSITEMS." + ID.ToUpperInvariant() + ".NAME");
+		}
+
+		public static LocString StatusItemTooltip(string ID, string prefix, string value)
+		{
+			return new LocString(value, "STRINGS." + prefix.ToUpperInvariant() + ".STATUSITEMS." + ID.ToUpperInvariant() + ".TOOLTIP");
+		}
+
+		public static LocString TechName(string ID, string value)
+		{
+			return new LocString(value, "STRINGS.RESEARCH.TECHS." + ID.ToUpperInvariant() + ".NAME");
+		}
+
+		public static LocString TechDesc(string ID, string value)
+		{
+			return new LocString(value, "STRINGS.RESEARCH.TECHS." + ID.ToUpperInvariant() + ".DESC");
+		}
+
+		internal static void RegisterAllLocStrings()
+		{
+			try
+			{
+				foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
+				{
+					if (type.FullName.StartsWith("RomenH."))
+					{
+						foreach (FieldInfo field in type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly))
+						{
+							if (field.FieldType == typeof(LocString))
+							{
+								LocString ls = (LocString)field.GetValue(null);
+								if (ls.key.IsValid())
+								{
+									Strings.Add(ls.key.String, ls.text);
+									registeredStrings.Add(ls.key.String, ls.text);
+								}
+							}
+						}
+					}
+				}
+				Debug.Log($"{ModCommon.Name}: String registration complete.");
+			}
+			catch (Exception ex)
+			{
+				Debug.LogWarning($"{ModCommon.Name}: Failed to register strings.\n{ex}");
+			}
+
+			try
+			{
+				ExportTranslationTemplates();
+				Debug.Log($"{ModCommon.Name}: Exported translation templates.");
+			}
+			catch (Exception ex)
+			{
+				Debug.LogWarning($"{ModCommon.Name}: Failed to export translation templates.\n{ex}");
+			}
+		}
+
+		internal static void ExportTranslationTemplates()
 		{
 			WriteTextTemplate(ModCommon.Folder);
 			WritePOTemplate(ModCommon.Folder);
@@ -79,7 +148,7 @@ namespace RomenH.Common
 				List<string> lines = new List<string>();
 				foreach (var kvp in registeredStrings)
 				{
-					string line = kvp.Key + ": " + kvp.Value;
+					string line = kvp.Key + ": " + kvp.Value.Replace(Environment.NewLine, "\\n");
 					lines.Add(line);
 				}
 				File.WriteAllLines(file, lines, Encoding.UTF8);
@@ -188,6 +257,7 @@ namespace RomenH.Common
 			}
 		}
 
+#if false
 		public static void AddBuildingStrings(string id, string name, string description, string effect)
 		{
 			AddBuildingString(id, "NAME", UI.FormatAsLink(name, id));
@@ -198,6 +268,21 @@ namespace RomenH.Common
 		private static void AddBuildingString(string id, string postfix, string value)
 		{
 			string key = "STRINGS.BUILDINGS.PREFABS." + id.ToUpperInvariant() + "." + postfix.ToUpperInvariant();
+			Strings.Add(key, value);
+			registeredStrings[key] = value;
+		}
+
+		public static void AddEquipmentStrings(string id, string name, string description, string effect, string recipeDescription)
+		{
+			AddEquipmentString(id, "NAME", UI.FormatAsLink(name, id));
+			AddEquipmentString(id, "DESC", description);
+			AddEquipmentString(id, "EFFECT", effect);
+			AddEquipmentString(id, "RECIPE_DESC", recipeDescription);
+		}
+
+		private static void AddEquipmentString(string id, string postfix, string value)
+		{
+			string key = "STRINGS.EQUIPMENT.PREFABS." + id.ToUpperInvariant() + "." + postfix.ToUpperInvariant();
 			Strings.Add(key, value);
 			registeredStrings[key] = value;
 		}
@@ -227,5 +312,6 @@ namespace RomenH.Common
 			Strings.Add(key, value);
 			registeredStrings[key] = value;
 		}
+#endif
 	}
 }

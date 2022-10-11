@@ -3,13 +3,14 @@
 
   <PropertyGroup>
     <AssemblyName>PlasticDoor</AssemblyName>
-    <Version>3.0.2</Version>
+    <Version>3.0.3</Version>
     <TargetFramework>net471</TargetFramework>
     <Configurations>Release</Configurations>
     <RootNamespace>RomenH.PlasticDoor</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
+    <SteamID>2556517152</SteamID>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -30,10 +31,6 @@
       <HintPath>$(GameLibsFolder)/UnityEngine.UI.dll</HintPath>
       <Private>false</Private>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="PLib" Version="4.8.1" />
   </ItemGroup>
 
 </Project>

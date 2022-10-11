@@ -1,12 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
-using Newtonsoft.Json;
 
 namespace RomenH.CommonLib
 {
@@ -37,7 +30,7 @@ namespace RomenH.CommonLib
 					Debug.Log($"    name: {v.name}");
 					Debug.Log($"    offset: {v.offset}");
 					Debug.Log($"    variant.uvBox: {v.atlasItem.uvBox}");
-					for (int i=0; i<v.atlasItem.uvs.Length; i++)
+					for (int i = 0; i < v.atlasItem.uvs.Length; i++)
 					{
 						Debug.Log($"    variant.uvs[{i}]: {v.atlasItem.uvs[i]}");
 					}
