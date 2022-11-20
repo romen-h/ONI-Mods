@@ -1,4 +1,6 @@
 
+using RomenH.Common;
+
 using TUNING;
 
 using UnityEngine;
@@ -8,12 +10,9 @@ namespace RomenH.Thresholds
 	public class MetalThresholdWallConfig : IBuildingConfig
 	{
 		public const string ID = "RomenH_MetalThresholdWall";
-
-		public static LocString Name = "Metal Threshold Wall";
-
-		public static LocString Desc = "";
-
-		public static LocString Effect = "Can be used to separate rooms or subtract cells from room sizes without occupying the cell.";
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Metal Threshold Wall");
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "A metal backwall that marks the edge of a room.");
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, "Can be used to separate rooms or subtract cells from room sizes without occupying the cell.");
 
 		public override BuildingDef CreateBuildingDef()
 		{

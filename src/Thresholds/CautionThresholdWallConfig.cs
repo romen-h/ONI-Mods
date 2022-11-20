@@ -1,4 +1,6 @@
 
+using RomenH.Common;
+
 using TUNING;
 
 using UnityEngine;
@@ -8,12 +10,9 @@ namespace RomenH.Thresholds
 	public class CautionThresholdWallConfig : IBuildingConfig
 	{
 		public const string ID = "RomenH_CautionThresholdWall";
-
-		public static LocString Name = "Industrial Threshold Wall";
-
-		public static LocString Desc = "";
-
-		public static LocString Effect = "Can be used to separate rooms or subtract cells from room sizes without occupying the cell.";
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Industrial Threshold Wall");
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "A cautionary backwall pattern that marks the edge of a room.");
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, "Can be used to separate rooms or subtract cells from room sizes without occupying the cell.");
 
 		public override BuildingDef CreateBuildingDef()
 		{
