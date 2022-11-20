@@ -12,6 +12,15 @@ namespace RomenH.Common
 			public static readonly string[] Abyssalite = { SimHashes.Katairite.ToString() };
 		}
 
+		public static class Diseases
+		{
+			public const string FoodPoisoning = "FoodPoisoning";
+			public const string Pollen = "PollenGerms";
+			public const string Radiation = "RadiationSickness";
+			public const string Slimelung = "SlimeLung";
+			public const string ZombieSpores = "ZombieSpores";
+		}
+
 		/// <summary>
 		/// Defines the strings used to reference each of the building menus.
 		/// </summary>

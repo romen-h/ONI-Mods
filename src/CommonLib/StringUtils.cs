@@ -77,6 +77,21 @@ namespace RomenH.Common
 			return new LocString(value, "STRINGS." + prefix.ToUpperInvariant() + ".STATUSITEMS." + ID.ToUpperInvariant() + ".TOOLTIP");
 		}
 
+		public static LocString LogicPortDesc(string ID, string value)
+		{
+			return new LocString(value, "STRINGS.BUILDINGS.PREFABS." + ID + ".LOGIC_PORT");
+		}
+
+		public static LocString LogicPortInputActive(string ID, string value)
+		{
+			return new LocString(value, "STRINGS.BUILDINGS.PREFABS." + ID + ".INPUT_PORT_ACTIVE");
+		}
+
+		public static LocString LogicPortOutputActive(string ID, string value)
+		{
+			return new LocString(value, "STRINGS.BUILDINGS.PREFABS." + ID + ".INPUT_PORT_INACTIVE");
+		}
+
 		public static LocString TechName(string ID, string value)
 		{
 			return new LocString(value, "STRINGS.RESEARCH.TECHS." + ID.ToUpperInvariant() + ".NAME");
