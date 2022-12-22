@@ -9,8 +9,9 @@ A collection of my mods and modding tools for the game Oxygen Not Included.
 ### [Kanim Explorer](https://github.com/romen-h/kanim-explorer)
 For inspecting and editing the ONI animation files.
 
-### [ONI Runtime Editor](https://github.com/romen-h/ONI-RuntimeUnityEditor)
-Tools for inspecting Unity GameObjects and Components at runtime. Modified for ONI's mod support instead of BepInEx.
+### [ONI Runtime Editor](https://github.com/romen-h/ONI-RuntimeUnityEditor) (Obsolete)
+Tools for inspecting Unity GameObjects and Components at runtime. Modified for ONI's mod support instead of BepInEx.  
+Note: The game now has an official "inspector" in the Ctrl+~ dev tools menu so I will no longer maintain this mod.
 
 ## Overview of Mods
 
