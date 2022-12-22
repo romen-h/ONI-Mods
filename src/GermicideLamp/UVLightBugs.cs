@@ -16,12 +16,12 @@ namespace RomenH.GermicideLamp
 
 				var lamp = __result.AddOrGet<GermicideLamp>();
 				lamp.alwaysOn = true;
-				lamp.mobileLamp = true;
+				lamp.isMobile = true;
 				lamp.aoeLeft = left; // -2
 				lamp.aoeWidth = width; // 5
 				lamp.aoeBottom = bottom; // -2
 				lamp.aoeHeight = height; // 5
-				lamp.strength = ModSettings.Instance.SunBugStrength;
+				lamp.basePower = ModSettings.Instance.SunBugStrength;
 			}
 		}
 	}
@@ -38,12 +38,12 @@ namespace RomenH.GermicideLamp
 
 				var lamp = __result.AddOrGet<GermicideLamp>();
 				lamp.alwaysOn = true;
-				lamp.mobileLamp = true;
+				lamp.isMobile = true;
 				lamp.aoeLeft = left; // -3
 				lamp.aoeWidth = width; // 7
 				lamp.aoeBottom = bottom; // -3
 				lamp.aoeHeight = height; // 7
-				lamp.strength = ModSettings.Instance.RoyalBugStrength;
+				lamp.basePower = ModSettings.Instance.RoyalBugStrength;
 			}
 		}
 	}

@@ -17,23 +17,37 @@ namespace RomenH.GermicideLamp
 		{ get; private set; }
 
 		[JsonProperty]
-		[Option("Kill Food Poisoning", "Determines whether UVC light kills food poisoning germs.", category: "General")]
-		public bool UVCKillsFoodPoisoning
+		[Option("Liquid UV Attenuation", "A factor that determines how effective UV light is in liquid cells.", category: "General", Format = "F3")]
+		public float LiquidUVAttenuation
+		{ get; set; }
+
+		#endregion
+
+		#region Kill Rates
+
+		[JsonProperty]
+		[Option("Food Poisoning Half-Life", "Determines how many seconds it takes for UV light to kill half of the germs.", category: "Disease Resistances", Format = "F3")]
+		public float FoodPoisoningHalfLife
 		{ get; set; }
 
 		[JsonProperty]
-		[Option("Kill Slimelung", "Determines whether UVC light kills slimelung germs.", category: "General")]
-		public bool UVCKillsSlimelung
+		[Option("Pollen Half-Life", "Determines how many seconds it takes for UV light to kill half of the germs.", category: "Disease Resistances", Format = "F3")]
+		public float PollenHalfLife
 		{ get; set; }
 
 		[JsonProperty]
-		[Option("Kill Zombie Spores", "Determines whether UVC light kills zombie spores.", category: "General")]
-		public bool UVCKillsZombieSpores
+		[Option("Slimelung Half-Life", "Determines how many seconds it takes for UV light to kill half of the germs.", category: "Disease Resistances", Format = "F3")]
+		public float SlimelungHalfLife
 		{ get; set; }
 
 		[JsonProperty]
-		[Option("Kill Radiation Contaminents (Spaced Out!)", "Determines whether UVC light kills radiation contaminents.", category: "General")]
-		public bool UVCKillsRadiation
+		[Option("Zombie Spore Half-Life", "Determines how many seconds it takes for UV light to kill half of the germs.", category: "Disease Resistances", Format = "F3")]
+		public float ZombieSporeHalfLife
+		{ get; set; }
+
+		[JsonProperty]
+		[Option("Modded Germ Half-Life (Fallback)", "Determines how many seconds it takes for UV light to kill half of the germs.", category: "Disease Resistances", Format = "F3")]
+		public float DefaultModdedGermsHalfLife
 		{ get; set; }
 
 		#endregion
@@ -51,8 +65,8 @@ namespace RomenH.GermicideLamp
 		{ get; set; }
 
 		[JsonProperty]
-		[Option("Strength", "The percentage of germs killed per tick. (1.0 = 100%)", category: "Germicidal UV Lamp (Big)", Format = "F2")]
-		[Limit(0f, 1f)]
+		[Option("Strength", "A coefficient that determines how powerful the UV light is. (1.0 = 100%)", category: "Germicidal UV Lamp (Big)", Format = "F2")]
+		[Limit(0f, 5f)]
 		public float BigLampGermicidalStrength
 		{ get; set; }
 
@@ -81,8 +95,8 @@ namespace RomenH.GermicideLamp
 		{ get; set; }
 
 		[JsonProperty]
-		[Option("Strength", "The percentage of germs killed per tick. (1.0 = 100%)", category: "Germicidal Ceiling Light", Format = "F2")]
-		[Limit(0f, 1f)]
+		[Option("Strength", "A coefficient that determines how powerful the UV light is. (1.0 = 100%)", category: "Germicidal Ceiling Light", Format = "F2")]
+		[Limit(0f, 5f)]
 		public float CeilingLampGermicidalStrength
 		{ get; set; }
 
@@ -116,8 +130,8 @@ namespace RomenH.GermicideLamp
 		{ get; set; }
 
 		[JsonProperty]
-		[Option("Sun Bug Strength", "The percentage of germs killed per tick. (1.0 = 100%)", category: "Shine Bugs", Format = "F2")]
-		[Limit(0f, 1f)]
+		[Option("Sun Bug Strength", "A coefficient that determines how powerful the UV light is. (1.0 = 100%)", category: "Shine Bugs", Format = "F2")]
+		[Limit(0f, 5f)]
 		public float SunBugStrength
 		{ get; set; }
 
@@ -133,8 +147,8 @@ namespace RomenH.GermicideLamp
 		{ get; set; }
 
 		[JsonProperty]
-		[Option("Royal Bug Strength", "The percentage of germs killed per tick. (1.0 = 100%)", category: "Shine Bugs", Format = "F2")]
-		[Limit(0f, 1f)]
+		[Option("Royal Bug Strength", "A coefficient that determines how powerful the UV light is. (1.0 = 100%)", category: "Shine Bugs", Format = "F2")]
+		[Limit(0f, 5f)]
 		public float RoyalBugStrength
 		{ get; set; }
 
@@ -149,21 +163,23 @@ namespace RomenH.GermicideLamp
 		public ModSettings()
 		{
 			LightColor = new Color(0, 2f, 2f);
+			LiquidUVAttenuation = 0.2f;
 
-			UVCKillsFoodPoisoning = true;
-			UVCKillsSlimelung = true;
-			UVCKillsZombieSpores = false;
-			UVCKillsRadiation = false;
+			FoodPoisoningHalfLife = 10.0f;
+			PollenHalfLife = 60.0f;
+			SlimelungHalfLife = 30.0f;
+			ZombieSporeHalfLife = 60.0f;
+			DefaultModdedGermsHalfLife = 0.0f;
 
 			BigLampGivesSunburn = true;
 			BigLampPowerCost = 1000f;
-			BigLampGermicidalStrength = 0.6f;
+			BigLampGermicidalStrength = 1.0f;
 			BigLampRange = 2;
 			BigLampHeat = 1f;
 
 			CeilingLampGivesSunburn = false;
 			CeilingLampPowerCost = 50f;
-			CeilingLampGermicidalStrength = 0.2f;
+			CeilingLampGermicidalStrength = 0.05f;
 			CeilingLampRangeWidth = 4;
 			CeilingLampRangeHeight = 4;
 			CeilingLampLux = 600;

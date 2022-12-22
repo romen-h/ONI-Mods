@@ -1,3 +1,5 @@
+using RomenH.Common;
+
 using TUNING;
 
 using UnityEngine;
@@ -12,6 +14,12 @@ namespace RomenH.GermicideLamp
 		internal const int UV_HEIGHT = 9;
 
 		public const string ID = "GermicideLamp";
+
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Germicidal UV Lamp");
+
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "");
+
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, "Germicidal UV Lamps give off UVC radiation that quickly kills germs in a large area.");
 
 		public override BuildingDef CreateBuildingDef()
 		{
@@ -72,7 +80,7 @@ namespace RomenH.GermicideLamp
 			lamp.aoeBottom = bottom;
 			lamp.aoeHeight = height;
 			lamp.applySunburn = ModSettings.Instance.BigLampGivesSunburn;
-			lamp.strength = ModSettings.Instance.BigLampGermicidalStrength;
+			lamp.basePower = ModSettings.Instance.BigLampGermicidalStrength;
 			go.AddOrGet<LogicOperationalController>();
 			go.AddOrGetDef<PoweredActiveController.Def>();
 			AddVisualizer(go, movable: false);

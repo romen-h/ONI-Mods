@@ -3,13 +3,15 @@
 
   <PropertyGroup>
     <AssemblyName>GermicidalLamps</AssemblyName>
-    <Version>4.0.3</Version>
+    <Version>5.0.0</Version>
     <TargetFramework>net471</TargetFramework>
     <Configurations>Release</Configurations>
     <RootNamespace>RomenH.GermicideLamp</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
+    <DoMerge>true</DoMerge>
+    <SteamID>2229356245</SteamID>
   </PropertyGroup>
 
   <PropertyGroup>

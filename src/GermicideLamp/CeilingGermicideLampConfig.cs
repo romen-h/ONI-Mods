@@ -1,3 +1,5 @@
+using RomenH.Common;
+
 using TUNING;
 
 using UnityEngine;
@@ -7,6 +9,12 @@ namespace RomenH.GermicideLamp
 	public class CeilingGermicideLampConfig : IBuildingConfig
 	{
 		public const string ID = "SmallGermicideLamp";
+
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Germicidal Ceiling Light");
+
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "");
+
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, "Provides a small amount of light while killing germs beneath them with UVC radiation.");
 
 		internal const int UV_LEFT = -1;
 		internal const int UV_WIDTH = 4;
@@ -80,7 +88,7 @@ namespace RomenH.GermicideLamp
 			lamp.aoeBottom = bottom;
 			lamp.aoeHeight = height;
 			lamp.applySunburn = ModSettings.Instance.CeilingLampGivesSunburn;
-			lamp.strength = ModSettings.Instance.CeilingLampGermicidalStrength;
+			lamp.basePower = ModSettings.Instance.CeilingLampGermicidalStrength;
 			lamp.flicker = true;
 			go.AddOrGet<LogicOperationalController>();
 			go.AddOrGetDef<PoweredActiveController.Def>();
