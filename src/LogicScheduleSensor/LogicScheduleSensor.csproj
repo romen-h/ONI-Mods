@@ -19,6 +19,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.18.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>$(GameLibsFolder)/UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>false</Private>
@@ -27,6 +31,10 @@
       <HintPath>$(GameLibsFolder)/UnityEngine.UI.dll</HintPath>
       <Private>false</Private>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="PLib" Version="4.13.0" />
   </ItemGroup>
 
 </Project>

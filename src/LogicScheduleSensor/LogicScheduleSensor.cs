@@ -18,6 +18,9 @@ namespace RomenH.LogicScheduleSensor
 		[MyCmpGet]
 		public KBatchedAnimController anim;
 
+		[MyCmpGet]
+		private readonly LogicPorts ScheduleSensorLogicPort;
+
 		private MeterController meter;
 
 		private bool wasOn = false;
@@ -54,7 +57,7 @@ namespace RomenH.LogicScheduleSensor
 			}
 			catch (Exception ex)
 			{
-				Debug.Log($"Failed to update Schedule Sensor: {ex.ToString()}");
+				Debug.Log($"[ScheduleSensor] Failed to update Schedule Sensor: {ex.ToString()}");
 				SetState(false);
 			}
 		}
@@ -67,8 +70,7 @@ namespace RomenH.LogicScheduleSensor
 
 		private void UpdateLogicCircuit()
 		{
-			LogicPorts component = GetComponent<LogicPorts>();
-			component?.SendSignal(LogicSwitch.PORT_ID, switchedOn ? 1 : 0);
+			ScheduleSensorLogicPort?.SendSignal(LogicSwitch.PORT_ID, switchedOn ? 1 : 0);
 		}
 
 		private void UpdateVisualState(bool force = false)
