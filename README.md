@@ -146,7 +146,7 @@ Adds new backwall buildings that can divide spaces into rooms like a door would.
 
 ## License
 
-The content of this repository has been made source-available, but without license to use or copy in your own mods or other works.
+All rights reserved. The content of this repository has been made source-available, but without license to use or copy in your own mods or other works.
 Please contact me for permission to use any of this code or artwork.
 
 © 2021 RomenH
