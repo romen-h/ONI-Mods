@@ -32,12 +32,16 @@ namespace RomenH.LogicScheduleSensor
 		{
 			if (sensor != null)
 				RebuildPanel();
+			else
+				Debug.Log("[ScheduleSensor] Sensor Is Null -  Called By Event: ScheduleScreenEntry_OnNameChanged_Patch_ScheduleNameChanged");
 		}
 
 		private void ScheduleManager_onSchedulesChanged(List<Schedule> list)
 		{
 			if (sensor != null)
 				RebuildPanel();
+			else
+				Debug.Log("[ScheduleSensor] Sensor Is Null -  Called By Event: ScheduleManager_onSchedulesChanged");
 		}
 
 		private void RebuildPanel()
@@ -60,6 +64,10 @@ namespace RomenH.LogicScheduleSensor
 				if (sensor != null)
 				{
 					sensor.scheduleIndex = selectedSchedule;
+				}
+				else
+				{
+					Debug.Log("[ScheduleSensor] Sensor Is Null -  Called By Event: RebuildPanel");
 				}
 			}
 
