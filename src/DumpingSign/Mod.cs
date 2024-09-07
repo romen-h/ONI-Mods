@@ -1,13 +1,7 @@
-using System.IO;
-using System.Reflection;
-
 using HarmonyLib;
-
 using KMod;
-
 using PeterHan.PLib.Core;
 using PeterHan.PLib.Options;
-
 using RomenH.Common;
 
 namespace RomenH.DumpingSign
@@ -16,11 +10,12 @@ namespace RomenH.DumpingSign
 	{
 		public override void OnLoad(Harmony harmony)
 		{
-			ModCommon.Init("Dumping Sign");
+			ModCommon.Init("Dumping Sign", harmony, true);
+			
 			PUtil.InitLibrary();
 
-			//var options = new POptions();
-			//options.RegisterOptions(this, typeof(ModSettings));
+			var options = new POptions();
+			options.RegisterOptions(this, typeof(ModSettings));
 
 			base.OnLoad(harmony);
 		}

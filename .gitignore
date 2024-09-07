@@ -359,7 +359,12 @@ src/lib-spacedout/*
 update_oni.bat.lnk
 
 # entire mods
+src/_MyTweaks
+src/Campfire
+src/DupliCans
+src/ExtraTraits
 src/Mineralizer
+src/ModTemplate
 src/PetroleumIndustry
 src/PLCTestApp
 src/PoweredTruss
@@ -371,6 +376,5 @@ src/RisingLava
 src/FanTiles/Assets/spriter/*
 src/InfiniteSourceSink/Assets/anim_old/*
 src/InfiniteSourceSink/Assets/test447-Original/*
-src/ModTemplate/Mod.cs
-src/ModTemplate/ModSettings.cs
-src/ModTemplate/ModTemplate.csproj
+
+tools/ILRepack.exe

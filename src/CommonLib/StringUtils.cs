@@ -5,7 +5,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-
+using HarmonyLib;
+using KMod;
 using STRINGS;
 
 namespace RomenH.Common
@@ -15,7 +16,7 @@ namespace RomenH.Common
 	/// </summary>
 	public static class StringUtils
 	{
-		private static Dictionary<string, string> registeredStrings = new Dictionary<string, string>();
+		private static Dictionary<string, LocString> registeredStrings = new Dictionary<string, LocString>();
 
 		public static LocString BuildingName(string ID, string value)
 		{
@@ -106,9 +107,10 @@ namespace RomenH.Common
 		{
 			try
 			{
+				ModCommon.Log.Debug("Searching for translatable strings...");
 				foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
 				{
-					if (type.FullName.StartsWith("RomenH."))
+					if (type?.FullName?.StartsWith("RomenH.") ?? false)
 					{
 						foreach (FieldInfo field in type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly))
 						{
@@ -117,68 +119,38 @@ namespace RomenH.Common
 								LocString ls = (LocString)field.GetValue(null);
 								if (ls.key.IsValid())
 								{
+									ModCommon.Log.Debug($"Found string: {ls.key.String}");
 									Strings.Add(ls.key.String, ls.text);
-									registeredStrings.Add(ls.key.String, ls.text);
+									registeredStrings.Add(ls.key.String, ls);
 								}
 							}
 						}
 					}
 				}
-				Debug.Log($"{ModCommon.Name}: String registration complete.");
 			}
 			catch (Exception ex)
 			{
-				Debug.LogWarning($"{ModCommon.Name}: Failed to register strings.\n{ex}");
+				ModCommon.Log.Error("Failed to register strings.", ex);
 			}
 
 			try
 			{
-				ExportTranslationTemplates();
-				Debug.Log($"{ModCommon.Name}: Exported translation templates.");
+				ModCommon.Log.Debug("Exporting translation template...");
+				WritePOTemplate(ModCommon.Folder);
 			}
 			catch (Exception ex)
 			{
-				Debug.LogWarning($"{ModCommon.Name}: Failed to export translation templates.\n{ex}");
+				ModCommon.Log.Error("Failed to export translation template.", ex);
 			}
-		}
 
-		internal static void ExportTranslationTemplates()
-		{
-			WriteTextTemplate(ModCommon.Folder);
-			WritePOTemplate(ModCommon.Folder);
-		}
-
-		public static void WriteTextTemplate(string modFolder)
-		{
-			try
-			{
-				string translationsFolder = Path.Combine(modFolder, "Translations");
-				if (!Directory.Exists(translationsFolder))
-				{
-					Directory.CreateDirectory(translationsFolder);
-				}
-
-				string file = Path.Combine(translationsFolder, "en.txt");
-
-				List<string> lines = new List<string>();
-				foreach (var kvp in registeredStrings)
-				{
-					string line = kvp.Key + ": " + kvp.Value.Replace(Environment.NewLine, "\\n");
-					lines.Add(line);
-				}
-				File.WriteAllLines(file, lines, Encoding.UTF8);
-			}
-			catch (Exception ex)
-			{
-				Debug.LogError("RomenH.CommonLib: Failed to write txt translations template.");
-				Debug.LogException(ex);
-			}
+			ModCommon.Log.Debug("RegisterAllLocStrings End");
 		}
 
 		public static void WritePOTemplate(string modFolder)
 		{
 			try
 			{
+				ModCommon.Log.Debug("Writing pot file...");
 				string translationsFolder = Path.Combine(modFolder, "Translations");
 				if (!Directory.Exists(translationsFolder))
 				{
@@ -211,122 +183,91 @@ namespace RomenH.Common
 			}
 			catch (Exception ex)
 			{
-				Debug.LogError("RomenH.CommonLib: Failed to write po translations template.");
-				Debug.LogException(ex);
+				ModCommon.Log.Error("RomenH.CommonLib: Failed to write po translations template.", ex);
 			}
+
+			ModCommon.Log.Debug("WritePOTemplate End");
+		}
+
+		public static void ApplyTranslationsPatch(Harmony harmony)
+		{
+			try
+			{
+				ModCommon.Log.Debug("Applying translation loader patch...");
+				var targetMethod = typeof(Localization).GetMethod(nameof(Localization.Initialize));
+				HarmonyMethod postfixPatch = new HarmonyMethod(typeof(StringUtils), nameof(LoadTranslations));
+				harmony.Patch(targetMethod, postfix: postfixPatch);
+			}
+			catch (Exception ex)
+			{
+				ModCommon.Log.Error("Failed to apply translation patch.", ex);
+			}
+
+			ModCommon.Log.Debug("ApplyTranslationsPatch End");
 		}
 
 		public static void LoadTranslations()
 		{
 			try
 			{
+				ModCommon.Log.Debug("Loading translations...");
+				
+
+				string localeCode = Localization.GetLocale()?.Code ?? Localization.DEFAULT_LANGUAGE_CODE;
+				ModCommon.Log.Debug($"Language code is {localeCode}.");
+				if (localeCode == Localization.DEFAULT_LANGUAGE_CODE) return;
+
+				// Try to find the .po file...
 				string translationsFolder = Path.Combine(ModCommon.Folder, "Translations");
 				if (!Directory.Exists(translationsFolder))
 				{
-					Debug.Log("RomenH.CommonLib: Translations folder does not exist. Skipping translations.");
+					ModCommon.Log.Warn("Translations folder not found. This mod will not be translated.");
 					return;
-				}
-
-				string localeCode = Localization.GetLocale()?.Code ?? Localization.DEFAULT_LANGUAGE_CODE;
-
-				if (localeCode == Localization.DEFAULT_LANGUAGE_CODE) return;
-
-				string locPOFile = Path.Combine(translationsFolder, localeCode + ".po");
-				string locTxtFile = Path.Combine(translationsFolder, localeCode + ".txt");
-
-				if (File.Exists(locTxtFile))
-				{
-					LoadTextTranslations(locTxtFile);
-				}
-				else if (File.Exists(locPOFile))
-				{
-					Localization.OverloadStrings(Localization.LoadStringsFile(locPOFile, false));
 				}
 				else
 				{
-					Debug.LogWarning($"RomenH.CommonLib: No translations file found for current locale: {localeCode}");
+					ModCommon.Log.Debug("Translations folder found.");
+				}
+
+				string locPOFile = Path.Combine(translationsFolder, $"{localeCode}.po");
+				if (File.Exists(locPOFile))
+				{
+					ModCommon.Log.Debug($"Translation file is: {locPOFile}");
+					// Load the .po file and overwrite strings
+					var strings = Localization.LoadStringsFile(locPOFile, false);
+					if (strings.Count == 0)
+					{
+						ModCommon.Log.Warn("Translation file has no strings. This mod will not be translated.");
+						return;
+					}
+
+					FieldInfo locStringTextField = typeof(LocString).GetField("_text", BindingFlags.Instance | BindingFlags.NonPublic);
+
+					foreach (var kvp in strings)
+					{
+						if (registeredStrings.TryGetValue(kvp.Key, out LocString locStr))
+						{
+							ModCommon.Log.Debug($"Applying translation for : {kvp.Key}");
+							locStringTextField.SetValue(locStr, kvp.Value);
+							Strings.Add(kvp.Key, kvp.Value);
+						}
+						else
+						{
+							ModCommon.Log.Debug($"LocString not found for: {kvp.Key}");
+						}
+					}
+
+					ModCommon.Log.Info($"Loaded translations file: {localeCode}.po");
+				}
+				else
+				{
+					ModCommon.Log.Info($"No translations file found for current locale. ({localeCode})");
 				}
 			}
 			catch (Exception ex)
 			{
-				Debug.LogError("RomenH.CommonLib: Failed to load translations file.");
-				Debug.LogException(ex);
+				ModCommon.Log.Error("Failed to load translations file.", ex);
 			}
 		}
-
-		private static void LoadTextTranslations(string file)
-		{
-			string[] lines = File.ReadAllLines(file);
-			foreach (string line in lines)
-			{
-				int splitIndex = line.IndexOf(':');
-				if (splitIndex < 0)
-				{
-					Debug.LogWarning($"RomenH.CommonLib: Unexpected line in translations file: \"{line}\"");
-					continue;
-				}
-
-				string key = line.Substring(0, splitIndex);
-				string value = line.Substring(splitIndex).Trim();
-				Strings.Add(key, value);
-			}
-		}
-
-#if false
-		public static void AddBuildingStrings(string id, string name, string description, string effect)
-		{
-			AddBuildingString(id, "NAME", UI.FormatAsLink(name, id));
-			AddBuildingString(id, "DESC", description);
-			AddBuildingString(id, "EFFECT", effect);
-		}
-
-		private static void AddBuildingString(string id, string postfix, string value)
-		{
-			string key = "STRINGS.BUILDINGS.PREFABS." + id.ToUpperInvariant() + "." + postfix.ToUpperInvariant();
-			Strings.Add(key, value);
-			registeredStrings[key] = value;
-		}
-
-		public static void AddEquipmentStrings(string id, string name, string description, string effect, string recipeDescription)
-		{
-			AddEquipmentString(id, "NAME", UI.FormatAsLink(name, id));
-			AddEquipmentString(id, "DESC", description);
-			AddEquipmentString(id, "EFFECT", effect);
-			AddEquipmentString(id, "RECIPE_DESC", recipeDescription);
-		}
-
-		private static void AddEquipmentString(string id, string postfix, string value)
-		{
-			string key = "STRINGS.EQUIPMENT.PREFABS." + id.ToUpperInvariant() + "." + postfix.ToUpperInvariant();
-			Strings.Add(key, value);
-			registeredStrings[key] = value;
-		}
-
-		public static void AddStatusItemStrings(string id, string prefix, string name, string tooltip)
-		{
-			AddStatusItemString(id, prefix, "NAME", name);
-			AddStatusItemString(id, prefix, "TOOLTIP", tooltip);
-		}
-
-		private static void AddStatusItemString(string id, string prefix, string postfix, string value)
-		{
-			string key = "STRINGS." + prefix.ToUpperInvariant() + ".STATUSITEMS." + id.ToUpperInvariant() + "." + postfix.ToUpperInvariant();
-			Strings.Add(key, value);
-			registeredStrings[key] = value;
-		}
-
-		public static void AddSideScreenStrings(string id, string title, string tooltip)
-		{
-			AddSideScreenString(id, "TITLE", title);
-			AddSideScreenString(id, "TOOLTIP", tooltip);
-		}
-
-		private static void AddSideScreenString(string id, string postfix, string value)
-		{
-			string key = "STRINGS.UI.UISIDESCREENS." + id.ToUpperInvariant() + "." + postfix.ToUpperInvariant();
-			Strings.Add(key, value);
-			registeredStrings[key] = value;
-		}
-#endif
 	}
 }

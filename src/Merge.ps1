@@ -11,7 +11,7 @@ param
 )
 
 # Variables
-$ILRepack = Join-Path -Path (Split-Path -Parent $SolutionDir) -ChildPath "tools\ILRepack.exe"
+$ILRepack = Join-Path -Path (Split-Path -Parent $SolutionDir) -ChildPath "tools/ILRepack.exe"
 $MainAssembly = Get-Item $MainAssemblyPath
 $Version = $MainAssembly.VersionInfo.FileVersion
 $Debug = $false

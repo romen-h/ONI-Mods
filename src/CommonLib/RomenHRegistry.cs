@@ -12,38 +12,33 @@ namespace RomenH.Common
 
 		public static IDictionary<string, object> Init()
 		{
-			Debug.Log($"RomenH.Registry: Initializing from {Assembly.GetCallingAssembly().GetName().Name}");
+			Debug.Log($"[RomenH.Registry] Initializing from {Assembly.GetCallingAssembly().GetName().Name}");
 
 			var go = Global.Instance.gameObject;
 			if (go == null)
 			{
-				Debug.LogWarning("RomenH.Registry: Could not acquire Global GameObject.");
+				Debug.LogWarning("[RomenH.Registry] Could not acquire Global GameObject.");
 				return null;
-			}
-			else
-			{
-				Debug.Log("RomenH.Registry: Found Global GameObject.");
 			}
 
 			var reg = go.GetComponent(nameof(RomenHRegistry));
 			if (reg == null)
 			{
-				Debug.Log("RomenH.Registry: Adding registry component.");
+				Debug.Log("[RomenH.Registry] Creating new registry.");
 				reg = go.AddComponent<RomenHRegistry>();
 			}
 			else
 			{
-				Debug.Log("RomenH.Registry: Found existing registry component.");
+				Debug.Log("[RomenH.Registry] Found existing registry.");
 			}
 
-			var ret = reg as IDictionary<string, object>;
-
-			if (ret == null)
+			if (reg is IDictionary<string, object> ret)
 			{
-				Debug.Log("RomenH.Registry: Failed to acquire registry component.");
+				return ret;
 			}
 
-			return ret;
+			Debug.LogWarning("[RomenH.Registry] Failed to acquire registry. Returning placeholder registry.");
+			return new Dictionary<string, object>();
 		}
 
 		#region IDictionary

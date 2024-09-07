@@ -48,3 +48,7 @@ if (!(Test-Path $PreviousUpdateDir)) {
     New-Item $PreviousUpdateDir -ItemType Directory
 }
 Expand-Archive -Path $SelectedBackup -DestinationPath $PreviousUpdateDir -Force
+$NestedArchivedVersionsDir = Join-Path -Path $PReviousUpdateDir -ChildPath "archived_versions"
+if (Test-Path $NestedArchivedVersionsDir) {
+    Remove-Item $NestedArchivedVersionsDir -Force -Recurse
+}

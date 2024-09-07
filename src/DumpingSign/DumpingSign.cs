@@ -19,56 +19,28 @@ namespace RomenH.DumpingSign
 		[MyCmpGet]
 		private TreeFilterable filterable;
 
+		private int cell;
+
 		protected FilteredStorage filteredStorage;
 
 		private GameObject signObject;
 		private KBatchedAnimController signAnim;
 
-		//private static readonly KAnimFile genericIconsKanim = Assets.GetAnim("dumping_sign_icons_kanim");
-
-		private static readonly Dictionary<Tag, KAnimFile> categoryKanims = new Dictionary<Tag, KAnimFile>();
-		private static readonly Dictionary<Tag, Vector2> iconOffsets = new Dictionary<Tag, Vector2>();
-		private static readonly Dictionary<Tag, Vector2> iconScales = new Dictionary<Tag, Vector2>();
-
-		private static bool init = false;
-
-		private static void Init()
+		public override void OnPrefabInit()
 		{
-			if (init) return;
-
-			categoryKanims[GameTags.Agriculture] = Assets.GetAnim("farmtilerotating_kanim");
-			categoryKanims[GameTags.BuildableProcessed] = Assets.GetAnim("rockrefinery_kanim");
-			categoryKanims[GameTags.Clothes] = Assets.GetAnim("clothes_kanim");
-			categoryKanims[GameTags.Compostable] = Assets.GetAnim("compost_kanim");
-			categoryKanims[GameTags.Egg] = Assets.GetAnim("incubator_kanim");
-			categoryKanims[GameTags.Farmable] = Assets.GetAnim("farmtilerotating_kanim");
-			categoryKanims[GameTags.Filter] = Assets.GetAnim("waterpurifier_kanim");
-			categoryKanims[GameTags.IndustrialProduct] = Assets.GetAnim("metalrefinery_kanim");
-			categoryKanims[GameTags.Liquifiable] = Assets.GetAnim("liquid_tank_kanim");
-			categoryKanims[GameTags.ManufacturedMaterial] = Assets.GetAnim("supermaterial_refinery_kanim");
-			categoryKanims[GameTags.Metal] = Assets.GetAnim("metalrefinery_kanim");
-			categoryKanims[GameTags.RefinedMetal] = Assets.GetAnim("metalrefinery_kanim");
-			categoryKanims[GameTags.RareMaterials] = Assets.GetAnim("supermaterial_refinery_kanim");
-			categoryKanims[GameTags.Seed] = Assets.GetAnim("farmtilerotating_kanim");
-
-			init = true;
-		}
-
-		protected override void OnPrefabInit()
-		{
-			Init();
-
 			ChoreType choreType = Db.Get().ChoreTypes.Get(Db.Get().ChoreTypes.StorageFetch.Id);
 
 			filteredStorage = new FilteredStorage(this, null, null, false, choreType);
 			filteredStorage.SetHasMeter(false);
 		}
 
-		protected override void OnSpawn()
+		public override void OnSpawn()
 		{
 			anim.SetSymbolVisiblity("item_target", false);
 
 			Vector3 pos = this.transform.position;
+
+			cell = Grid.PosToCell(pos);
 
 			signObject = new GameObject();
 			signObject.transform.parent = this.gameObject.transform;
@@ -89,7 +61,7 @@ namespace RomenH.DumpingSign
 			Refresh();
 		}
 
-		protected override void OnCleanUp()
+		public override void OnCleanUp()
 		{
 			filterable.OnFilterChanged = (Action<HashSet<Tag>>)Delegate.Remove(filterable.OnFilterChanged, new Action<HashSet<Tag>>(this.OnFilterChanged));
 			filteredStorage.CleanUp();
@@ -152,7 +124,7 @@ namespace RomenH.DumpingSign
 						{
 							Tag category = GetMajorityCategory(tags);
 
-							if (categoryKanims.TryGetValue(category, out KAnimFile kanim))
+							if (SignCategories.CategoryIcons.TryGetValue(category, out KAnimFile kanim))
 							{
 								if (kanim != null)
 								{
@@ -173,7 +145,7 @@ namespace RomenH.DumpingSign
 						scale *= 1.5f;
 					}
 
-					if (animFiles != null && animFiles.Length > 0 && animFiles[0] != null)
+					if (animFiles.Length > 0 && animFiles[0] != null)
 					{
 						signAnim.SwapAnims(animFiles);
 						signAnim.Play(animToPlay);
@@ -190,8 +162,7 @@ namespace RomenH.DumpingSign
 			}
 			catch (Exception ex)
 			{
-				Debug.LogWarning("DumpingSign: Caught error in OnFilterChanged.");
-				Debug.LogException(ex);
+				ModCommon.Log.Error("Caught error in OnFilterChanged", ex);
 			}
 		}
 
@@ -227,6 +198,11 @@ namespace RomenH.DumpingSign
 			}
 
 			return c;
+		}
+
+		private void CancelSweepChoresBelowSign()
+		{
+			
 		}
 	}
 }

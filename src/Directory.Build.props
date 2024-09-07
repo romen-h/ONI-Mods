@@ -3,16 +3,37 @@
 
   <!-- Common properties for all mods/projects -->
   <PropertyGroup>
-    <Authors>RomenH</Authors>
-    <Copyright>2022 RomenH</Copyright>
-    <RepositoryUrl>https://github.com/romen-h/ONI-Mods</RepositoryUrl>
-    <GameLibsFolder>../lib</GameLibsFolder>
+    <GameLibsFolder>$(SolutionDir)/lib</GameLibsFolder>
+    <PublicLibsFolder>$(SolutionDir)/publib</PublicLibsFolder>
     <ClearOutputDirectory>true</ClearOutputDirectory>
     <ModDescription>TODO</ModDescription>
     <APIVersion>2</APIVersion>
-    <CurrentGameVersion>525812</CurrentGameVersion>
-    <PreviousGameVersion>514967</PreviousGameVersion>
+    <CurrentGameVersion>626616</CurrentGameVersion>
+    <PreviousGameVersion>600112</PreviousGameVersion>
     <MinimumSupportedBuild>$(CurrentGameVersion)</MinimumSupportedBuild>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <TargetFramework>net48</TargetFramework>
+    <Configurations>Release</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <BuildYear>$([System.DateTime]::UtcNow.ToString("yyyy"))</BuildYear>
+    <BuildMonth>$([System.DateTime]::UtcNow.ToString("MM"))</BuildMonth>
+    <BuildDay>$([System.DateTime]::UtcNow.ToString("dd"))</BuildDay>
+    <BuildHour>$([System.DateTime]::UtcNow.ToString("HH"))</BuildHour>
+    <BuildMinute>$([System.DateTime]::UtcNow.ToString("mm"))</BuildMinute>
+    <VersionPrefix>$(BuildYear).$(BuildMonth).$(BuildDay).$(BuildHour)$(BuildMinute)</VersionPrefix>
+    <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
+    <FileVersion>$(VersionPrefix)</FileVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <InformationalVersion>Game Version $(CurrentGameVersion)</InformationalVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>RomenH</Authors>
+    <Copyright>$(BuildYear) RomenH</Copyright>
+    <RepositoryUrl>https://github.com/romen-h/ONI-Mods</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -28,11 +49,11 @@
     <PackageReference Include="Cairath.ONIMetadataFileGenerator" Version="1.0.0" PrivateAssets="all" ExcludeAssets="runtime"/>
     
     <Reference Include="Assembly-CSharp">
-	    <HintPath>$(GameLibsFolder)/Assembly-CSharp.dll</HintPath>
+	    <HintPath>$(PublicLibsFolder)/$(CurrentGameVersion)/Assembly-CSharp.dll</HintPath>
 	    <Private>false</Private>
     </Reference>
 		<Reference Include="Assembly-CSharp-firstpass">
-			<HintPath>$(GameLibsFolder)/Assembly-CSharp-firstpass.dll</HintPath>
+			<HintPath>$(PublicLibsFolder)/$(CurrentGameVersion)/Assembly-CSharp-firstpass.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
     <Reference Include="0Harmony">
@@ -60,7 +81,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(UsePLib)' == 'true'">
-    <PackageReference Include="PLib" Version="4.9.0">
+    <PackageReference Include="PLib" Version="4.16.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>

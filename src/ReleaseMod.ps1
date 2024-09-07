@@ -43,7 +43,7 @@ if (!(Test-Path $TargetFile)) {
     Return
 }
 $Assembly = Get-Item $TargetFile
-$ModVersion = $Assembly.VersionInfo.ProductVersion
+$ModVersion = $Assembly.VersionInfo.FileVersionRaw
 
 # Make mod archive
 $BackupName = "${ModVersion}_${GameVersion}"

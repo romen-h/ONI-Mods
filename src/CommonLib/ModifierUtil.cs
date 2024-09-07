@@ -16,8 +16,6 @@ namespace RomenH.Common
 				Multiplier = multiplier,
 				Duration = duration,
 				ShowInUI = showInUI,
-				Tier = 0,
-				Notes = "",
 				StompGroup = "",
 				IsBad = isBad,
 				CustomIcon = customIcon,

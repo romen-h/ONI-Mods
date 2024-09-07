@@ -3,14 +3,12 @@
 
   <PropertyGroup>
     <AssemblyName>DumpingSign</AssemblyName>
-    <Version>1.0.3</Version>
-    <TargetFramework>net471</TargetFramework>
-    <Configurations>Release</Configurations>
     <RootNamespace>RomenH.DumpingSign</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
     <SteamID>2794010196</SteamID>
+    <EnableArchivedVersions>false</EnableArchivedVersions>
   </PropertyGroup>
 
   <PropertyGroup>
