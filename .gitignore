@@ -378,3 +378,4 @@ src/InfiniteSourceSink/Assets/anim_old/*
 src/InfiniteSourceSink/Assets/test447-Original/*
 
 tools/ILRepack.exe
+/src/publib

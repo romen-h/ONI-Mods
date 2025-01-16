@@ -1,41 +1,53 @@
+using KSerialization;
+
 using UnityEngine;
 
 namespace RomenH.TECBlock
 {
+	[SerializationConfig(MemberSerialization.OptIn)]
 	public class TECTile : KMonoBehaviour, ISim200ms, ISim33ms
 	{
-		[MyCmpGet]
-		public Building building;
-
-		[MyCmpGet]
-		public Operational operational;
-
-		[MyCmpGet]
-		public EnergyConsumer energyConsumer;
-
-		[MyCmpGet]
-		public KBatchedAnimController anim;
-
-		private int coldCell;
-		private int hotCell;
-
-		public float minColdTemp = 50f;
-		public float maxTempDiff = 70f;
-		public float kDTUsPerWatt = 0.1f;
-		public float efficiency = 0.25f;
-
-		private float heatPowerkDTU;
-		private float maxHeatMovedkDTU;
-
-		private float heatMovedPerDegree;
-
 		private static readonly Color32 coldColor = new Color32(153, 238, 255, 255);
 		private static readonly Color32 hotColor = new Color32(255, 160, 160, 255);
 		private static readonly Color32 whiteColor = new Color32(255, 255, 255, 255);
 
+		[SerializeField]
+		public float minColdTemp = 50f;
+
+		[SerializeField]
+		public float maxTempDiff = 70f;
+
+		[SerializeField]
+		public float kDTUsPerWatt = 0.1f;
+
+		[SerializeField]
+		public float efficiency = 0.9f;
+
+		[SerializeField]
+		public float wasteHeat = 0f;
+
+		[MyCmpGet]
+		private Building building;
+
+		[MyCmpGet]
+		private Operational operational;
+
+		[MyCmpGet]
+		private EnergyConsumer energyConsumer;
+
+		[MyCmpGet]
+		private KBatchedAnimController anim;
+
+		private bool selfHeating = false;
+		private int myCell;
+		private int coldCell;
+		private int hotCell;
+		private float heatPowerkDTU;
+		private float maxHeatMovedkDTU;
+		private float heatMovedPerDegree;
 		private bool isMovingHeat = false;
 
-		protected override void OnSpawn()
+		public override void OnSpawn()
 		{
 			base.OnSpawn();
 
@@ -51,6 +63,8 @@ namespace RomenH.TECBlock
 
 			heatMovedPerDegree = maxHeatMovedkDTU / maxTempDiff;
 
+			myCell = building.GetCell();
+
 			var hotOffset = building.GetRotatedOffset(new CellOffset(0, 1));
 			hotCell = Grid.OffsetCell(building.GetCell(), hotOffset);
 
@@ -64,42 +78,64 @@ namespace RomenH.TECBlock
 
 			if (operational.IsActive)
 			{
-				if (anim.currentAnim != "on")
-				{
-					anim.Play("on", KAnim.PlayMode.Paused);
-				}
-
-				float coldTemp = Grid.Temperature[coldCell];
-				float hotTemp = Grid.Temperature[hotCell];
-
-				float dTemp = Mathf.Clamp(hotTemp - coldTemp, 0f, maxTempDiff);
 				float heatMoved = 0f;
 
-				// Only move heat if over min temp and under max temp difference
-				if (coldTemp > minColdTemp && dTemp < maxTempDiff)
-				{
-					// Heat to move is negatively proportional to the temp difference
-					heatMoved = maxHeatMovedkDTU - (heatMovedPerDegree * dTemp);
-					heatMoved = Mathf.Clamp(heatMoved, 0, maxHeatMovedkDTU) * dt;
+				float coldMass = Grid.Mass[coldCell];
+				float hotMass = Grid.Mass[hotCell];
 
-					// Clamp heat to move if it's more energy than the cold side has
-					float heatInColdCell = (coldTemp * Grid.Mass[coldCell] * Grid.Element[coldCell].specificHeatCapacity);
-					if (heatMoved > heatInColdCell)
-					{
-						heatMoved = heatInColdCell - 1;
-					}
-				}
-
-				if (heatMoved > 0)
+				if (coldMass > 0f)
 				{
 					isMovingHeat = true;
-					SimMessages.ModifyEnergy(coldCell, -heatMoved * 1000f, 5000f, SimMessages.EnergySourceID.StructureTemperature);
-					SimMessages.ModifyEnergy(hotCell, heatMoved * 1000f, 5000f, SimMessages.EnergySourceID.StructureTemperature);
+
+					if (anim.currentAnim != "on")
+					{
+						anim.Play("on", KAnim.PlayMode.Paused);
+					}
+
+					float coldTemp = Grid.Temperature[coldCell];
+					float hotTemp = Grid.Temperature[hotCell];
+					float dTemp = Mathf.Clamp(hotTemp - coldTemp, 0f, maxTempDiff);
+
+					// Only move heat if over min temp and under max temp difference
+					if (coldTemp > minColdTemp && dTemp < maxTempDiff)
+					{
+						// Heat to move is negatively proportional to the temp difference
+						heatMoved = maxHeatMovedkDTU - (heatMovedPerDegree * dTemp);
+						heatMoved = Mathf.Clamp(heatMoved, 0, maxHeatMovedkDTU) * dt;
+
+						// Clamp heat to move if it's more energy than the cold side has
+						float heatInColdCell = (coldTemp * Grid.Mass[coldCell] * Grid.Element[coldCell].specificHeatCapacity);
+						if (heatMoved > heatInColdCell)
+						{
+							heatMoved = heatInColdCell - 1;
+						}
+					}
+
+					SimMessages.ModifyEnergy(coldCell, -heatMoved, 9000f, SimMessages.EnergySourceID.StructureTemperature);
+
+					float heatProduced = heatMoved + wasteHeat;
+					if (hotMass == 0)
+					{
+						// If the hot side is vacuum then we dump the heat into the building
+						selfHeating = true;
+						SimMessages.ModifyEnergy(myCell, heatProduced, 9000f, SimMessages.EnergySourceID.StructureTemperature);
+					}
+					else
+					{
+						selfHeating = false;
+						SimMessages.ModifyEnergy(hotCell, heatProduced, 9000f, SimMessages.EnergySourceID.StructureTemperature);
+					}
 				}
 				else
 				{
 					isMovingHeat = false;
+
+					if (anim.currentAnim != "off")
+					{
+						anim.Play("off");
+					}
 				}
+				
 			}
 			else
 			{
@@ -122,11 +158,20 @@ namespace RomenH.TECBlock
 
 				anim.SetSymbolTint("plate", coldGlow * 2);
 				anim.SetSymbolTint("fins", hotGlow);
+				if (selfHeating)
+				{
+					anim.SetSymbolTint("base", hotGlow);
+				}
+				else
+				{
+					anim.SetSymbolTint("base", whiteColor);
+				}
 			}
 			else
 			{
 				anim.SetSymbolTint("plate", whiteColor);
 				anim.SetSymbolTint("fins", whiteColor);
+				anim.SetSymbolTint("base", whiteColor);
 			}
 		}
 	}

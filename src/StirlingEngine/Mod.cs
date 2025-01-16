@@ -17,7 +17,7 @@ namespace RomenH.StirlingEngine
 	{
 		public override void OnLoad(Harmony harmony)
 		{
-			ModCommon.Init("Stirling Engine");
+			ModCommon.Init("Stirling Engine", harmony);
 			PUtil.InitLibrary();
 
 			//AudioUtil.LoadSound("PistonLoop", Path.Combine(ModCommon.Folder, "piston.wav"), true);

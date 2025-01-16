@@ -1,15 +1,17 @@
+using RomenH.Common;
+
 using STRINGS;
 
 using UnityEngine;
 
-namespace Fans
+namespace RomenH.Fans
 {
 	public class CompressorFanConfig : IBuildingConfig
 	{
 		public const string ID = "CompressorFanBlock";
-		public static string Name = UI.FormatAsLink("Compressor Fan", ID.ToUpper());
-		public static string Desc = $"Compresses {UI.FormatAsLink("Gasses", "ELEMENTS_GAS")} from one side to the other.";
-		public static string Effect = $"Compresses {UI.FormatAsLink("Gasses", "ELEMENTS_GAS")}.";
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Compressor Fan");
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, $"Compresses {UI.FormatAsLink("Gases", "ELEMENTS_GAS")} from one side to the other.");
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, $"Compresses {UI.FormatAsLink("Gases", "ELEMENTS_GAS")}.");
 
 		public override BuildingDef CreateBuildingDef()
 		{

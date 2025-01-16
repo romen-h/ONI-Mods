@@ -3,13 +3,11 @@
 
   <PropertyGroup>
     <AssemblyName>SoggyCarpets</AssemblyName>
-    <Version>1.0.0</Version>
-    <TargetFramework>net471</TargetFramework>
-    <Configurations>Release</Configurations>
     <RootNamespace>RomenH.SoggyCarpets</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
-    <UsePLib>false</UsePLib>
+    <UsePLib>true</UsePLib>
+    <SteamID>2719163704</SteamID>
   </PropertyGroup>
 
   <PropertyGroup>

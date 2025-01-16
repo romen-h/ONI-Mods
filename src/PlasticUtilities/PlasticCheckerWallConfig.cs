@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using RomenH.Common;
+
 using UnityEngine;
 
 namespace RomenH.PlasticUtilities
@@ -11,12 +13,9 @@ namespace RomenH.PlasticUtilities
 	public class PlasticCheckerWallConfig : IBuildingConfig
 	{
 		public const string ID = "RomenH_PlasticCheckerWall";
-
-		public const string Name = "Plastic Checker Wall";
-
-		public const string Desc = "Plastic walls can be used in conjunction with tiles to build airtight rooms on the surface.";
-
-		public const string Effect = "A checkerboard plastic wall tile.";
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Plastic Checker Wall");
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "Plastic walls can be used in conjunction with tiles to build airtight rooms on the surface.");
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, "A checkerboard plastic wall tile.");
 
 		public override BuildingDef CreateBuildingDef()
 		{

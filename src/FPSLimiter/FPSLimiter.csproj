@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>FPSLimiter</AssemblyName>
+    <RootNamespace>RomenH.FPSLimiter</RootNamespace>
+    <IsMod>true</IsMod>
+    <UseCommonLib>true</UseCommonLib>
+    <UsePLib>true</UsePLib>
+    <SteamID></SteamID>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ModName>Help! My GPU screams at the main menu! (FPS Limiter)</ModName>
+    <SupportedContent>ALL</SupportedContent>
+  </PropertyGroup>
+
+</Project>

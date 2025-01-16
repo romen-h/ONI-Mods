@@ -10,24 +10,22 @@ using STRINGS;
 
 using UnityEngine;
 
-namespace RomenH.PermeablePlasticTiles
+namespace RomenH.PlasticTiles
 {
 	public class PlasticMembraneTileConfig : IBuildingConfig
 	{
 		public const string ID = "RomenH_PlasticMembraneTile";
 
-		public static readonly string Name = UI.FormatAsLink("Plastic Airflow Tile", ID.ToUpperInvariant());
-
-		public static readonly string Desc = "Building with airflow tile promotes better gas circulation within a colony.";
-
-		public static readonly string Effect = string.Concat(new string[]
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Plastic Airflow Tile");
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "Building with airflow tile promotes better gas circulation within a colony.");
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, string.Concat(new string[]
 		{
 			"Used to build the walls and floors of rooms.\n\nBlocks ",
 			UI.FormatAsLink("Liquid", "ELEMENTS_LIQUID"),
 			" flow without obstructing ",
 			UI.FormatAsLink("Gas", "ELEMENTS_GAS"),
 			"."
-		});
+		}));
 
 		public override BuildingDef CreateBuildingDef()
 		{
@@ -71,7 +69,7 @@ namespace RomenH.PermeablePlasticTiles
 			SimCellOccupier simCellOccupier = go.AddOrGet<SimCellOccupier>();
 			simCellOccupier.setLiquidImpermeable = true;
 			simCellOccupier.doReplaceElement = false;
-			simCellOccupier.movementSpeedMultiplier = TUNING.DUPLICANTSTATS.MOVEMENT.BONUS_3;
+			simCellOccupier.movementSpeedMultiplier = 1.5f; //TUNING.DUPLICANTSTATS.MOVEMENT_MODIFIERS.BONUS_3;
 			go.AddOrGet<KAnimGridTileVisualizer>().blockTileConnectorID = PlasticTileConfig.BlockTileConnectorID;
 			go.AddOrGet<BuildingHP>().destroyOnDamaged = true;
 		}

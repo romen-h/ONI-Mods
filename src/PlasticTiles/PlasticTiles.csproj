@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <AssemblyName>PlasticTiles</AssemblyName>
-    <Version>1.0.1</Version>
-    <TargetFramework>net471</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <Configurations>Release</Configurations>
     <RootNamespace>RomenH.PlasticTiles</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>false</UsePLib>
+    <SteamID>2728791684</SteamID>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -1,0 +1,35 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Application: Oxygen Not IncludedPOT Version: 2.0\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#. STRINGS.BUILDINGS.PREFABS.ROMENH_DUMPINGSIGN.NAME
+msgctxt "STRINGS.BUILDINGS.PREFABS.ROMENH_DUMPINGSIGN.NAME"
+msgid "<link=\"ROMENHDUMPINGSIGN\">Dumping Sign</link>"
+msgstr "<link=\"ROMENHDUMPINGSIGN\">Sinal de despejo</link>"
+
+#. STRINGS.BUILDINGS.PREFABS.ROMENH_DUMPINGSIGN.DESC
+msgctxt "STRINGS.BUILDINGS.PREFABS.ROMENH_DUMPINGSIGN.DESC"
+msgid ""
+msgstr ""
+"Pode ser usado para criar armazenamento ilimitado se configurado com "
+"cuidado."
+
+#. STRINGS.BUILDINGS.PREFABS.ROMENH_DUMPINGSIGN.EFFECT
+msgctxt "STRINGS.BUILDINGS.PREFABS.ROMENH_DUMPINGSIGN.EFFECT"
+msgid ""
+"Allows Duplicants to deliver materials to this sign which drops them on the "
+"ground immediately."
+msgstr ""
+"Permite Duplicantes entregarem matérias neste sinal o que será despejado no "
+"chão imediatamente."

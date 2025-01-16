@@ -1,13 +1,7 @@
-namespace RomenH.MakeDirt.ModStrings
+namespace RomenH.MakeDirt
 {
-	public class STRINGS
+	public class ModStrings
 	{
-		public class BUILDINGS
-		{
-			public class ROCKCRUSHER
-			{
-				public static LocString MAKEDIRT_RECIPE_DESCRIPTION = "Crushes {0}, {1}, and {2} into {3}";
-			}
-		}
+		public static readonly LocString RecipeDesc = new LocString("Crushes {0}, {1}, and {2} into {3}.", "STRINGS.BUILDINGS.ROCKCRUSHER.MAKEDIRT_RECIPE_DESCRIPTION");
 	}
 }

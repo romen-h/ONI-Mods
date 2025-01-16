@@ -3,13 +3,11 @@
 
   <PropertyGroup>
     <AssemblyName>MakeDirt</AssemblyName>
-    <Version>2.1.0</Version>
-    <TargetFramework>net471</TargetFramework>
-    <Configurations>Release</Configurations>
     <RootNamespace>RomenH.MakeDirt</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>false</UsePLib>
+    <SteamID>2266128365</SteamID>
   </PropertyGroup>
 
   <PropertyGroup>

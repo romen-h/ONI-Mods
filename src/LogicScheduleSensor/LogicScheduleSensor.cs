@@ -1,7 +1,7 @@
 using System;
-
+using System.Collections.Generic;
 using KSerialization;
-
+using RomenH.ScheduleSensor;
 using UnityEngine;
 
 namespace RomenH.LogicScheduleSensor
@@ -22,14 +22,31 @@ namespace RomenH.LogicScheduleSensor
 
 		private bool wasOn = false;
 
-		protected override void OnSpawn()
+		public override void OnSpawn()
 		{
 			base.OnSpawn();
 			base.OnToggle += OnSwitchToggled;
+
+			ScheduleManager.Instance.onSchedulesChanged += ScheduleManager_onSchedulesChanged;
+
 			meter = new MeterController(anim, "meter_target", "meter", Meter.Offset.Behind, Grid.SceneLayer.Building, Array.Empty<string>());
 			UpdateLogicCircuit();
 			UpdateVisualState(force: true);
 			wasOn = switchedOn;
+		}
+
+		public override void OnCleanUp()
+		{
+			ScheduleManager.Instance.onSchedulesChanged -= ScheduleManager_onSchedulesChanged;
+		}
+
+		// Clean up selected schedule index whenever the schedules change
+		private void ScheduleManager_onSchedulesChanged(List<Schedule> list)
+		{
+			if (scheduleIndex < 0 || scheduleIndex >= list.Count)
+			{
+				scheduleIndex = 0;
+			}
 		}
 
 		public void Sim200ms(float dt)
@@ -37,12 +54,11 @@ namespace RomenH.LogicScheduleSensor
 			try
 			{
 				Schedule s = ScheduleManager.Instance.GetSchedules()[scheduleIndex];
-				int currentScheduleBlock = Schedule.GetBlockIdx();
-
-				float meterPercent = (float)(currentScheduleBlock) / 24f;
+				
+				float meterPercent = GameClock.Instance.GetCurrentCycleAsPercentage();
 				meter.SetPositionPercent(meterPercent);
 
-				ScheduleBlock b = s.GetBlock(currentScheduleBlock);
+				ScheduleBlock b = s.GetCurrentScheduleBlock();
 				string currentScheduleGroup = b.GroupId;
 
 				meter.SetSymbolTint("face", GetBlockColor(b));
@@ -82,10 +98,10 @@ namespace RomenH.LogicScheduleSensor
 
 		private Color GetBlockColor(ScheduleBlock b)
 		{
-			if (ScheduleScreen_OnPrefabInit_Patch.blockColors == null) return Color.white;
-			if (ScheduleScreen_OnPrefabInit_Patch.blockColors.TryGetValue(b.GroupId, out ColorStyleSetting col))
+			if (ScheduleGroupInfo.BlockColors == null) return Color.white;
+			if (ScheduleGroupInfo.BlockColors.TryGetValue(b.GroupId, out Color col))
 			{
-				return col.activeColor;
+				return col;
 			}
 
 			return Color.white;

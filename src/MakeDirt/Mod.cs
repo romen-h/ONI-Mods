@@ -13,7 +13,7 @@ namespace RomenH.MakeDirt
 	{
 		public override void OnLoad(Harmony harmony)
 		{
-			ModCommon.Init("Make Dirt");
+			ModCommon.Init("Make Dirt", harmony);
 
 			base.OnLoad(harmony);
 		}

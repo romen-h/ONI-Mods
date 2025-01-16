@@ -1,3 +1,4 @@
+using System;
 using RomenH.Common;
 
 using TUNING;
@@ -44,8 +45,8 @@ namespace RomenH.GermicideLamp
 				noise: NOISE_POLLUTION.NONE
 			);
 			def.RequiresPowerInput = true;
-			def.EnergyConsumptionWhenActive = ModSettings.Instance.BigLampPowerCost;
-			def.SelfHeatKilowattsWhenActive = ModSettings.Instance.BigLampHeat;
+			def.EnergyConsumptionWhenActive = Math.Max(0, ModSettings.Instance.BigLampPowerCost);
+			def.SelfHeatKilowattsWhenActive = Math.Max(0, ModSettings.Instance.BigLampHeat);
 			def.AudioCategory = "Metal";
 			def.Floodable = false;
 			def.Entombable = true;
@@ -75,6 +76,7 @@ namespace RomenH.GermicideLamp
 			go.AddOrGet<LoopingSounds>();
 			go.AddOrGet<EnergyConsumer>();
 			var lamp = go.AddOrGet<GermicideLamp>();
+			lamp.lightOffsetY = 1;
 			lamp.aoeLeft = left;
 			lamp.aoeWidth = width;
 			lamp.aoeBottom = bottom;

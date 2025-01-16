@@ -13,7 +13,7 @@ namespace RomenH.PlasticDoor
 	{
 		public static void Postfix()
 		{
-			BuildingUtils.AddBuildingToPlanScreen(PlasticCurtainConfig.ID, PlasticCurtainConfig.PlanMenu);
+			BuildingUtils.AddBuildingToPlanScreen(PlasticCurtainConfig.ID, PlasticCurtainConfig.PlanMenu, subcategory: GameStrings.PlanMenuSubcategory.Base.Doors);
 			BuildingUtils.AddBuildingToTech(PlasticCurtainConfig.ID, PlasticCurtainConfig.Tech);
 		}
 	}

@@ -7,7 +7,7 @@ using STRINGS;
 
 using UnityEngine;
 
-namespace Fans
+namespace RomenH.Fans
 {
 	[SerializationConfig(MemberSerialization.OptIn)]
 	public class Fan : KMonoBehaviour, ISim200ms, IGameObjectEffectDescriptor
@@ -17,7 +17,7 @@ namespace Fans
 
 		private delegate void EmitDelegate(int cell, PrimaryElement primary_element);
 		private static EmitDelegate emit_element = (cell, primary_element) => SimMessages.AddRemoveSubstance(cell, primary_element.ElementID, CellEventLogger.Instance.ExhaustSimUpdate, primary_element.Mass, primary_element.Temperature, primary_element.DiseaseIdx, primary_element.DiseaseCount, true, -1);
-		private static EmitDelegate emit_particle = (cell, primary_element) => FallingWater.instance.AddParticle(cell, (byte)ElementLoader.elements.IndexOf(primary_element.Element), primary_element.Mass, primary_element.Temperature, primary_element.DiseaseIdx, primary_element.DiseaseCount, true, false, true, false);
+		private static EmitDelegate emit_particle = (cell, primary_element) => FallingWater.instance.AddParticle(cell, (ushort)ElementLoader.elements.IndexOf(primary_element.Element), primary_element.Mass, primary_element.Temperature, primary_element.DiseaseIdx, primary_element.DiseaseCount, true, false, true, false);
 
 		private const float OperationalUpdateInterval = 1f;
 
@@ -51,12 +51,12 @@ namespace Fans
 		private int inputCell = -1;
 		private int outputCell = -1;
 
-		protected override void OnPrefabInit()
+		public override void OnPrefabInit()
 		{
 			base.OnPrefabInit();
 		}
 
-		protected override void OnSpawn()
+		public override void OnSpawn()
 		{
 			base.OnSpawn();
 
@@ -75,11 +75,11 @@ namespace Fans
 			elapsedTime = 0.0f;
 			pumpable = UpdatePumpOperational();
 			ventable = UpdateVentOperational();
-
+			
 			SimMessages.SetCellProperties(cell, (byte)Sim.Cell.Properties.Unbreakable);
 		}
 
-		protected override void OnCleanUp()
+		public override void OnCleanUp()
 		{
 			base.OnCleanUp();
 

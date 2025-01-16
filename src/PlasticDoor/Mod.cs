@@ -13,7 +13,7 @@ namespace RomenH.PlasticDoor
 	{
 		public override void OnLoad(Harmony harmony)
 		{
-			ModCommon.Init("Plastic Door");
+			ModCommon.Init("Plastic Door", harmony);
 
 			base.OnLoad(harmony);
 		}

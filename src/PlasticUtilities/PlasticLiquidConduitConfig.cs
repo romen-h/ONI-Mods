@@ -15,12 +15,9 @@ namespace RomenH.PlasticUtilities
 	public class PlasticLiquidConduitConfig : IBuildingConfig
 	{
 		public const string ID = "RomenH_PlasticLiquidConduit";
-
-		public static string Name = "Plastic Liquid Pipe";
-
-		public const string Desc = "Plastic pipes provide slightly improved insulation and have no decor penalty.";
-
-		public static readonly string Effect = string.Concat(new string[]
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Plastic Liquid Pipe");
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "Plastic pipes provide slightly improved insulation and have no decor penalty.");
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, string.Concat(new string[]
 		{
 			"Carries ",
 			UI.FormatAsLink("Liquid", "ELEMENTS_LIQUID"),
@@ -30,7 +27,7 @@ namespace RomenH.PlasticUtilities
 			UI.FormatAsLink("Intakes", "LIQUIDPIPING"),
 			".\n\nCan be run through wall and floor tile.",
 			"\n\nProvides better insulation than normal liquid pipes."
-		});
+		}));
 
 		public override BuildingDef CreateBuildingDef()
 		{

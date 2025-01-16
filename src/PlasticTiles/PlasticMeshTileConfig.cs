@@ -10,24 +10,21 @@ using STRINGS;
 
 using UnityEngine;
 
-namespace RomenH.PermeablePlasticTiles
+namespace RomenH.PlasticTiles
 {
 	public class PlasticMeshTileConfig : IBuildingConfig
 	{
 		public const string ID = "RomenH_PlasticMeshTile";
-
-		public static readonly string Name = UI.FormatAsLink("Plastic Mesh Tile", ID.ToUpperInvariant());
-
-		public static readonly string Desc = "Mesh tile can be used to make Duplicant pathways in areas where liquid flows.";
-
-		public static readonly string Effect = string.Concat(new string[]
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Plastic Mesh Tile");
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "Mesh tile can be used to make Duplicant pathways in areas where liquid flows.");
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, string.Concat(new string[]
 		{
 			"Used to build the walls and floors of rooms.\n\nDoes not obstruct ",
 			UI.FormatAsLink("Liquid", "ELEMENTS_LIQUID"),
 			" or ",
 			UI.FormatAsLink("Gas", "ELEMENTS_GAS"),
 			" flow."
-		});
+		}));
 
 		public override BuildingDef CreateBuildingDef()
 		{
@@ -71,7 +68,7 @@ namespace RomenH.PermeablePlasticTiles
 			BuildingConfigManager.Instance.IgnoreDefaultKComponent(typeof(RequiresFoundation), prefab_tag);
 			SimCellOccupier simCellOccupier = go.AddOrGet<SimCellOccupier>();
 			simCellOccupier.doReplaceElement = false;
-			simCellOccupier.movementSpeedMultiplier = TUNING.DUPLICANTSTATS.MOVEMENT.BONUS_3;
+			simCellOccupier.movementSpeedMultiplier = 1.5f; // TUNING.DUPLICANTSTATS.MOVEMENT_MODIFIERS.BONUS_3;
 			go.AddOrGet<KAnimGridTileVisualizer>().blockTileConnectorID = PlasticTileConfig.BlockTileConnectorID;
 			go.AddOrGet<BuildingHP>().destroyOnDamaged = true;
 		}

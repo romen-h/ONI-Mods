@@ -63,7 +63,7 @@ namespace RomenH.PipedDeodorizer
 		[MyCmpGet]
 		private Operational operational;
 
-		protected override void OnSpawn()
+		public override void OnSpawn()
 		{
 			base.OnSpawn();
 			base.smi.StartSM();

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 using PeterHan.PLib.Options;
 
-namespace Fans
+namespace RomenH.Fans
 {
 	[PeterHan.PLib.Options.RestartRequired]
 	[JsonObject(MemberSerialization.OptIn)]

@@ -9,7 +9,7 @@ namespace RomenH.PlasticDoor
 	{
 		private Curtain curtain;
 
-		protected override void OnPrefabInit()
+		public override void OnPrefabInit()
 		{
 			BuildPanel();
 

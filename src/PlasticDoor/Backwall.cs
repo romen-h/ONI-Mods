@@ -3,7 +3,7 @@ namespace RomenH.PlasticDoor
 	public class Backwall : KMonoBehaviour
 	{
 		KAnimControllerBase masterAnim;
-		protected override void OnSpawn()
+		public override void OnSpawn()
 		{
 			masterAnim = GetComponent<KAnimControllerBase>();
 			Initialize(masterAnim, Grid.SceneLayer.Backwall);

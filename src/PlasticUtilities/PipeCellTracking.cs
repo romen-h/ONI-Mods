@@ -16,7 +16,7 @@ public class PipeCellTracking : KMonoBehaviour
 
 	private ISet<int> cells;
 
-	protected override void OnSpawn()
+	public override void OnSpawn()
 	{
 		if (conduit.ConduitType == ConduitType.Liquid)
 		{
@@ -37,7 +37,7 @@ public class PipeCellTracking : KMonoBehaviour
 		}
 	}
 
-	protected override void OnCleanUp()
+	public override void OnCleanUp()
 	{
 		if (cells != null)
 		{

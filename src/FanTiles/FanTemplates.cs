@@ -2,7 +2,7 @@ using TUNING;
 
 using UnityEngine;
 
-namespace Fans
+namespace RomenH.Fans
 {
 	public static class FanTemplates
 	{

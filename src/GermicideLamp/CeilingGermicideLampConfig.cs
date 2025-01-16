@@ -1,3 +1,4 @@
+using System;
 using RomenH.Common;
 
 using TUNING;
@@ -44,8 +45,8 @@ namespace RomenH.GermicideLamp
 				noise: NOISE_POLLUTION.NONE
 			);
 			def.RequiresPowerInput = true;
-			def.EnergyConsumptionWhenActive = ModSettings.Instance.CeilingLampPowerCost;
-			def.SelfHeatKilowattsWhenActive = ModSettings.Instance.CeilingLampHeat;
+			def.EnergyConsumptionWhenActive = Math.Max(0, ModSettings.Instance.CeilingLampPowerCost);
+			def.SelfHeatKilowattsWhenActive = Math.Max(0, ModSettings.Instance.CeilingLampHeat);
 			def.AudioCategory = "Metal";
 			def.Floodable = false;
 			def.Entombable = true;

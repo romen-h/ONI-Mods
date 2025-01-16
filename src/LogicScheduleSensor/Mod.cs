@@ -11,12 +11,9 @@ namespace RomenH.LogicScheduleSensor
 {
 	public class Mod : UserMod2
 	{
-		internal static string ModFolder
-		{ get; private set; }
-
 		public override void OnLoad(Harmony harmony)
 		{
-			ModCommon.Init("Schedule Sensor");
+			ModCommon.Init("Schedule Sensor", harmony, false);
 
 			base.OnLoad(harmony);
 		}

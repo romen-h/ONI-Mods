@@ -8,23 +8,13 @@ namespace RomenH.TECBlock
 	[HarmonyPatch("Initialize")]
 	public static class Db_Initialize_Patch
 	{
-		public static void Prefix()
-		{
-			Debug.Log("TEC Tile: Adding strings...");
-
-			StringUtils.AddBuildingStrings(
-				TECTileConfig.ID,
-				TECTileConfig.Name,
-				TECTileConfig.Desc,
-				TECTileConfig.Effect);
-
-			StringUtils.ExportTranslationTemplates();
-		}
-
 		public static void Postfix()
 		{
-			BuildingUtils.AddBuildingToPlanScreen(TECTileConfig.ID, GameStrings.PlanMenuCategory.Utilities);
+			BuildingUtils.AddBuildingToPlanScreen(TECTileConfig.ID, GameStrings.PlanMenuCategory.Utilities, subcategory: GameStrings.PlanMenuSubcategory.Utilities.Temperature);
 			BuildingUtils.AddBuildingToTech(TECTileConfig.ID, GameStrings.Technology.Power.LowResistanceConductors);
+
+			BuildingUtils.AddBuildingToPlanScreen(TEGTileConfig.ID, GameStrings.PlanMenuCategory.Power, subcategory: GameStrings.PlanMenuSubcategory.Power.Generators);
+			BuildingUtils.AddBuildingToTech(TEGTileConfig.ID, GameStrings.Technology.Power.LowResistanceConductors);
 		}
 	}
 

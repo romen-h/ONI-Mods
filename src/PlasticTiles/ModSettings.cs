@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using PeterHan.PLib.Options;
 
-namespace RomenH.PermeablePlasticTiles
+namespace RomenH.PlasticTiles
 {
 	public class ModSettings : SingletonOptions<ModSettings>
 	{

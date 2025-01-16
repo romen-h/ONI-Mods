@@ -10,13 +10,13 @@ using PeterHan.PLib.Options;
 
 using RomenH.Common;
 
-namespace Fans
+namespace RomenH.Fans
 {
 	public class Mod : UserMod2
 	{
 		public override void OnLoad(Harmony harmony)
 		{
-			ModCommon.Init("Fan Tiles");
+			ModCommon.Init("Fan Tiles", harmony);
 			PUtil.InitLibrary();
 
 			var options = new POptions();

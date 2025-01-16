@@ -9,7 +9,7 @@ namespace RomenH.DumpingSign
 		public static void Postfix()
 		{
 			SignCategories.InitCategories();
-			BuildingUtils.AddBuildingToPlanScreen(DumpingSignConfig.ID, GameStrings.PlanMenuCategory.Base, subcategory: "storage");
+			BuildingUtils.AddBuildingToPlanScreen(DumpingSignConfig.ID, GameStrings.PlanMenuCategory.Base, subcategory: GameStrings.PlanMenuSubcategory.Base.Storage);
 		}
 	}
 }

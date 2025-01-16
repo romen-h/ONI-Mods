@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using RomenH.Common;
+
 using STRINGS;
 
 using UnityEngine;
@@ -13,19 +15,16 @@ namespace RomenH.PlasticUtilities
 	public class PlasticGasVentConfig : IBuildingConfig
 	{
 		public const string ID = "RomenH_PlasticGasVent";
-
-		public static readonly string Name = UI.FormatAsLink("Plastic Gas Vent", ID);
-
-		public const string Desc = "Vents are an exit point for gases from ventilation systems.";
-
-		public static readonly string Effect = string.Concat(new string[]
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Plastic Gas Vent");
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "Vents are an exit point for gases from ventilation systems.");
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, string.Concat(new string[]
 		{
 			"Releases ",
 			UI.FormatAsLink("Gas", "ELEMENTS_GAS"),
 			" from ",
 			UI.FormatAsLink("Gas Pipes", "GASPIPING"),
 			"."
-		});
+		}));
 
 		public const float OVERPRESSURE_MASS = 1f;
 

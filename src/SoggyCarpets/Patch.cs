@@ -2,10 +2,10 @@
 using HarmonyLib;
 
 using Rendering;
-
+using SoggyCarpets;
 using UnityEngine;
 
-namespace SoggyCarpets
+namespace RomenH.SoggyCarpets
 {
 	[HarmonyPatch(typeof(CarpetTileConfig))]
 	[HarmonyPatch("DoPostConfigureComplete")]

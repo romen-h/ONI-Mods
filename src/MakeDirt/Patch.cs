@@ -8,6 +8,15 @@ using UnityEngine;
 
 namespace RomenH.MakeDirt
 {
+	[HarmonyPatch(typeof(Localization), "Initialize")]
+	public class Localization_Initialize_Patch
+	{
+		public static void Postfix()
+		{
+			StringUtils.LoadTranslations();
+		}
+	}
+
 	[HarmonyPatch(typeof(RockCrusherConfig))]
 	[HarmonyPatch("ConfigureBuildingTemplate")]
 	public static class RockCrusherConfig_ConfigureBuildingTemplate_Patch
@@ -38,7 +47,7 @@ namespace RomenH.MakeDirt
 				new ComplexRecipe(text, inputs, outputs)
 				{
 					time = 40f,
-					description = string.Format(ModStrings.STRINGS.BUILDINGS.ROCKCRUSHER.MAKEDIRT_RECIPE_DESCRIPTION, sand.name, clay.name, phosphorite.name, dirt.name),
+					description = string.Format(ModStrings.RecipeDesc.ToString(), sand.name, clay.name, phosphorite.name, dirt.name),
 
 					nameDisplay = ComplexRecipe.RecipeNameDisplay.IngredientToResult,
 					fabricators = new List<Tag>
@@ -66,7 +75,7 @@ namespace RomenH.MakeDirt
 				new ComplexRecipe(text, inputs, outputs)
 				{
 					time = 40f,
-					description = string.Format(ModStrings.STRINGS.BUILDINGS.ROCKCRUSHER.MAKEDIRT_RECIPE_DESCRIPTION, sand.name, clay.name, fertilizer.name, dirt.name),
+					description = string.Format(ModStrings.RecipeDesc.ToString(), sand.name, clay.name, fertilizer.name, dirt.name),
 
 					nameDisplay = ComplexRecipe.RecipeNameDisplay.IngredientToResult,
 					fabricators = new List<Tag>
@@ -75,15 +84,6 @@ namespace RomenH.MakeDirt
 					}
 				};
 			}
-		}
-	}
-
-	[HarmonyPatch(typeof(Localization), "Initialize")]
-	public class Localization_Initialize_Patch
-	{
-		public static void Postfix()
-		{
-			StringUtils.LoadTranslations();
 		}
 	}
 }

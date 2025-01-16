@@ -3,8 +3,6 @@
 
   <PropertyGroup>
     <AssemblyName>PipedDeodorizer</AssemblyName>
-    <Version>2.1.1</Version>
-    <TargetFramework>net471</TargetFramework>
     <Configurations>Release</Configurations>
     <RootNamespace>RomenH.PipedDeodorizer</RootNamespace>
     <IsMod>true</IsMod>

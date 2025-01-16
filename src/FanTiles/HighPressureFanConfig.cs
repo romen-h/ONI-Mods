@@ -1,15 +1,17 @@
+using RomenH.Common;
+
 using STRINGS;
 
 using UnityEngine;
 
-namespace Fans
+namespace RomenH.Fans
 {
 	public class HighPressureFanConfig : IBuildingConfig
 	{
 		public const string ID = "HighPressureFanBlock";
-		public static string Name = UI.FormatAsLink("High Pressure Fan", ID.ToUpper());
-		public static string Desc = $"Moves {UI.FormatAsLink("Gasses", "ELEMENTS_GAS")} from one side to the other.";
-		public static string Effect = $"Blows around {UI.FormatAsLink("Gasses", "ELEMENTS_GAS")} in high pressure areas.";
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "High Pressure Fan");
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, $"Moves {UI.FormatAsLink("Gases", "ELEMENTS_GAS")} from one side to the other.");
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, $"Blows around {UI.FormatAsLink("Gases", "ELEMENTS_GAS")} in high pressure areas.");
 
 		public override BuildingDef CreateBuildingDef()
 		{

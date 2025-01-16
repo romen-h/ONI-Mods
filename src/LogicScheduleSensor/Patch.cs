@@ -6,6 +6,7 @@ using HarmonyLib;
 using PeterHan.PLib.UI;
 
 using RomenH.Common;
+using RomenH.ScheduleSensor;
 
 namespace RomenH.LogicScheduleSensor
 {
@@ -15,8 +16,17 @@ namespace RomenH.LogicScheduleSensor
 	{
 		public static void Postfix()
 		{
-			BuildingUtils.AddBuildingToPlanScreen(LogicScheduleSensorConfig.ID, GameStrings.PlanMenuCategory.Automation);
+			BuildingUtils.AddBuildingToPlanScreen(LogicScheduleSensorConfig.ID, GameStrings.PlanMenuCategory.Automation, subcategory: GameStrings.PlanMenuSubcategory.Automation.Sensors);
 			BuildingUtils.AddBuildingToTech(LogicScheduleSensorConfig.ID, GameStrings.Technology.Computers.GenericSensors);
+
+			var scheduleGroups = Db.Get().ScheduleGroups.allGroups;
+			if (scheduleGroups != null)
+			{
+				foreach (var scheduleGroup in scheduleGroups)
+				{
+					ScheduleGroupInfo.BlockColors[scheduleGroup.Id] = scheduleGroup.uiColor;
+				}
+			}
 		}
 	}
 
@@ -39,29 +49,6 @@ namespace RomenH.LogicScheduleSensor
 		public static void Postfix(ScheduleScreenEntry __instance)
 		{
 			ScheduleNameChanged?.Invoke(__instance.schedule);
-		}
-	}
-
-	[HarmonyPatch(typeof(ScheduleScreen))]
-	[HarmonyPatch("OnPrefabInit")]
-	[HarmonyPriority(Priority.Low)]
-	public static class ScheduleScreen_OnPrefabInit_Patch
-	{
-		public static Dictionary<string, ColorStyleSetting> blockColors;
-
-		public static void Postfix(ScheduleScreen __instance)
-		{
-			var fi = AccessTools.Field(typeof(ScheduleScreen), "paintStyles");
-			blockColors = (Dictionary<string, ColorStyleSetting>)fi.GetValue(__instance);
-		}
-	}
-
-	[HarmonyPatch(typeof(Localization), "Initialize")]
-	public class Localization_Initialize_Patch
-	{
-		public static void Postfix()
-		{
-			StringUtils.LoadTranslations();
 		}
 	}
 }

@@ -3,13 +3,11 @@
 
   <PropertyGroup>
     <AssemblyName>TECBlock</AssemblyName>
-    <Version>2.0.1</Version>
-    <TargetFramework>net471</TargetFramework>
-    <Configurations>Release</Configurations>
     <RootNamespace>RomenH.TECBlock</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
+    <SteamID>2593479763</SteamID>
   </PropertyGroup>
 
   <PropertyGroup>

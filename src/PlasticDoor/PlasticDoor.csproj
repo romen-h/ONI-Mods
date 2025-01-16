@@ -3,9 +3,6 @@
 
   <PropertyGroup>
     <AssemblyName>PlasticDoor</AssemblyName>
-    <Version>3.0.3</Version>
-    <TargetFramework>net471</TargetFramework>
-    <Configurations>Release</Configurations>
     <RootNamespace>RomenH.PlasticDoor</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>

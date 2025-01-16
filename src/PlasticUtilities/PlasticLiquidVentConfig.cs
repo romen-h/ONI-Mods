@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using RomenH.Common;
+
 using STRINGS;
 
 using UnityEngine;
@@ -13,19 +15,16 @@ namespace RomenH.PlasticUtilities
 	public class PlasticLiquidVentConfig : IBuildingConfig
 	{
 		public const string ID = "RomenH_PlasticLiquidVent";
-
-		public const string Name = "Plastic Liquid Vent";
-
-		public const string Desc = "Vents are an exit point for liquids from plumbing systems.";
-
-		public static readonly string Effect = string.Concat(new string[]
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Plastic Liquid Vent");
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "Vents are an exit point for liquids from plumbing systems.");
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, string.Concat(new string[]
 		{
 			"Releases ",
 			UI.FormatAsLink("Liquid", "ELEMENTS_LIQUID"),
 			" from ",
 			UI.FormatAsLink("Liquid Pipes", "LIQUIDPIPING"),
 			"."
-		});
+		}));
 
 		public override BuildingDef CreateBuildingDef()
 		{

@@ -2,9 +2,6 @@
 
   <PropertyGroup>
     <AssemblyName>PlasticUtilities</AssemblyName>
-    <Version>1.0.1</Version>
-    <TargetFramework>net471</TargetFramework>
-    <Configurations>Release</Configurations>
     <RootNamespace>RomenH.PlasticUtilities</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
@@ -15,5 +12,9 @@
     <ModName>Plastic Utilities</ModName>
     <SupportedContent>ALL</SupportedContent>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Update="PLib" Version="4.16.0" />
+  </ItemGroup>
 
 </Project>

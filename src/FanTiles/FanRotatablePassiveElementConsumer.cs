@@ -4,7 +4,7 @@ using KSerialization;
 
 using UnityEngine;
 
-namespace Fans
+namespace RomenH.Fans
 {
 	[SkipSaveFileSerialization]
 	[SerializationConfig(MemberSerialization.OptIn)]

@@ -1,3 +1,5 @@
+using RomenH.Common;
+
 using TUNING;
 
 using UnityEngine;
@@ -8,14 +10,24 @@ namespace RomenH.TECBlock
 	{
 		public const string ID = "TECTile";
 
-		public const string Name = "TEC Tile";
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "TEC Tile");
 
-		public const string Desc = "";
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, "Desc Todo");
 
-		public const string Effect = "Uses electricity to transfer heat from one side of the tile to the other. As the temperature difference approaches its maximum heat gradient, the TEC transfers less heat.";
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, "Uses electricity to transfer heat from one side of the tile to the other. As the temperature difference approaches its maximum heat gradient, the TEC transfers less heat.");
 
 		public override BuildingDef CreateBuildingDef()
 		{
+			string secondIngredient;
+			if (ModSettings.Instance.RealisticMaterials)
+			{
+				secondIngredient = "Lead";
+			}
+			else
+			{
+				secondIngredient = TUNING.MATERIALS.REFINED_METAL;
+			}
+
 			BuildingDef def = BuildingTemplates.CreateBuildingDef(
 				id: ID,
 				width: 1,
@@ -28,8 +40,8 @@ namespace RomenH.TECBlock
 					100f
 				},
 				construction_materials: new string[] {
-					MATERIALS.REFINED_METALS[0],
-					"Ceramic"
+					"Ceramic",
+					secondIngredient
 				},
 				melting_point: 1600f,
 				build_location_rule: BuildLocationRule.Tile,
@@ -39,11 +51,7 @@ namespace RomenH.TECBlock
 			BuildingTemplates.CreateFoundationTileDef(def);
 
 			def.RequiresPowerInput = true;
-			def.EnergyConsumptionWhenActive = Mathf.Max(0f, ModSettings.Instance.Wattage);
-			if (ModSettings.Instance.GenerateInefficiencyHeat)
-			{
-				def.SelfHeatKilowattsWhenActive = ModSettings.Instance.Wattage * ModSettings.Instance.KiloDTUPerWatt * (1f - ModSettings.Instance.Efficiency);
-			}
+			def.EnergyConsumptionWhenActive = Mathf.Max(0f, ModSettings.Instance.CoolerWattage);
 			def.Floodable = false;
 			def.Entombable = false;
 			def.Overheatable = true;
@@ -71,7 +79,9 @@ namespace RomenH.TECBlock
 			simcelloccupier.movementSpeedMultiplier = ModSettings.Instance.RunSpeedPenalty;
 			simcelloccupier.notifyOnMelt = true;
 
-			go.AddOrGet<TileTemperature>();
+			go.AddOrGet<Insulator>();
+
+			TileTemperature tt = go.AddOrGet<TileTemperature>();
 		}
 
 		public override void DoPostConfigurePreview(BuildingDef def, GameObject go)
@@ -83,13 +93,19 @@ namespace RomenH.TECBlock
 		{
 			go.GetComponent<KPrefabID>().AddTag(GameTags.FloorTiles, false);
 			go.AddOrGet<LogicOperationalController>();
-			//go.AddOrGet<Insulator>();
 
 			var tec = go.AddOrGet<TECTile>();
+			tec.efficiency = Mathf.Max(0.1f, ModSettings.Instance.CoolerEfficiency);
 			tec.minColdTemp = Mathf.Max(1f, ModSettings.Instance.MinColdTemperature);
-			tec.maxTempDiff = Mathf.Max(1f, ModSettings.Instance.MaxTemperatureDifference);
 			tec.kDTUsPerWatt = Mathf.Max(0.01f, ModSettings.Instance.KiloDTUPerWatt);
-			tec.efficiency = Mathf.Max(0.1f, ModSettings.Instance.Efficiency);
+			tec.maxTempDiff = Mathf.Max(1f, ModSettings.Instance.MaxTemperatureDifference);
+			if (ModSettings.Instance.GenerateInefficiencyHeat)
+			{
+				tec.wasteHeat = ModSettings.Instance.CoolerWattage * ModSettings.Instance.KiloDTUPerWatt * (1f - ModSettings.Instance.CoolerEfficiency);
+			}
+
+			var tinkerable = Tinkerable.MakePowerTinkerable(go);
+			tinkerable.SetWorkTime(120f);
 
 			go.AddOrGet<BuildingCellVisualizer>();
 		}

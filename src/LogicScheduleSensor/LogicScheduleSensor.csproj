@@ -3,10 +3,9 @@
 
   <PropertyGroup>
     <AssemblyName>LogicScheduleSensor</AssemblyName>
-    <Version>2.0.1</Version>
-    <TargetFramework>net471</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <Configurations>Release</Configurations>
-    <RootNamespace>RomenH.LogicScheduleSensor</RootNamespace>
+    <RootNamespace>RomenH.ScheduleSensor</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
@@ -14,18 +13,26 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <ModName>Logic Schedule Sensor</ModName>
+    <ModName>Schedule Sensor</ModName>
     <SupportedContent>ALL</SupportedContent>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>$(GameLibsFolder)/UnityEngine.TextRenderingModule.dll</HintPath>
-      <Private>false</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>$(GameLibsFolder)/UnityEngine.UI.dll</HintPath>
-      <Private>false</Private>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(GameLibsFolder)/UnityEngine.UIModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
 

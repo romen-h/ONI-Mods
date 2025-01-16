@@ -10,7 +10,7 @@ namespace RomenH.StirlingEngine
 	{
 		public static void Postfix()
 		{
-			BuildingUtils.AddBuildingToPlanScreen(StirlingEngineConfig.ID, GameStrings.PlanMenuCategory.Power);
+			BuildingUtils.AddBuildingToPlanScreen(StirlingEngineConfig.ID, GameStrings.PlanMenuCategory.Power, subcategory: GameStrings.PlanMenuSubcategory.Power.Generators);
 			BuildingUtils.AddBuildingToTech(StirlingEngineConfig.ID, GameStrings.Technology.Gases.TemperatureModulation);
 		}
 	}

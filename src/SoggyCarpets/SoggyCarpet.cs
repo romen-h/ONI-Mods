@@ -2,17 +2,16 @@ using System.Collections.Generic;
 
 using Klei;
 
+using KSerialization;
+using RomenH.SoggyCarpets;
 using UnityEngine;
 
 namespace SoggyCarpets
 {
+	[SerializationConfig(MemberSerialization.OptIn)]
 	public class SoggyCarpet : KMonoBehaviour, ISim200ms
 	{
 		internal static readonly HashSet<int> SoggyCells = new HashSet<int>();
-
-		public float dripRate = 0.5f;
-
-		public float maxEmitPressure = 500f;
 
 		private int myCell;
 		private int cellBelow;
@@ -26,14 +25,14 @@ namespace SoggyCarpets
 		[MyCmpGet]
 		private ElementConsumer consumer;
 
-		protected override void OnSpawn()
+		public override void OnSpawn()
 		{
 			myCell = building.GetCell();
 			cellBelow = Grid.GetCellInDirection(myCell, Direction.Down);
 			consumer.EnableConsumption(true);
 		}
 
-		protected override void OnCleanUp()
+		public override void OnCleanUp()
 		{
 			SoggyCells.Remove(building.GetCell());
 		}
@@ -77,7 +76,7 @@ namespace SoggyCarpets
 					if (carpetBelow != null) doDrip = true;
 				}
 			}
-			else if (Grid.Mass[cellBelow] > maxEmitPressure)
+			else if (Grid.Mass[cellBelow] > ModSettings.Instance.CarpetOutputPressure)
 			{
 				// Do not drip in non-solid tiles that are over 500kg of pressure
 				doDrip = false;
@@ -91,9 +90,9 @@ namespace SoggyCarpets
 			Element element = firstPrimaryElement.Element;
 			if (element == null) return;
 			if (!element.IsLiquid) return;
-			byte elementIndex = element.idx;
+			ushort elementIndex = element.idx;
 
-			float massToDrip = Mathf.Min(firstPrimaryElement.Mass, dripRate * dt);
+			float massToDrip = Mathf.Min(firstPrimaryElement.Mass, ModSettings.Instance.CarpetDripRate * dt);
 			if (massToDrip <= 0f) return;
 
 			Tag prefabTag = firstPrimaryElement.GetComponent<KPrefabID>().PrefabTag;

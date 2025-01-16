@@ -16,7 +16,7 @@ namespace RomenH.PipedDeodorizer
 	{
 		public override void OnLoad(Harmony harmony)
 		{
-			ModCommon.Init("Piped Deodorizer");
+			ModCommon.Init("Piped Deodorizer", harmony);
 			PUtil.InitLibrary();
 
 			var options = new POptions();

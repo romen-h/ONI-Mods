@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 using Klei.AI;
 
@@ -14,17 +12,27 @@ namespace RomenH.GermicideLamp
 	[SerializationConfig(MemberSerialization.OptIn)]
 	public class GermicideLamp : KMonoBehaviour, ISim200ms
 	{
+		private static readonly double b = Math.Log(0.5);
+
+		private Vector2I lampXY;
+
 		public bool alwaysOn = false;
 		public bool isMobile = false;
 		public bool applySunburn = false;
 		public bool flicker = false;
+		public int lightOffsetX = 0;
+		public int lightOffsetY = 0;
 		public int aoeLeft = 0;
 		public int aoeWidth = 1;
 		public int aoeBottom = 0;
 		public int aoeHeight = 1;
 		public float basePower = 1.0f;
-		
-		private static readonly double b = Math.Log(0.5);
+
+		[MyCmpGet]
+		public Operational operational;
+
+		[MyCmpGet]
+		public Light2D light;
 
 		private static int GermsToKill(byte germIndex, int count, float uvPower)
 		{
@@ -44,24 +52,16 @@ namespace RomenH.GermicideLamp
 			return (int)(initial * Math.Exp(b * e * uvPower));
 		}
 
-		public bool FlashReachesCell(int cellX, int cellY)
+		public static bool TestLineOfSight(int x1, int y1, int x2, int y2)
 		{
-			return Grid.TestLineOfSight(cellX, cellY, lampXY.X, lampXY.Y + 1, Grid.VisibleBlockingCB, true);
+			return Grid.TestLineOfSight(x1, y1, x2, y2, Grid.VisibleBlockingCB, true);
 		}
 
-		[MyCmpGet]
-		public Operational operational;
-
-		[MyCmpGet]
-		public Light2D light;
-
-		private Vector2I lampXY;
-
-		protected override void OnSpawn()
+		public override void OnSpawn()
 		{
 			base.OnSpawn();
 
-			lampXY = Grid.PosToXY(gameObject.transform.position);
+			lampXY = Grid.PosToXY(gameObject.transform.position) + new Vector2I(lightOffsetX, lightOffsetY);
 		}
 
 		public void Update()
@@ -84,7 +84,7 @@ namespace RomenH.GermicideLamp
 
 			if (isMobile)
 			{
-				lampXY = Grid.PosToXY(gameObject.transform.position);
+				lampXY = Grid.PosToXY(gameObject.transform.position) + new Vector2I(lightOffsetX, lightOffsetY);
 			}
 
 			if (alwaysOn || (operational != null && operational.IsOperational))
@@ -118,7 +118,7 @@ namespace RomenH.GermicideLamp
 
 		private void UpdateCell(float dt, int x, int y, HashSet<GameObject> buildingsAlreadySeen)
 		{
-			if (FlashReachesCell(x, y))
+			if (TestLineOfSight(lampXY.x, lampXY.y, x, y))
 			{
 				int cell = Grid.XYToCell(x, y);
 

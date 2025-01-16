@@ -32,40 +32,40 @@ namespace RomenH.LogicScheduleSensor
 
 		public override BuildingDef CreateBuildingDef()
 		{
-			string iD = ID;
-			int width = 1;
-			int height = 1;
-			string anim = "logic_schedule_sensor_kanim";
-			int hitpoints = 30;
-			float construction_time = 30f;
-			float[] tIER = TUNING.BUILDINGS.CONSTRUCTION_MASS_KG.TIER0;
-			string[] rEFINED_METALS = MATERIALS.REFINED_METALS;
-			float melting_point = 1600f;
-			BuildLocationRule build_location_rule = BuildLocationRule.Anywhere;
-			EffectorValues nONE = NOISE_POLLUTION.NONE;
-			BuildingDef buildingDef = BuildingTemplates.CreateBuildingDef(iD, width, height, anim, hitpoints, construction_time, tIER, rEFINED_METALS, melting_point, build_location_rule, TUNING.BUILDINGS.DECOR.PENALTY.TIER0, nONE);
-			buildingDef.Overheatable = false;
-			buildingDef.Floodable = false;
-			buildingDef.Entombable = false;
-			buildingDef.ViewMode = OverlayModes.Logic.ID;
-			buildingDef.AudioCategory = "Metal";
-			buildingDef.SceneLayer = Grid.SceneLayer.Building;
+			BuildingDef def = BuildingTemplates.CreateBuildingDef(
+				id: ID,
+				width: 1,
+				height: 1,
+				anim: "logic_schedule_sensor_kanim",
+				hitpoints: 30,
+				construction_time: 30f,
+				construction_mass: TUNING.BUILDINGS.CONSTRUCTION_MASS_KG.TIER0,
+				construction_materials: MATERIALS.REFINED_METALS,
+				melting_point: 1600f,
+				build_location_rule: BuildLocationRule.Anywhere,
+				decor: TUNING.BUILDINGS.DECOR.PENALTY.TIER0,
+				noise: NOISE_POLLUTION.NONE);
+			def.Overheatable = false;
+			def.Floodable = false;
+			def.Entombable = false;
+			def.ViewMode = OverlayModes.Logic.ID;
+			def.AudioCategory = "Metal";
+			def.SceneLayer = Grid.SceneLayer.Building;
+			def.AlwaysOperational = true;
+			def.LogicOutputPorts = new List<LogicPorts.Port>
+			{
+				LogicPorts.Port.OutputPort(LogicSwitch.PORT_ID, new CellOffset(0, 0), LogicPort, LogicPortActive, LogicPortInactive, true, false)
+			};
 			SoundEventVolumeCache.instance.AddVolume("switchgaspressure_kanim", "PowerSwitch_on", NOISE_POLLUTION.NOISY.TIER3);
 			SoundEventVolumeCache.instance.AddVolume("switchgaspressure_kanim", "PowerSwitch_off", NOISE_POLLUTION.NOISY.TIER3);
-
-			buildingDef.LogicOutputPorts = new List<LogicPorts.Port>
-			{
-				LogicPorts.Port.OutputPort(LogicSwitch.PORT_ID, new CellOffset(0, 0), LogicPort.ToString(), LogicPortActive.ToString(), LogicPortInactive.ToString())
-			};
-
 			GeneratedBuildings.RegisterWithOverlay(OverlayModes.Logic.HighlightItemIDs, ID);
 
-			return buildingDef;
+			return def;
 		}
 
 		public override void DoPostConfigureComplete(GameObject go)
 		{
-			GeneratedBuildings.MakeBuildingAlwaysOperational(go);
+			go.GetComponent<KPrefabID>().AddTag(GameTags.OverlayInFrontOfConduits, false);
 
 			LogicScheduleSensor logicScheduleSensor = go.AddOrGet<LogicScheduleSensor>();
 			logicScheduleSensor.manuallyControlled = false;

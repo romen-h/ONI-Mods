@@ -10,7 +10,7 @@ namespace RomenH.PipedDeodorizer
 	{
 		public static void Postfix()
 		{
-			BuildingUtils.AddBuildingToPlanScreen(PipedDeodorizerConfig.ID, GameStrings.PlanMenuCategory.Oxygen);
+			BuildingUtils.AddBuildingToPlanScreen(PipedDeodorizerConfig.ID, GameStrings.PlanMenuCategory.Oxygen, subcategory: GameStrings.PlanMenuSubcategory.Oxygen.Scrubbers);
 			BuildingUtils.AddBuildingToTech(PipedDeodorizerConfig.ID, GameStrings.Technology.Gases.HVAC);
 		}
 	}

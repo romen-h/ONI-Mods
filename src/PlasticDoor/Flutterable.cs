@@ -34,7 +34,7 @@ namespace RomenH.PlasticDoor
 			{ "unlock", GlobalAssets.GetSound("jobstation_job_grab") }
 		};
 
-		protected override void OnSpawn()
+		public override void OnSpawn()
 		{
 			base.OnSpawn();
 
@@ -101,7 +101,7 @@ namespace RomenH.PlasticDoor
 			return false;
 		}
 
-		protected override void OnCleanUp()
+		public override void OnCleanUp()
 		{
 			base.OnCleanUp();
 			if (smi.IsRunning())

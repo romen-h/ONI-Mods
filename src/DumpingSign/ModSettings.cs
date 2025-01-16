@@ -23,7 +23,7 @@ namespace RomenH.DumpingSign
 
 		public ModSettings()
 		{
-			CancelSweepChores = false;
+			CancelSweepChores = true;
 			DebugLogging = false;
 		}
 

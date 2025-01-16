@@ -1,15 +1,17 @@
+using RomenH.Common;
+
 using STRINGS;
 
 using UnityEngine;
 
-namespace Fans
+namespace RomenH.Fans
 {
 	public class LiquidTurbineConfig : IBuildingConfig
 	{
 		public const string ID = "TurbineBlock";
-		public static string Name = UI.FormatAsLink("Turbine", ID.ToUpper());
-		public static string Desc = $"Moves {UI.FormatAsLink("Liquids", "ELEMENTS_LIQUID")} from one side to the other.";
-		public static string Effect = $"Pumps around {UI.FormatAsLink("Liquids", "ELEMENTS_LIQUID")}.";
+		public static readonly LocString Name = StringUtils.BuildingName(ID, "Turbine");
+		public static readonly LocString Desc = StringUtils.BuildingDesc(ID, $"Moves {UI.FormatAsLink("Liquids", "ELEMENTS_LIQUID")} from one side to the other.");
+		public static readonly LocString Effect = StringUtils.BuildingEffect(ID, $"Pumps around {UI.FormatAsLink("Liquids", "ELEMENTS_LIQUID")}.");
 
 		public override BuildingDef CreateBuildingDef()
 		{

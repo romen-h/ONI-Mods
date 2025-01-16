@@ -3,9 +3,6 @@
 
   <PropertyGroup>
     <AssemblyName>StirlingEngine</AssemblyName>
-    <Version>3.0.1</Version>
-    <TargetFramework>net471</TargetFramework>
-    <Configurations>Release</Configurations>
     <RootNamespace>RomenH.StirlingEngine</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>

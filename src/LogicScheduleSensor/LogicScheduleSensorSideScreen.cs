@@ -6,205 +6,46 @@ using PeterHan.PLib.UI;
 using RomenH.Common;
 
 using UnityEngine;
+using UnityEngine.UI;
+
+using Dropdown = UnityEngine.UI.Dropdown;
 
 namespace RomenH.LogicScheduleSensor
 {
 	public class LogicScheduleSensorSideScreen : SideScreenContent
 	{
-		List<StringListOption> schedules;
-		List<StringListOption> groups;
+		public static readonly LocString Name = StringUtils.SideScreenName(nameof(LogicScheduleSensorSideScreen), "Schedule Sensor Settings");
+
+		public static readonly LocString ScheduleLabel = new LocString("Schedule:", "STRINGS.UI.LOGICSCHEDULESENSORSIDESCREEN.SCHEDULE");
+
+		public static readonly LocString ShiftLabel = new LocString("Shift:", "STRINGS.UI.LOGICSCHEDULESENSORSIDESCREEN.SHIFT");
 
 		private LogicScheduleSensor sensor;
 
-		private GameObject scheduleCombo;
-		private GameObject groupCombo;
+		private Button _testButton = null;
+		private Dropdown _scheduleDropdown = null;
+		private Dropdown _blockTypeDropdown = null;
 
-		protected override void OnPrefabInit()
+		public override string GetTitle()
+		{
+			return Name;
+		}
+
+		public override void OnPrefabInit()
 		{
 			ScheduleScreenEntry_OnNameChanged_Patch.ScheduleNameChanged += ScheduleScreenEntry_OnNameChanged_Patch_ScheduleNameChanged;
 			ScheduleManager.Instance.onSchedulesChanged += ScheduleManager_onSchedulesChanged;
-			RebuildPanel();
+			BuildPanel();
 
 			base.OnPrefabInit();
 		}
 
-		private void ScheduleScreenEntry_OnNameChanged_Patch_ScheduleNameChanged(Schedule obj)
+		public override void OnCleanUp()
 		{
-			if (sensor != null)
-				RebuildPanel();
-		}
+			ScheduleScreenEntry_OnNameChanged_Patch.ScheduleNameChanged -= ScheduleScreenEntry_OnNameChanged_Patch_ScheduleNameChanged;
+			ScheduleManager.Instance.onSchedulesChanged -= ScheduleManager_onSchedulesChanged;
 
-		private void ScheduleManager_onSchedulesChanged(List<Schedule> list)
-		{
-			if (sensor != null)
-				RebuildPanel();
-		}
-
-		private void RebuildPanel()
-		{
-			// Update schedule data
-
-			int selectedSchedule = (sensor != null) ? sensor.scheduleIndex : 0;
-			int selectedGroup = (sensor != null) ? sensor.blockTypeIndex : 0;
-
-			schedules = new List<StringListOption>();
-			var slist = ScheduleManager.Instance.GetSchedules();
-			foreach (Schedule s in slist)
-			{
-				schedules.Add(new StringListOption(s.name));
-			}
-
-			if (selectedSchedule < 0 || selectedSchedule >= schedules.Count)
-			{
-				selectedSchedule = 0;
-				if (sensor != null)
-				{
-					sensor.scheduleIndex = selectedSchedule;
-				}
-			}
-
-			groups = new List<StringListOption>();
-			var glist = Db.Get().ScheduleGroups.allGroups;
-			foreach (ScheduleGroup g in glist)
-			{
-				groups.Add(new StringListOption(g.Name));
-			}
-
-			if (selectedGroup < 0 || selectedGroup >= groups.Count)
-			{
-				selectedGroup = 0;
-				if (sensor != null)
-				{
-					sensor.blockTypeIndex = selectedGroup;
-				}
-			}
-
-			// Rebuild UI
-
-			if (ContentContainer != null)
-			{
-				Destroy(ContentContainer);
-				ContentContainer = null;
-			}
-
-			var margin = new RectOffset(8, 8, 8, 8);
-			var baseLayout = gameObject.GetComponent<BoxLayoutGroup>();
-			if (baseLayout != null)
-			{
-				baseLayout.Params = new BoxLayoutParams()
-				{
-					Margin = margin,
-					Direction = PanelDirection.Vertical,
-					Alignment = TextAnchor.UpperCenter,
-					Spacing = 8
-				};
-			}
-
-			var mainPanel = new PPanel();
-
-			var scheduleRow = new PPanel("Schedule Select")
-			{
-				FlexSize = Vector2.right,
-				Alignment = TextAnchor.MiddleCenter,
-				Spacing = 10,
-				Direction = PanelDirection.Horizontal,
-				Margin = margin
-			};
-
-			scheduleRow.AddChild(new PLabel("Schedule")
-			{
-				TextAlignment = TextAnchor.MiddleRight,
-				ToolTip = "TODO: Schedule Label Tooltip",
-				Text = "Schedule",
-				TextStyle = PUITuning.Fonts.TextDarkStyle
-			});
-
-			var scb = new PeterHan.PLib.UI.PComboBox<StringListOption>("Schedule Select")
-			{
-				Content = schedules,
-				MinWidth = 100,
-				InitialItem = schedules[selectedSchedule],
-				ToolTip = "TODO: Schedule Select Tooltip",
-				TextStyle = PUITuning.Fonts.TextLightStyle,
-				TextAlignment = TextAnchor.MiddleLeft,
-				OnOptionSelected = SetSchedule
-			};
-
-			scb.OnRealize += (obj) =>
-			{
-				scheduleCombo = obj;
-			};
-			scheduleRow.AddChild(scb);
-			mainPanel.AddChild(scheduleRow);
-
-			var groupRow = new PPanel("Group Select")
-			{
-				FlexSize = Vector2.right,
-				Alignment = TextAnchor.MiddleCenter,
-				Spacing = 10,
-				Direction = PanelDirection.Horizontal,
-				Margin = margin
-			};
-
-			groupRow.AddChild(new PLabel("Group")
-			{
-				TextAlignment = TextAnchor.MiddleRight,
-				ToolTip = "TODO: Group Label Tooltip",
-				Text = "Group",
-				TextStyle = PUITuning.Fonts.TextDarkStyle
-			});
-
-			var bcb = new PComboBox<StringListOption>("Group Select")
-			{
-				Content = groups,
-				MinWidth = 100,
-				InitialItem = groups[selectedGroup],
-				ToolTip = "TODO: Group Select Tooltip",
-				TextStyle = PUITuning.Fonts.TextLightStyle,
-				TextAlignment = TextAnchor.MiddleLeft,
-				OnOptionSelected = SetGroup
-			};
-
-			bcb.OnRealize += (obj) =>
-			{
-				groupCombo = obj;
-			};
-			groupRow.AddChild(bcb);
-			mainPanel.AddChild(groupRow);
-
-			ContentContainer = mainPanel.Build();
-			ContentContainer.SetParent(gameObject);
-
-			if (scheduleCombo != null)
-				PComboBox<StringListOption>.SetSelectedItem(scheduleCombo, schedules[selectedSchedule]);
-
-			if (groupCombo != null)
-				PComboBox<StringListOption>.SetSelectedItem(groupCombo, groups[selectedGroup]);
-		}
-
-		private void SetSchedule(GameObject obj, StringListOption option)
-		{
-			int index = schedules.IndexOf(option);
-
-			if (sensor != null && index >= 0 && index < schedules.Count)
-			{
-				sensor.scheduleIndex = index;
-			}
-		}
-
-		private void SetGroup(GameObject obj, StringListOption option)
-		{
-			int index = groups.IndexOf(option);
-
-			if (sensor != null && index >= 0 && index < groups.Count)
-			{
-				sensor.blockTypeIndex = index;
-			}
-		}
-
-		public override string GetTitle()
-		{
-			return "Schedule Sensor Settings";
+			base.OnCleanUp();
 		}
 
 		public override bool IsValidForTarget(GameObject target)
@@ -212,20 +53,137 @@ namespace RomenH.LogicScheduleSensor
 			return target.GetComponent<LogicScheduleSensor>() != null;
 		}
 
+		public override void SetTarget(GameObject target)
+		{
+			if (target == null) return;
+
+			sensor = target.GetComponent<LogicScheduleSensor>();
+			UpdateScheduleSelection();
+			UpdateBlockTypeSelection();
+		}
+
 		public override void ClearTarget()
 		{
 			sensor = null;
+			UpdateScheduleSelection();
+			UpdateBlockTypeSelection();
 		}
 
-		public override void SetTarget(GameObject target)
+		private void ScheduleScreenEntry_OnNameChanged_Patch_ScheduleNameChanged(Schedule obj)
 		{
-			if (target == null)
-				PUtil.LogError("Invalid target specified");
+			UpdateScheduleOptions();
+			UpdateScheduleSelection();
+		}
+
+		private void ScheduleManager_onSchedulesChanged(List<Schedule> list)
+		{
+			UpdateScheduleOptions();
+			UpdateScheduleSelection();
+		}
+
+		private void BuildPanel()
+		{
+			GameObject contentContainer = new GameObject();
+			var rootPanelTransform = contentContainer.AddComponent<RectTransform>();
+			var rootPanelLayout = contentContainer.AddComponent<LayoutElement>();
+			var rootPanelLayoutGroup = contentContainer.AddComponent<VerticalLayoutGroup>();
+			rootPanelLayoutGroup.childAlignment = TextAnchor.UpperLeft;
+			rootPanelLayoutGroup.childScaleHeight = true;
+			rootPanelLayoutGroup.padding = new RectOffset(10, 10, 10, 10);
+			rootPanelLayoutGroup.spacing = 10f;
+			rootPanelLayoutGroup.childControlHeight = false;
+			
+			contentContainer.SetParent(gameObject);
+			contentContainer.SetActive(true);
+			ContentContainer = contentContainer;
+			
+			var scheduleLabelObj = UIFactory.MakeLabel(ScheduleLabel);
+			scheduleLabelObj.SetParent(contentContainer);
+
+			var scheduleDropdownObj = UIFactory.MakeDropdown((value) =>
+			{
+				if (sensor != null)
+				{
+					sensor.scheduleIndex = value;
+				}
+			});
+			_scheduleDropdown = scheduleDropdownObj.SafeGetComponent<Dropdown>();
+			scheduleDropdownObj.SetParent(contentContainer);
+
+			var shiftLabelObj = UIFactory.MakeLabel(ShiftLabel);
+			shiftLabelObj.SetParent(contentContainer);
+
+			var blockTypeDropdownObj = UIFactory.MakeDropdown((value) =>
+			{
+				if (sensor != null)
+				{
+					sensor.blockTypeIndex = value;
+				}
+			});
+			_blockTypeDropdown = blockTypeDropdownObj.GetComponent<Dropdown>();
+			blockTypeDropdownObj.SetParent(contentContainer);
+
+			UpdateScheduleOptions();
+			UpdateBlockTypeOptions();
+
+			UpdateScheduleSelection();
+			UpdateBlockTypeSelection();
+		}
+
+		private void UpdateScheduleOptions()
+		{
+			if (_scheduleDropdown == null) return;
+
+			var schedules = ScheduleManager.Instance.GetSchedules();
+			_scheduleDropdown.ClearOptions();
+			foreach (var schedule in schedules)
+			{
+				_scheduleDropdown.options.Add(new Dropdown.OptionData(schedule.name));
+			}
+		}
+
+		private void UpdateScheduleSelection()
+		{
+			if (_scheduleDropdown == null) return;
+			if (sensor == null)
+			{
+				_scheduleDropdown.enabled = false;
+				return;
+			}
 			else
 			{
-				sensor = target.GetComponent<LogicScheduleSensor>();
-				RebuildPanel();
+				_scheduleDropdown.enabled = true;
 			}
+
+			_scheduleDropdown.SetValueWithoutNotify(sensor.scheduleIndex);
+		}
+
+		private void UpdateBlockTypeOptions()
+		{
+			if (_blockTypeDropdown == null) return;
+
+			var groups = Db.Get().ScheduleGroups.allGroups;
+			_blockTypeDropdown.ClearOptions();
+			foreach (ScheduleGroup g in groups)
+			{
+				_blockTypeDropdown.options.Add(new Dropdown.OptionData(g.Name));
+			}
+		}
+
+		private void UpdateBlockTypeSelection()
+		{
+			if (_blockTypeDropdown == null) return;
+			if (sensor == null)
+			{
+				_blockTypeDropdown.enabled = false;
+				return;
+			}
+			else
+			{
+				_blockTypeDropdown.enabled = true;
+			}
+
+			_blockTypeDropdown.SetValueWithoutNotify(sensor.blockTypeIndex);
 		}
 	}
 }
