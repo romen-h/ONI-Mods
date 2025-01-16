@@ -1,4 +1,5 @@
 
+using Epic.OnlineServices.Ecom;
 using HarmonyLib;
 
 using RomenH.Common;
@@ -30,6 +31,22 @@ namespace RomenH.Thresholds
 		public static void Postfix()
 		{
 			StringUtils.LoadTranslations();
+		}
+	}
+
+	[HarmonyPatch(typeof(OvercrowdingMonitor), "IsConfined")]
+	public class OvercrowdingMonitor_IsConfimed_Patch
+	{
+		public static void Postfix(ref bool __result, OvercrowdingMonitor.Instance smi)
+		{
+			if (smi.cavity == null)
+			{
+				int cell = Grid.PosToCell(smi.gameObject);
+				if (!Grid.IsSolidCell(cell) && !Grid.HasDoor[cell])
+				{
+					__result = false;
+				}
+			}
 		}
 	}
 }

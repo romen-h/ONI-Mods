@@ -3,9 +3,6 @@
 
   <PropertyGroup>
     <AssemblyName>Thresholds</AssemblyName>
-    <Version>1.2.0</Version>
-    <TargetFramework>net471</TargetFramework>
-    <Configurations>Release</Configurations>
     <RootNamespace>RomenH.Thresholds</RootNamespace>
     <IsMod>true</IsMod>
     <UseCommonLib>true</UseCommonLib>

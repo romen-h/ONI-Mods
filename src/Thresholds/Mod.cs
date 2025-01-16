@@ -18,7 +18,7 @@ namespace RomenH.Thresholds
 
 		public override void OnLoad(Harmony harmony)
 		{
-			ModCommon.Init("Threshold Walls");
+			ModCommon.Init("Threshold Walls", harmony);
 			PUtil.InitLibrary();
 
 			var options = new POptions();

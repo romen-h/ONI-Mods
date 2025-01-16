@@ -14,13 +14,13 @@ namespace RomenH.Thresholds
 
 		private int myCell;
 
-		protected override void OnSpawn()
+		public override void OnSpawn()
 		{
 			myCell = building.GetCell();
 			ThresholdCells.Add(myCell);
 		}
 
-		protected override void OnCleanUp()
+		public override void OnCleanUp()
 		{
 			ThresholdCells.Remove(myCell);
 		}

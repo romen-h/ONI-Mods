@@ -352,7 +352,7 @@ namespace RomenH.Thresholds
 			}
 		}
 
-		protected override void OnSpawn()
+		public override void OnSpawn()
 		{
 			base.Subscribe<LogicThresholdWall>(-801688580, OnLogicValueChangedDelegate);
 
