@@ -25,7 +25,7 @@ namespace RomenH.CommonLib
 
 		private FMOD.Channel sound;
 
-		protected override void OnSpawn()
+		public override void OnSpawn()
 		{
 			base.OnSpawn();
 
@@ -60,7 +60,7 @@ namespace RomenH.CommonLib
 			sound.set3DAttributes(ref scaledSoundPos, ref scaledSoundVel);
 		}
 
-		protected override void OnCleanUp()
+		public override void OnCleanUp()
 		{
 			base.OnCleanUp();
 

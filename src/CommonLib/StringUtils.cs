@@ -9,6 +9,8 @@ using HarmonyLib;
 using KMod;
 using STRINGS;
 
+using Directory = System.IO.Directory;
+
 namespace RomenH.Common
 {
 	/// <summary>
@@ -101,6 +103,11 @@ namespace RomenH.Common
 		public static LocString TechDesc(string ID, string value)
 		{
 			return new LocString(value, "STRINGS.RESEARCH.TECHS." + ID.ToUpperInvariant() + ".DESC");
+		}
+
+		public static LocString SideScreenName(string ID, string value)
+		{
+			return new LocString(value, "STRINGS.UI." + ID.ToUpperInvariant() + ".NAME");
 		}
 
 		internal static void RegisterAllLocStrings()

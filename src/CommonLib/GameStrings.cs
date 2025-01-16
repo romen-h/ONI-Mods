@@ -42,6 +42,136 @@ namespace RomenH.Common
 			public const string Rocketry = "Rocketry";
 		}
 
+		public static class PlanMenuSubcategory
+		{
+			public static class Base
+			{
+				public const string Ladders = "ladders";
+				public const string Tiles = "tiles";
+				public const string PrintingPods = "printingpods";
+				public const string Doors = "doors";
+				public const string Storage = "storage";
+				public const string Transport = "transport";
+			}
+
+			public static class Oxygen
+			{
+				public const string Producers = "producers";
+				public const string Scrubbers = "scrubbers";
+			}
+
+			public static class Power
+			{
+				public const string Generators = "generators";
+				public const string Wires = "wires";
+				public const string Batteries = "batteries";
+				public const string Electrobank = "electrobankbuildings";
+				public const string Transformer = "powercontrol";
+				public const string Switches = "switches";
+			}
+
+			public static class Food
+			{
+				public const string Cooking = "cooking";
+				public const string Farming = "farming";
+				public const string Ranching = "ranching";
+			}
+
+			public static class Plumbing
+			{
+				public const string Washroom = "washroom";
+				public const string Pipes = "pipes";
+				public const string Pumps = "pumps";
+				public const string Valves = "valves";
+				public const string Sensors = "sensors";
+				public const string RocketPorts = "buildmenuports";
+			}
+
+			public static class Ventilation
+			{
+				public const string Pipes = "pipes";
+				public const string Pumps = "pumps";
+				public const string Valves = "valves";
+				public const string Sensors = "sensors";
+				public const string RocketPorts = "buildmenuports";
+			}
+
+			public static class Refinement
+			{
+				public const string Organic = "organic";
+				public const string Materials = "materials";
+				public const string Oil = "oil";
+				public const string Advanced = "advanced";
+			}
+
+			public static class Medicine
+			{
+				public const string Hygiene = "hygiene";
+				public const string Medical = "medical";
+				public const string Wellness = "wellness";
+			}
+
+			public static class Furniture
+			{
+				public const string Beds = "beds";
+				public const string Lights = "lights";
+				public const string Dining = "dining";
+				public const string Recreation = "recreation";
+				public const string Decor = "decor";
+			}
+
+			public static class Stations
+			{
+				public const string Research = "research";
+				public const string Archaeology = "archaeology";
+				public const string Exploration = "exploration";
+				public const string Industrial = "industrialstation";
+				public const string Workstations = "workstations";
+				public const string Ranching = "ranching";
+				public const string Farming = "farming";
+				public const string Manufacturing = "manufacturing";
+				public const string MeteorDefense = "meteordefense";
+				public const string Equipment = "equipment";
+			}
+
+			public static class Utilities
+			{
+				public const string Temperature = "temperature";
+				public const string Oil = "oil";
+				public const string Sanitation = "sanitation";
+			}
+
+			public static class Automation
+			{
+				public const string Wires = "wires";
+				public const string Sensors = "sensors";
+				public const string Monitoring = "logicmanager";
+				public const string Switches = "switches";
+				public const string LogicGates = "logicgates";
+				public const string Transmissions = "transmissions";
+			}
+
+			public static class Shipping
+			{
+				public const string Structural = "conveyancestructures";
+				public const string Pumps = "pumps";
+				public const string Valves = "valves";
+				public const string Sensors = "sensors";
+				public const string Automated = "automated";
+				public const string RocketPorts = "buildmenuports";
+			}
+
+			public static class Rocketry
+			{
+				public const string Telescopes = "telescopes";
+				public const string Navigation = "rocketnav";
+				public const string Structural = "rocketstructures";
+				public const string Fittings = "fittings";
+				public const string MeteorDefense = "missiles";
+				public const string RocketFueling = "";
+			}
+		}
+
 		/// <summary>
 		/// Defines the strings used to reference the technologies.
 		/// </summary>
