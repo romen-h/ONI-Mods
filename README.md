@@ -27,14 +27,14 @@ A new "storage" building that allows sweep-only materials to be delivered to a s
 
 ---
 
-## [Fan Tiles](src/FanTiles)
+### [Fan Tiles](src/FanTiles)
 [<img src="src/FanTiles/Assets/preview.png" height="200px"/>](src/FanTiles)
 
 An updated fork of test447's Fan Tiles mod.
 
 ---
 
-## [Help! My GPU screams at the main menu! (FPS Limiter)](src/FPSLimiter)
+### [Help! My GPU screams at the main menu! (FPS Limiter)](src/FPSLimiter)
 [<img src="src/FPSLimiter/Assets/preview.png" height="200px"/>](src/FPSLimiter)
 
 A small mod to cap the Unity FPS to avoid coil whine or excessive power consumption.
