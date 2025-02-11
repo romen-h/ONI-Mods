@@ -80,7 +80,7 @@ A new door made of plastic that blocks gas flow, but not liquids.
 ---
 
 ### [Plastic Mesh & Airflow Tiles](src/PlasticTiles)
-[<img src="src/PermeablePlasticTiles/Assets/preview.png" height="200px"/>](src/PlasticTiles)
+[<img src="src/PlasticTiles/Assets/preview.png" height="200px"/>](src/PlasticTiles)
 
 Adds plastic versions of the mesh and airflow tiles.
 
