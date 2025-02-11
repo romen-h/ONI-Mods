@@ -2,17 +2,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>FanTiles</AssemblyName>
-    <RootNamespace>RomenH.FanTiles</RootNamespace>
-    <IsMod>true</IsMod>
+    <ModID>FanTiles</ModID>
+    <ModName>Fan Tiles</ModName>
+    <ModDescription>TODO</ModDescription>
+    <SteamID>2593265755</SteamID>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
-    <SteamID>2593265755</SteamID>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <ModName>Fan Tiles</ModName>
-    <SupportedContent>ALL</SupportedContent>
   </PropertyGroup>
 
 </Project>

@@ -2,18 +2,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>DumpingSign</AssemblyName>
-    <RootNamespace>RomenH.DumpingSign</RootNamespace>
-    <IsMod>true</IsMod>
+    <ModID>DumpingSign</ModID>
+    <ModName>Dumping Sign</ModName>
+    <ModDescription>TODO</ModDescription>
+    <SteamID>2794010196</SteamID>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
-    <SteamID>2794010196</SteamID>
-    <EnableArchivedVersions>false</EnableArchivedVersions>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <ModName>Dumping Sign</ModName>
-    <SupportedContent>ALL</SupportedContent>
   </PropertyGroup>
 
 </Project>

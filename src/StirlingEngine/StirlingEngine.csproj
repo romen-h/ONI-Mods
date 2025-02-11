@@ -2,17 +2,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>StirlingEngine</AssemblyName>
-    <RootNamespace>RomenH.StirlingEngine</RootNamespace>
-    <IsMod>true</IsMod>
+    <ModID>StirlingEngine</ModID>
+    <ModName>Stirling Engine</ModName>
+    <ModDescription>TODO</ModDescription>
+    <SteamID>2126548651</SteamID>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
-    <SteamID>2126548651</SteamID>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <ModName>Stirling Engine</ModName>
-    <SupportedContent>ALL</SupportedContent>
   </PropertyGroup>
 
 </Project>

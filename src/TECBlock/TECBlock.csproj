@@ -2,17 +2,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>TECBlock</AssemblyName>
-    <RootNamespace>RomenH.TECBlock</RootNamespace>
-    <IsMod>true</IsMod>
+    <ModID>TECBlock</ModID>
+    <ModName>Thermoelectric Coolers</ModName>
+    <ModDescription>TODO</ModDescription>
+    <SteamID>2593479763</SteamID>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
-    <SteamID>2593479763</SteamID>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <ModName>Thermoelectric Coolers</ModName>
-    <SupportedContent>ALL</SupportedContent>
   </PropertyGroup>
 
 </Project>

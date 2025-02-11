@@ -2,17 +2,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>SoggyCarpets</AssemblyName>
-    <RootNamespace>RomenH.SoggyCarpets</RootNamespace>
-    <IsMod>true</IsMod>
+    <ModID>SoggyCarpets</ModID>
+    <ModName>Soggy Carpets</ModName>
+    <ModDescription>TODO</ModDescription>
+    <SteamID>2719163704</SteamID>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
-    <SteamID>2719163704</SteamID>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <ModName>Soggy Carpets</ModName>
-    <SupportedContent>ALL</SupportedContent>
   </PropertyGroup>
 
 </Project>

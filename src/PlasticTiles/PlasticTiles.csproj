@@ -1,19 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>PlasticTiles</AssemblyName>
-    <TargetFramework>net48</TargetFramework>
-    <Configurations>Release</Configurations>
-    <RootNamespace>RomenH.PlasticTiles</RootNamespace>
-    <IsMod>true</IsMod>
-    <UseCommonLib>true</UseCommonLib>
-    <UsePLib>false</UsePLib>
-    <SteamID>2728791684</SteamID>
-  </PropertyGroup>
-
-  <PropertyGroup>
+    <ModID>PlasticTiles</ModID>
     <ModName>Plastic Mesh and Airflow Tiles</ModName>
-    <SupportedContent>ALL</SupportedContent>
+    <ModDescription>TODO</ModDescription>
+    <SteamID>2728791684</SteamID>
+    <UseCommonLib>true</UseCommonLib>
+    <UsePLib>true</UsePLib>
   </PropertyGroup>
 
 </Project>

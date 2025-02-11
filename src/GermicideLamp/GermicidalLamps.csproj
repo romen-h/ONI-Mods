@@ -2,17 +2,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>GermicidalLamps</AssemblyName>
-    <RootNamespace>RomenH.GermicideLamp</RootNamespace>
-    <IsMod>true</IsMod>
+    <ModID>GermicidalLamps</ModID>
+    <ModName>Germicidal Lamps</ModName>
+    <ModDescription>TODO</ModDescription>
+    <SteamID>2229356245</SteamID>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
-    <SteamID>2229356245</SteamID>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <ModName>Germicidal Lamps</ModName>
-    <SupportedContent>ALL</SupportedContent>
   </PropertyGroup>
 
 </Project>

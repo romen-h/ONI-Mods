@@ -1,20 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>PlasticUtilities</AssemblyName>
-    <RootNamespace>RomenH.PlasticUtilities</RootNamespace>
-    <IsMod>true</IsMod>
+    <ModID>PlasticUtilities</ModID>
+    <ModName>Plastic Utilities</ModName>
+    <ModDescription>TODO</ModDescription>
+    <SteamID>2821189161</SteamID>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <ModName>Plastic Utilities</ModName>
-    <SupportedContent>ALL</SupportedContent>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Update="PLib" Version="4.16.0" />
-  </ItemGroup>
 
 </Project>

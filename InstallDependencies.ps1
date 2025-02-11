@@ -1,0 +1,1 @@
+winget install --id=Chocolatey.Chocolatey  -e

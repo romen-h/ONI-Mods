@@ -1,6 +1,6 @@
 using System.IO;
 using System.Reflection;
-
+using FMOD.Studio;
 using HarmonyLib;
 
 using KMod;
@@ -14,6 +14,9 @@ namespace RomenH.MakeDirt
 		public override void OnLoad(Harmony harmony)
 		{
 			ModCommon.Init("Make Dirt", harmony);
+
+			FMODUnity.RuntimeManager.StudioSystem.getMemoryUsage(out MEMORY_USAGE usage);
+			ModCommon.Log.Info($"FMOD Memory Usage: ex={usage.exclusive}, in={usage.inclusive}, sd={usage.sampledata}");
 
 			base.OnLoad(harmony);
 		}

@@ -355,7 +355,7 @@ namespace RomenH.StirlingEngine
 
 		private int audioChannel = -1;
 
-		public override void OnSpawn()
+		protected override void OnSpawn()
 		{
 			base.OnSpawn();
 
@@ -382,7 +382,7 @@ namespace RomenH.StirlingEngine
 			smi.StartSM();
 		}
 
-		public override void OnCleanUp()
+		protected override void OnCleanUp()
 		{
 			if (smi != null)
 			{

@@ -2,17 +2,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>MakeDirt</AssemblyName>
-    <RootNamespace>RomenH.MakeDirt</RootNamespace>
-    <IsMod>true</IsMod>
-    <UseCommonLib>true</UseCommonLib>
-    <UsePLib>false</UsePLib>
-    <SteamID>2266128365</SteamID>
-  </PropertyGroup>
-
-  <PropertyGroup>
+    <ModID>MakeDirt</ModID>
     <ModName>Make Dirt</ModName>
-    <SupportedContent>ALL</SupportedContent>
+    <ModDescription>TODO</ModDescription>
+    <SteamID>2266128365</SteamID>
+    <UseCommonLib>true</UseCommonLib>
+    <UsePLib>true</UsePLib>
   </PropertyGroup>
 
 </Project>

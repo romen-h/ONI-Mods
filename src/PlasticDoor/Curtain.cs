@@ -45,7 +45,7 @@ namespace RomenH.PlasticDoor
 			SetOffsetTable(OffsetGroups.InvertedStandardTable);
 		}
 
-		public override void OnPrefabInit()
+		protected override void OnPrefabInit()
 		{
 			base.OnPrefabInit();
 			overrideAnims = anims;
@@ -54,7 +54,7 @@ namespace RomenH.PlasticDoor
 			Subscribe((int)GameHashes.CopySettings, OnCopySettings);
 		}
 
-		public override void OnSpawn()
+		protected override void OnSpawn()
 		{
 			base.OnSpawn();
 
@@ -110,7 +110,7 @@ namespace RomenH.PlasticDoor
 			controller.GoTo(controller.sm.closed);
 		}
 
-		public override void OnCleanUp()
+		protected override void OnCleanUp()
 		{
 			controller.GoTo(controller.sm.passingWaiting);
 			controller.StopSM("");
@@ -125,7 +125,7 @@ namespace RomenH.PlasticDoor
 			base.OnCleanUp();
 		}
 
-		public override void OnCompleteWork(WorkerBase worker)
+		protected override void OnCompleteWork(WorkerBase worker)
 		{
 			base.OnCompleteWork(worker);
 			changeStateChore = null;

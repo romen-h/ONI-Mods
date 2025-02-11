@@ -2,38 +2,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>LogicScheduleSensor</AssemblyName>
-    <TargetFramework>net48</TargetFramework>
-    <Configurations>Release</Configurations>
-    <RootNamespace>RomenH.ScheduleSensor</RootNamespace>
-    <IsMod>true</IsMod>
+    <ModID>LogicScheduleSensor</ModID>
+    <ModName>Schedule Sensor</ModName>
+    <ModDescription>TODO</ModDescription>
+    <SteamID>2126597863</SteamID>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
-    <SteamID>2126597863</SteamID>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <ModName>Schedule Sensor</ModName>
-    <SupportedContent>ALL</SupportedContent>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebugType>embedded</DebugType>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>$(GameLibsFolder)/UnityEngine.TextRenderingModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>$(GameLibsFolder)/UnityEngine.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UIModule">
-      <HintPath>$(GameLibsFolder)/UnityEngine.UIModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-  </ItemGroup>
 
 </Project>

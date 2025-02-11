@@ -1,17 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>FPSLimiter</AssemblyName>
-    <RootNamespace>RomenH.FPSLimiter</RootNamespace>
-    <IsMod>true</IsMod>
+    <ModID>FPSLimiter</ModID>
+    <ModName>Help! My GPU screams at the main menu! (FPS Limiter)</ModName>
+    <ModDescription>TODO</ModDescription>
+    <SteamID>3405082060</SteamID>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
-    <SteamID></SteamID>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <ModName>Help! My GPU screams at the main menu! (FPS Limiter)</ModName>
-    <SupportedContent>ALL</SupportedContent>
   </PropertyGroup>
 
 </Project>

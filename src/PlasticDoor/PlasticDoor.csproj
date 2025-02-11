@@ -2,32 +2,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>PlasticDoor</AssemblyName>
-    <RootNamespace>RomenH.PlasticDoor</RootNamespace>
-    <IsMod>true</IsMod>
+    <ModID>PlasticDoor</ModID>
+    <ModName>Plastic Door</ModName>
+    <ModDescription>TODO</ModDescription>
+    <SteamID>2556517152</SteamID>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
-    <SteamID>2556517152</SteamID>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <ModName>Plastic Door</ModName>
-    <SupportedContent>ALL</SupportedContent>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="FMODUnity">
-      <HintPath>$(GameLibsFolder)/FMODUnity.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>$(GameLibsFolder)/UnityEngine.TextRenderingModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>$(GameLibsFolder)/UnityEngine.UI.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-  </ItemGroup>
 
 </Project>

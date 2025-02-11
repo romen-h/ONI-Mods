@@ -2,18 +2,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>PipedDeodorizer</AssemblyName>
-    <Configurations>Release</Configurations>
-    <RootNamespace>RomenH.PipedDeodorizer</RootNamespace>
-    <IsMod>true</IsMod>
+    <ModID>PipedDeodorizer</ModID>
+    <ModName>Piped Deodorizer</ModName>
+    <ModDescription>TODO</ModDescription>
+    <SteamID>2366597538</SteamID>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
-    <SteamID>2366597538</SteamID>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <ModName>Piped Deodorizer</ModName>
-    <SupportedContent>ALL</SupportedContent>
   </PropertyGroup>
 
 </Project>

@@ -2,17 +2,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>Thresholds</AssemblyName>
-    <RootNamespace>RomenH.Thresholds</RootNamespace>
-    <IsMod>true</IsMod>
+    <ModID>Thresholds</ModID>
+    <ModName>Threshold Walls</ModName>
+    <ModDescription>TODO</ModDescription>
+    <SteamID>2610275728</SteamID>
     <UseCommonLib>true</UseCommonLib>
     <UsePLib>true</UsePLib>
-    <SteamID>2610275728</SteamID>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <ModName>Threshold Walls</ModName>
-    <SupportedContent>ALL</SupportedContent>
   </PropertyGroup>
 
 </Project>

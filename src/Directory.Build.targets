@@ -1,32 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project>
-  
-  <Target Name="GenerateMetadataFiles" BeforeTargets="Build" Condition="'$(IsMod)' == 'true'">
-    <GenerateMetadataFiles
-      OutputPath="$(TargetDir)"
 
-      Title="$(ModName)"
-      Description="$(ModDescription)"
-      StaticID="$(AssemblyName)"
-      
-      SupportedContent="$(SupportedContent)"
-      MinimumSupportedBuild="$(MinimumSupportedBuild)"
-      Version="$(FileVersion)"
-      APIVersion="$(APIVersion)"
-    />
+  <PropertyGroup Condition="'$(ModID)' != ''">
+    <RootNamespace>RomenH.$(ModID)</RootNamespace>
+    <AssemblyName>$(ModID)</AssemblyName>
+  </PropertyGroup>
+
+  <Target Name="GenerateMetadataFile" AfterTargets="Build" Condition="'$(DontGenerateMetadata)' != 'true'">
+    <WriteLinesToFile
+      File="$(TargetDir)/mod.yaml"
+      Lines="
+title: $(ModName)
+description: $(ModDescription)
+staticID: $(ModID)"
+      Overwrite="true"/>
+    <WriteLinesToFile
+      File="$(TargetDir)/mod_info.yaml"
+      Lines="
+supportedContent: ALL
+minimumSupportedBuild: $(CurrentGameVersion)
+version: $(Version)
+APIVersion: 2"
+      Overwrite="true"/>
   </Target>
   
-  <Target Name="Merge" AfterTargets="Build" Condition="('$(UsePLib)' == 'true' OR '$(UseCommonLib)' == 'true' OR '$(DoMerge)' == 'true') AND '$(DoMerge)' != 'false'">
-    <Exec Command="PowerShell.exe -File $(SolutionDir)Merge.ps1 -SolutionDir $(SolutionDir) -TargetDir $(TargetDir) -MainAssemblyPath $(TargetPath) -LibsDir $(GameLibsFolder)" />
-  </Target>
-  
-  <Target Name="CopyPreviousVersion" AfterTargets="Merge" Condition="'$(IsMod)' == 'true' AND '$(EnableArchivedVersions)' == 'true'">
-    <Exec Command="PowerShell.exe -File $(SolutionDir)CopyArchivedVersions.ps1 -ModID $(AssemblyName) -SolutionDir $(SolutionDir) -TargetDir $(TargetDir) -CurrentGameVersion $(CurrentGameVersion) -PreviousGameVersion $(PreviousGameVersion)" />
+  <Target Name="ILRepack" AfterTargets="Build">
+    <ItemGroup>
+      <InputAssemblies Include="$(TargetPath)"/>
+    </ItemGroup>
+    <ItemGroup Condition="'$(UseCommonLib)' == 'true'">
+      <InputAssemblies Include="@(InputAssemblies);$(TargetDir)RomenH.CommonLib.dll"/>
+    </ItemGroup>
+    <ItemGroup Condition="'$(UsePLib)' == 'true'">
+      <InputAssemblies Include="@(InputAssemblies);$(TargetDir)PLib.dll"/>
+    </ItemGroup>
+
+    <ILRepack TargetPlatformVersion="v4"
+              TargetKind="SameAsPrimaryAssembly"
+              OutputFile="$(TargetPath)"
+              InputAssemblies="@(InputAssemblies)"
+              XmlDocumentation="true"
+              Internalize="true"
+              Wildcards="true"
+              LibraryPath="$(GameLibsFolder)" />
   </Target>
 
-  <Target Name="CopyAssets" AfterTargets="PostBuildEvent" Condition="'$(IsMod)' == 'true'">
-    <Exec Command='xcopy "$(ProjectDir)Assets/Workshop" "$(ProjectDir)bin\" /s /i /y' ContinueOnError='true'/>
-    <Exec Command='xcopy "$(ProjectDir)Assets/Shared" "$(ProjectDir)bin\" /s /i /y' ContinueOnError='true'/>
+  <Target Name="CopyAssets" AfterTargets="Build" Condition="'$(DontCopyAssets)' != 'true'">
+    <ItemGroup>
+      <AssetFiles Include="$(ProjectDir)/Assets/**/*.*"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(AssetFiles)" DestinationFolder="$(TargetDir)%(RecursiveDir)" ContinueOnError="true"/>
   </Target>
   
 </Project>

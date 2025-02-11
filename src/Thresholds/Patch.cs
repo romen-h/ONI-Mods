@@ -12,11 +12,11 @@ namespace RomenH.Thresholds
 	{
 		public static void Postfix()
 		{
-			BuildingUtils.AddBuildingToPlanScreen(ThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Utilities);
-			BuildingUtils.AddBuildingToPlanScreen(CautionThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Utilities);
-			BuildingUtils.AddBuildingToPlanScreen(MetalThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Utilities);
-			BuildingUtils.AddBuildingToPlanScreen(PlasticThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Utilities);
-			BuildingUtils.AddBuildingToPlanScreen(LogicThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Utilities);
+			BuildingUtils.AddBuildingToPlanScreen(ThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Base, subcategory: GameStrings.PlanMenuSubcategory.Base.Doors);
+			BuildingUtils.AddBuildingToPlanScreen(CautionThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Base, subcategory: GameStrings.PlanMenuSubcategory.Base.Doors);
+			BuildingUtils.AddBuildingToPlanScreen(MetalThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Base, subcategory: GameStrings.PlanMenuSubcategory.Base.Doors);
+			BuildingUtils.AddBuildingToPlanScreen(PlasticThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Base, subcategory: GameStrings.PlanMenuSubcategory.Base.Doors);
+			BuildingUtils.AddBuildingToPlanScreen(LogicThresholdWallConfig.ID, GameStrings.PlanMenuCategory.Base, subcategory: GameStrings.PlanMenuSubcategory.Base.Doors);
 			BuildingUtils.AddBuildingToTech(CautionThresholdWallConfig.ID, GameStrings.Technology.Exosuits.HazardProtection);
 			BuildingUtils.AddBuildingToTech(ThresholdWallConfig.ID, GameStrings.Technology.Decor.HomeLuxuries);
 			BuildingUtils.AddBuildingToTech(MetalThresholdWallConfig.ID, GameStrings.Technology.SolidMaterial.RefinedRenovations);

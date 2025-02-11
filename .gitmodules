@@ -1,0 +1,3 @@
+[submodule "gamelibs"]
+	path = gamelibs
+	url = https://github.com/romen-h/ONI-Libs

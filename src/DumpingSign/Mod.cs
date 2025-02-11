@@ -11,7 +11,6 @@ namespace RomenH.DumpingSign
 		public override void OnLoad(Harmony harmony)
 		{
 			ModCommon.Init("Dumping Sign", harmony, false);
-			
 			PUtil.InitLibrary();
 
 			var options = new POptions();

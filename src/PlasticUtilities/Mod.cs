@@ -12,7 +12,7 @@ namespace RomenH.PlasticUtilities
 	{
 		public override void OnLoad(Harmony harmony)
 		{
-			ModCommon.Init("Plastic Utilities");
+			ModCommon.Init("Plastic Utilities", harmony);
 			PUtil.InitLibrary();
 
 			var options = new POptions();
