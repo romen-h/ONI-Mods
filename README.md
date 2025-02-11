@@ -28,7 +28,7 @@ A new "storage" building that allows sweep-only materials to be delivered to a s
 ---
 
 ## [Fan Tiles](src/FanTiles)
-[<img src="src/FanTiles/Assets/Workshop/preview.png" height="200px"/>](src/FanTiles)
+[<img src="src/FanTiles/Assets/preview.png" height="200px"/>](src/FanTiles)
 
 An updated fork of test447's Fan Tiles mod.
 
