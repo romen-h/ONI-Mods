@@ -34,6 +34,13 @@ An updated fork of test447's Fan Tiles mod.
 
 ---
 
+## [Help! My GPU screams at the main menu! (FPS Limiter)](src/FPSLimiter)
+[<img src="src/FPSLimiter/Assets/preview.png" height="200px"/>](src/FPSLimiter)
+
+A small mod to cap the Unity FPS to avoid coil whine or excessive power consumption.
+
+---
+
 ### [Germicidal UVC Lamps](src/GermicideLamp)
 [<img src="src/GermicideLamp/Assets/preview.png" height="200px"/>](src/GermicideLamp)
 
