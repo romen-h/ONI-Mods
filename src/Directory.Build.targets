@@ -35,7 +35,7 @@ APIVersion: 2"
       <InputAssemblies Include="@(InputAssemblies);$(TargetDir)PLib.dll"/>
     </ItemGroup>
 
-    <ILRepack TargetPlatformVersion="v4"
+    <ILRepack
               TargetKind="SameAsPrimaryAssembly"
               OutputFile="$(TargetPath)"
               InputAssemblies="@(InputAssemblies)"
