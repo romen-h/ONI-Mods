@@ -17,7 +17,7 @@ namespace RomenH.PlasticUtilities
 
 		private static readonly Color32 plasticTint = new Color32(94, 128, 172, 255);
 
-		[HarmonyPatch(typeof(ConduitFlowVisualizer), "GetCellTintColour")]
+		[HarmonyPatch(typeof(ConduitFlowVisualizer), nameof(ConduitFlowVisualizer.GetCellTintColour))]
 		public static class ConduitFlowVisualizer_GetCellTintColour_Patch
 		{
 			public static bool Prefix(ref Color32 __result, int cell)

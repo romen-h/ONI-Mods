@@ -176,7 +176,7 @@ namespace RomenH.TECBlock
 			component.SetStatusItem(Db.Get().StatusItemCategories.Power, power_status_item, this);
 		}
 
-		protected override void OnSpawn()
+		public override void OnSpawn()
 		{
 			base.OnSpawn();
 

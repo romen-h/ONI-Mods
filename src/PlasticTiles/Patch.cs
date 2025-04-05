@@ -10,8 +10,7 @@ using RomenH.Common;
 
 namespace RomenH.PlasticTiles
 {
-	[HarmonyPatch(typeof(Db))]
-	[HarmonyPatch("Initialize")]
+	[HarmonyPatch(typeof(Db), nameof(Db.Initialize))]
 	public static class Db_Initialize_Patch
 	{
 		public static void Postfix()
@@ -26,7 +25,7 @@ namespace RomenH.PlasticTiles
 		}
 	}
 
-	[HarmonyPatch(typeof(Localization), "Initialize")]
+	[HarmonyPatch(typeof(Localization), nameof(Localization.Initialize))]
 	public class Localization_Initialize_Patch
 	{
 		public static void Postfix()

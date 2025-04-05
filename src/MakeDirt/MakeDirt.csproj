@@ -2,12 +2,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <ModID>MakeDirt</ModID>
     <ModName>Make Dirt</ModName>
     <ModDescription>TODO</ModDescription>
     <SteamID>2266128365</SteamID>
     <UseCommonLib>true</UseCommonLib>
-    <UsePLib>true</UsePLib>
+    <UsePLib>false</UsePLib>
   </PropertyGroup>
 
 </Project>

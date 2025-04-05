@@ -22,7 +22,7 @@ namespace RomenH.LogicScheduleSensor
 
 		private bool wasOn = false;
 
-		protected override void OnSpawn()
+		public override void OnSpawn()
 		{
 			base.OnSpawn();
 			base.OnToggle += OnSwitchToggled;

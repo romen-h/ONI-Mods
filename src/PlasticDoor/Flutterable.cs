@@ -101,7 +101,7 @@ namespace RomenH.PlasticDoor
 			return false;
 		}
 
-		protected override void OnCleanUp()
+		public override void OnCleanUp()
 		{
 			base.OnCleanUp();
 			if (smi.IsRunning())
