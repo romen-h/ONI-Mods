@@ -5,6 +5,7 @@
   <!-- Include ONI-Libs submodule -->
   <PropertyGroup>
     <ONILibsRoot>$(SolutionDir)/../gamelibs</ONILibsRoot>
+    <UseTestingLibs>false</UseTestingLibs>
   </PropertyGroup>
   <Import Project="$(ONILibsRoot)/GameLibs.props"/>
 
@@ -17,7 +18,7 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <TargetFramework>net48</TargetFramework>
     <Configurations>Release</Configurations>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -6,25 +6,31 @@
     <AssemblyName>$(ModID)</AssemblyName>
   </PropertyGroup>
 
-  <Target Name="GenerateMetadataFile" AfterTargets="Build" Condition="'$(DontGenerateMetadata)' != 'true'">
+  <Target Name="GenerateModYaml" AfterTargets="Build" Condition="'$(DontGenerateMetadata)' != 'true'">
     <WriteLinesToFile
       File="$(TargetDir)/mod.yaml"
+      Overwrite="true"
       Lines="
 title: $(ModName)
 description: $(ModDescription)
-staticID: $(ModID)"
-      Overwrite="true"/>
-    <WriteLinesToFile
-      File="$(TargetDir)/mod_info.yaml"
-      Lines="
-supportedContent: ALL
-minimumSupportedBuild: $(CurrentGameVersion)
-version: $(Version)
-APIVersion: 2"
-      Overwrite="true"/>
+staticID: $(ModID)"/>
+  </Target>
+
+  <Target Name="GenerateModInfoYaml" AfterTargets="Build" Condition="'$(DontGenerateMetadata)' != 'true'">
+    <ItemGroup>
+      <ModInfoLines Include="minimumSupportedBuild: $(CurrentGameVersion)"/>
+      <ModInfoLines Include="version: $(Version)"/>
+      <ModInfoLines Include="APIVersion: 2"/>
+      <ModInfoLines Include="supportedContent: ALL"/>
+      <ModInfoLines Include="requiredDlcIds:" Condition="'$(RequiredDlcIds)' != ''"/>
+      <ModInfoLines Include="$(RequiredDlcIds)" Condition="'$(RequiredDlcIds)' != ''"/>
+      <ModInfoLines Include="forbiddenDlcIds:" Condition="'$(ForbiddenDlcIds)' != ''"/>
+      <ModInfoLines Include="$(ForbiddenDlcIds)" Condition="'$(ForbiddenDlcIds)' != ''"/>
+    </ItemGroup>
+    <WriteLinesToFile File="$(TargetDir)/mod_info.yaml" Overwrite="true" Lines="@(ModInfoLines)"/>
   </Target>
   
-  <Target Name="ILRepack" AfterTargets="Build">
+  <Target Name="ILRepack" AfterTargets="Build" Condition="'$(NoMerge)' != 'true'">
     <ItemGroup>
       <InputAssemblies Include="$(TargetPath)"/>
     </ItemGroup>
@@ -35,14 +41,14 @@ APIVersion: 2"
       <InputAssemblies Include="@(InputAssemblies);$(TargetDir)PLib.dll"/>
     </ItemGroup>
 
-    <ILRepack TargetPlatformVersion="v4"
+    <ILRepack 
               TargetKind="SameAsPrimaryAssembly"
               OutputFile="$(TargetPath)"
               InputAssemblies="@(InputAssemblies)"
               XmlDocumentation="true"
               Internalize="true"
               Wildcards="true"
-              LibraryPath="$(GameLibsFolder)" />
+              LibraryPath="$(GameLibsFolder);$(UnityLibsFolder)" />
   </Target>
 
   <Target Name="CopyAssets" AfterTargets="Build" Condition="'$(DontCopyAssets)' != 'true'">

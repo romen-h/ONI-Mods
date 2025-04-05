@@ -2,64 +2,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <AssemblyName>CommonLib</AssemblyName>
-    <Version>2.0.0</Version>
-    <TargetFramework>net48</TargetFramework>
-    <Configurations>Release</Configurations>
+    <LangVersion>10.0</LangVersion>
+    <AssemblyName>RomenH.CommonLib</AssemblyName>
     <RootNamespace>RomenH.Common</RootNamespace>
-    <IsMod>false</IsMod>
-    <UsePLib>false</UsePLib>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <ModName>CommonLib</ModName>
-    <SupportedContent>ALL</SupportedContent>
+    <DontGenerateMetadata>true</DontGenerateMetadata>
+    <NoMerge>true</NoMerge>
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>$(PublicLibsFolder)/Assembly-CSharp.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>$(PublicLibsFolder)/Assembly-CSharp-firstpass.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="0Harmony">
-      <HintPath>$(GameLibsFolder)/0Harmony.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>$(GameLibsFolder)/UnityEngine.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>$(GameLibsFolder)/UnityEngine.CoreModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>$(GameLibsFolder)/Newtonsoft.Json.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="FMODUnity">
-      <HintPath>$(GameLibsFolder)/FMODUnity.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>$(GameLibsFolder)/UnityEngine.ImageConversionModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>$(GameLibsFolder)/UnityEngine.TextRenderingModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>$(GameLibsFolder)/UnityEngine.UI.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UIModule">
-      <HintPath>$(GameLibsFolder)/UnityEngine.UIModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
+    <Reference Include="$(UnityEngineUIPath)" Private="false"/>
   </ItemGroup>
   
 </Project>
