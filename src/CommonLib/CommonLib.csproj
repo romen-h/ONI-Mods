@@ -18,11 +18,11 @@
 
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>$(PublicLibsFolder)/Assembly-CSharp.dll</HintPath>
+      <HintPath>$(GameLibsFolder)/Assembly-CSharp.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>$(PublicLibsFolder)/Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>$(GameLibsFolder)/Assembly-CSharp-firstpass.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="0Harmony">

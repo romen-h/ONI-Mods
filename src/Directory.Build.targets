@@ -29,7 +29,7 @@ APIVersion: 2"
       <InputAssemblies Include="$(TargetPath)"/>
     </ItemGroup>
     <ItemGroup Condition="'$(UseCommonLib)' == 'true'">
-      <InputAssemblies Include="@(InputAssemblies);$(TargetDir)RomenH.CommonLib.dll"/>
+      <InputAssemblies Include="@(InputAssemblies);$(TargetDir)CommonLib.dll"/>
     </ItemGroup>
     <ItemGroup Condition="'$(UsePLib)' == 'true'">
       <InputAssemblies Include="@(InputAssemblies);$(TargetDir)PLib.dll"/>
