@@ -112,7 +112,7 @@ namespace RomenH.GermicideLamp
 		{ get; set; }
 
 		[JsonProperty]
-		[Option("Horiztonal Range", "The horiztonal range of the tiles affected by the lamp.", category: "Germicidal Ceiling Light")]
+		[Option("Horizontal Range", "The horizontal range of the tiles affected by the lamp.", category: "Germicidal Ceiling Light")]
 		[Limit(2, 6)]
 		public int CeilingLampRangeWidth
 		{ get; set; }
