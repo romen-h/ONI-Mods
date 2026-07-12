@@ -33,6 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
 		Directory.Build.targets = Directory.Build.targets
+		LightPack1\LibLoaderExample.cs = LightPack1\LibLoaderExample.cs
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlasticTiles", "PlasticTiles\PlasticTiles.csproj", "{9406DCEE-ADCE-42AF-A19A-6C9214674A68}"
@@ -44,6 +45,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightPack1", "LightPack1\LightPack1.csproj", "{96BD20D4-57E2-4504-9532-0EEFC6FE2C66}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackItems", "BackItems\BackItems.csproj", "{FD8C4020-BCFB-4EE3-8110-C56805B7C57A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LandscapingNotIncluded", "LandscapingNotIncluded\LandscapingNotIncluded.csproj", "{C18BC3F7-E3E3-4D47-959C-3213EA34FC33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightPack2", "LightPack2\LightPack2.csproj", "{F6A269F4-009F-4A0A-BFF7-A832280E3855}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnergyDoor", "EnergyDoor\EnergyDoor.csproj", "{79FA281A-C2A1-4CD9-A223-4827C197C00D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +93,12 @@ Global
 		{96BD20D4-57E2-4504-9532-0EEFC6FE2C66}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FD8C4020-BCFB-4EE3-8110-C56805B7C57A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD8C4020-BCFB-4EE3-8110-C56805B7C57A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C18BC3F7-E3E3-4D47-959C-3213EA34FC33}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{C18BC3F7-E3E3-4D47-959C-3213EA34FC33}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{F6A269F4-009F-4A0A-BFF7-A832280E3855}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6A269F4-009F-4A0A-BFF7-A832280E3855}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{79FA281A-C2A1-4CD9-A223-4827C197C00D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{79FA281A-C2A1-4CD9-A223-4827C197C00D}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

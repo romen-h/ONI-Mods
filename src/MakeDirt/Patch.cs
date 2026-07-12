@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using HarmonyLib;
 
-using RomenH.Common;
+//using RomenH.Common;
 
 using UnityEngine;
 
@@ -13,7 +13,7 @@ namespace RomenH.MakeDirt
 	{
 		public static void Postfix()
 		{
-			StringUtils.LoadTranslations();
+			//StringUtils.LoadTranslations();
 		}
 	}
 

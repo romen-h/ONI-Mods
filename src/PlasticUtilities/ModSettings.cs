@@ -13,6 +13,7 @@ namespace RomenH.PlasticUtilities
 	[JsonObject(MemberSerialization.OptIn)]
 	[RestartRequired]
 	[ModInfo("https://github.com/romen-h/ONI-Mods")]
+	[ConfigFile(SharedConfigLocation: true)]
 	public class ModSettings : SingletonOptions<ModSettings>
 	{
 		[JsonProperty]

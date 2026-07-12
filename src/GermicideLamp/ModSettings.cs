@@ -10,6 +10,7 @@ namespace RomenH.GermicideLamp
 	[RestartRequired]
 	[JsonObject(MemberSerialization.OptIn)]
 	[ModInfo("Germicidal UV Lamps", "https://github.com/romen-h/ONI-Mods")]
+	[ConfigFile(SharedConfigLocation: true)]
 	public class ModSettings : SingletonOptions<ModSettings>, IOptions
 	{
 		#region General

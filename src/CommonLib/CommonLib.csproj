@@ -8,9 +8,5 @@
     <DontGenerateMetadata>true</DontGenerateMetadata>
     <NoMerge>true</NoMerge>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="$(UnityEngineUIPath)" Private="false"/>
-  </ItemGroup>
   
 </Project>

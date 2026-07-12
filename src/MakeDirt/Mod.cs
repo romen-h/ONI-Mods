@@ -5,7 +5,7 @@ using HarmonyLib;
 
 using KMod;
 
-using RomenH.Common;
+//using RomenH.Common;
 
 namespace RomenH.MakeDirt
 {
@@ -13,10 +13,8 @@ namespace RomenH.MakeDirt
 	{
 		public override void OnLoad(Harmony harmony)
 		{
-			ModCommon.Init("Make Dirt", harmony);
-
-			FMODUnity.RuntimeManager.StudioSystem.getMemoryUsage(out MEMORY_USAGE usage);
-			ModCommon.Log.Info($"FMOD Memory Usage: ex={usage.exclusive}, in={usage.inclusive}, sd={usage.sampledata}");
+			//ModCommon.Init("Make Dirt", harmony);
+			//ModCommon.Log.Info($"FMOD Memory Usage: ex={usage.exclusive}, in={usage.inclusive}, sd={usage.sampledata}");
 
 			base.OnLoad(harmony);
 		}

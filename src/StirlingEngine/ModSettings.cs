@@ -7,6 +7,7 @@ namespace RomenH.StirlingEngine
 	[JsonObject(MemberSerialization.OptIn)]
 	[ModInfo("https://github.com/romen-h/ONI-Mods")]
 	[RestartRequired]
+	[ConfigFile(SharedConfigLocation: true)]
 	public class ModSettings : SingletonOptions<ModSettings>
 	{
 		[JsonProperty]

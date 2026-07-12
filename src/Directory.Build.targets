@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <Target Name="GenerateModYaml" AfterTargets="Build" Condition="'$(DontGenerateMetadata)' != 'true'">
-    <WriteLinesToFile
-      File="$(TargetDir)/mod.yaml"
-      Overwrite="true"
-      Lines="
+    <WriteLinesToFile File="$(TargetDir)/mod.yaml"
+                      Overwrite="true"
+                      WriteOnlyWhenDifferent="true"
+                      Lines="
 title: $(ModName)
 description: $(ModDescription)
 staticID: $(ModID)"/>
@@ -27,7 +27,10 @@ staticID: $(ModID)"/>
       <ModInfoLines Include="forbiddenDlcIds:" Condition="'$(ForbiddenDlcIds)' != ''"/>
       <ModInfoLines Include="$(ForbiddenDlcIds)" Condition="'$(ForbiddenDlcIds)' != ''"/>
     </ItemGroup>
-    <WriteLinesToFile File="$(TargetDir)/mod_info.yaml" Overwrite="true" Lines="@(ModInfoLines)"/>
+    <WriteLinesToFile File="$(TargetDir)/mod_info.yaml"
+                      Overwrite="true"
+                      WriteOnlyWhenDifferent="true" 
+                      Lines="@(ModInfoLines)"/>
   </Target>
   
   <Target Name="ILRepack" AfterTargets="Build" Condition="'$(NoMerge)' != 'true'">

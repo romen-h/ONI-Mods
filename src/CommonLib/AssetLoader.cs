@@ -9,6 +9,22 @@ namespace RomenH.Common
 	{
 		private static readonly TextureAtlas ReferenceTileAtlas = Assets.GetTextureAtlas("tiles_solid");
 
+		public static Texture2D LoadTexture(string subPath)
+		{
+			try
+			{
+				string path = Path.Combine(ModCommon.Folder, "textures", subPath);
+				var pngBytes = File.ReadAllBytes(path);
+				var texture = new Texture2D(2,2);
+				texture.LoadImage(pngBytes);
+				return texture;
+			}
+			catch (Exception ex)
+			{
+				ModCommon.Log.Error($"Failed to load texture: textures/{subPath}", ex);
+				return null;
+			}
+		}
 
 		public static TextureAtlas GetCustomTileAtlas(string filename)
 		{
@@ -31,34 +47,6 @@ namespace RomenH.Common
 			}
 
 			return textureAtlas;
-		}
-
-		public static BlockTileDecorInfo GetCustomTileDecor(string path, string baseInfo)
-		{
-			BlockTileDecorInfo decorInfo = null;
-			try
-			{
-				BlockTileDecorInfo ReferenceDecorInfo = Assets.GetBlockTileDecorInfo(baseInfo);
-
-				var data = File.ReadAllBytes(path);
-				var tex = new Texture2D(2, 2);
-				tex.LoadImage(data);
-				var textureAtlas = ScriptableObject.CreateInstance<TextureAtlas>();
-				textureAtlas.texture = tex;
-				textureAtlas.scaleFactor = ReferenceDecorInfo.atlas.scaleFactor;
-				textureAtlas.items = ReferenceDecorInfo.atlas.items;
-
-				decorInfo = ScriptableObject.CreateInstance<BlockTileDecorInfo>();
-				decorInfo.atlas = textureAtlas;
-				decorInfo.sortOrder = ReferenceDecorInfo.sortOrder;
-				decorInfo.decor = ReferenceDecorInfo.decor;
-			}
-			catch
-			{
-				Debug.LogError($"Could not load atlas image at path {path}");
-			}
-
-			return decorInfo;
 		}
 	}
 }

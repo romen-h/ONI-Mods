@@ -12,6 +12,7 @@ namespace RomenH.SoggyCarpets
 {
 	[JsonObject(MemberSerialization.OptIn)]
 	[ModInfo("Dumping Sign", "https://github.com/romen-h/ONI-Mods")]
+	[ConfigFile(SharedConfigLocation: true)]
 	public class ModSettings : SingletonOptions<ModSettings>, IOptions
 	{
 		[JsonProperty]
