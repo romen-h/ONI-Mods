@@ -34,11 +34,12 @@ namespace RomenH.Thresholds
 		}
 	}
 
-	[HarmonyPatch(typeof(OvercrowdingMonitor), "IsConfined")]
-	public class OvercrowdingMonitor_IsConfimed_Patch
+	[HarmonyPatch(typeof(OvercrowdingMonitor.RegionAnalysis), "get_IsConfined")]
+	public class OvercrowdingMonitor_IsConfined_Patch
 	{
-		public static void Postfix(ref bool __result, OvercrowdingMonitor.Instance smi)
+		public static void Postfix(ref OvercrowdingMonitor.RegionAnalysis __instance, ref bool __result)
 		{
+			var smi = __instance.smi;
 			if (smi.cavity == null)
 			{
 				int cell = Grid.PosToCell(smi.gameObject);

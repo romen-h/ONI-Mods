@@ -11,6 +11,13 @@ $TargetDir = Join-Path -Path $ProjectDir -ChildPath "bin"
 $ModFile = Join-Path -Path $TargetDir -ChildPath "mod.yaml"
 $ModInfoFile = Join-Path -Path $TargetDir -ChildPath "mod_info.yaml"
 
+if ($IsWindows -or $IsWindows -eq $null) {
+    $SteamBin = (Get-ItemProperty -Path "HKCU:\Software\Valve\Steam").SteamExe;
+} else {
+    $SteamBin = "steam"
+}
+
+
 # Parse mod.yaml
 if (!(Test-Path $ModFile)) {
     Write-Host "ERROR: mod.yaml not found" -ForegroundColor Red
@@ -61,4 +68,4 @@ if (Test-Path $BackupFile) {
 Compress-Archive -Path $TargetDir\* -DestinationPath $BackupFile
 
 # Launch ONI Mod Uploader
-Invoke-Expression "X:\Steam\steamapps\common\OxygenNotIncludedUploader\OniUploader64.exe"
+Invoke-Expression "${SteamBin} steam://rungameid/636750"
