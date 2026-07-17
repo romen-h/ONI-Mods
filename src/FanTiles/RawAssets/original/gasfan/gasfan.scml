@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r11">
+    <folder id="0">
+        <file id="0" name="body_0.png" width="198" height="142" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="grate_0.png" width="90" height="86" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="grate_1.png" width="76" height="72" pivot_x="0" pivot_y="1"/>
+        <file id="3" name="fanblades_spin_0.png" width="90" height="88" pivot_x="0.560781" pivot_y="0.409926"/>
+        <file id="4" name="sucker_0.png" width="128" height="43" pivot_x="0" pivot_y="1"/>
+        <file id="5" name="ui_0.png" width="80" height="90" pivot_x="0.504259" pivot_y="0.0324575"/>
+        <file id="6" name="place_0.png" width="80" height="243" pivot_x="0" pivot_y="1"/>
+    </folder>
+    <entity id="0" name="gasfan">
+        <animation id="0" name="on" length="132" interval="33">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="5" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="4" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="0" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="2" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="1" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="3" key="0" z_index="5"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="body_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-52.673797" y="91.770053" angle="0" scale_x="0.541576" scale_y="0.541576"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="grate_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-34.897666" y="84.68911" angle="0" scale_x="0.783731" scale_y="0.783731"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="grate_1">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="-29.935829" y="79.727273" angle="0" scale_x="0.798898" scale_y="0.798898"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="fanblades_spin_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="3" x="0.939928" y="50.314706" angle="0" scale_x="0.55" scale_y="0.55"/>
+                </key>
+            </timeline>
+            <timeline id="4" name="sucker_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="4" x="-33.26226" y="19.52452" angle="0" scale_x="0.572029" scale_y="0.572029"/>
+                </key>
+            </timeline>
+            <timeline id="5" name="sucker_0_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="4" x="36.572554" y="83.672818" angle="180" scale_x="0.57" scale_y="0.57"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="1" name="ui" length="132" interval="33">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="ui_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="5" x="0.34072" y="0.254508" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="2" name="place" length="132" interval="33">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="place_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="6" x="-50.333333" y="203.333333" angle="0" scale_x="1.257934" scale_y="1.257934"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="3" name="off" length="132" interval="33">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="5" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="4" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="0" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="2" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="1" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="3" key="0" z_index="5"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="body_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-52.673797" y="91.770053" angle="0" scale_x="0.541576" scale_y="0.541576"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="grate_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-34.897666" y="84.68911" angle="0" scale_x="0.783731" scale_y="0.783731"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="grate_1">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="-29.935829" y="79.727273" angle="0" scale_x="0.798898" scale_y="0.798898"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="fanblades_spin_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="3" x="0.939928" y="50.314706" angle="0" scale_x="0.55" scale_y="0.55"/>
+                </key>
+            </timeline>
+            <timeline id="4" name="sucker_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="4" x="-33.26226" y="19.52452" angle="0" scale_x="0.572029" scale_y="0.572029"/>
+                </key>
+            </timeline>
+            <timeline id="5" name="sucker_0_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="4" x="36.572554" y="83.672818" angle="180" scale_x="0.57" scale_y="0.57"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="4" name="working_pre" length="132" interval="33">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="5" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="4" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="0" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="2" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="1" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="3" key="0" z_index="5"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="body_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-52.673797" y="91.770053" angle="0" scale_x="0.541576" scale_y="0.541576"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="grate_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-34.897666" y="84.68911" angle="0" scale_x="0.783731" scale_y="0.783731"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="grate_1">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="-29.935829" y="79.727273" angle="0" scale_x="0.798898" scale_y="0.798898"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="fanblades_spin_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="3" x="0.939928" y="50.314706" angle="0" scale_x="0.55" scale_y="0.55"/>
+                </key>
+            </timeline>
+            <timeline id="4" name="sucker_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="4" x="-33.26226" y="19.52452" angle="0" scale_x="0.572029" scale_y="0.572029"/>
+                </key>
+            </timeline>
+            <timeline id="5" name="sucker_0_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="4" x="36.572554" y="83.672818" angle="180" scale_x="0.57" scale_y="0.57"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="5" name="working_pst" length="132" interval="33">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="5" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="4" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="0" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="2" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="1" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="3" key="0" z_index="5"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="body_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-52.673797" y="91.770053" angle="0" scale_x="0.541576" scale_y="0.541576"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="grate_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-34.897666" y="84.68911" angle="0" scale_x="0.783731" scale_y="0.783731"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="grate_1">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="-29.935829" y="79.727273" angle="0" scale_x="0.798898" scale_y="0.798898"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="fanblades_spin_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="3" x="0.939928" y="50.314706" angle="0" scale_x="0.55" scale_y="0.55"/>
+                </key>
+            </timeline>
+            <timeline id="4" name="sucker_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="4" x="-33.26226" y="19.52452" angle="0" scale_x="0.572029" scale_y="0.572029"/>
+                </key>
+            </timeline>
+            <timeline id="5" name="sucker_0_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="4" x="36.572554" y="83.672818" angle="180" scale_x="0.57" scale_y="0.57"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="6" name="working_loop" length="1287" interval="33">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="0" z_index="5"/>
+                </key>
+                <key id="1" time="165">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="1" z_index="5"/>
+                </key>
+                <key id="2" time="330">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="2" z_index="5"/>
+                </key>
+                <key id="3" time="495">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="3" z_index="5"/>
+                </key>
+                <key id="4" time="660">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="1" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="4" z_index="5"/>
+                </key>
+                <key id="5" time="825">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="1" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="5" z_index="5"/>
+                </key>
+                <key id="6" time="990">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="1" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="6" z_index="5"/>
+                </key>
+                <key id="7" time="1155">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="1" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="7" z_index="5"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="sucker_0_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="4" x="36.572554" y="83.672818" angle="180" scale_x="0.57" scale_y="0.57"/>
+                </key>
+                <key id="1" time="660" spin="0">
+                    <object folder="0" file="4" x="30.489771" y="83.672818" angle="180" scale_x="0.492646" scale_y="0.641004"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="sucker_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="4" x="-33.26226" y="19.52452" angle="0" scale_x="0.572029" scale_y="0.572029"/>
+                </key>
+                <key id="1" time="660" spin="0">
+                    <object folder="0" file="4" x="-29.867821" y="19.52452" angle="0" scale_x="0.494399" scale_y="0.67291"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="body_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-52.673797" y="91.770053" angle="0" scale_x="0.541576" scale_y="0.541576"/>
+                </key>
+                <key id="1" time="660" spin="0">
+                    <object folder="0" file="0" x="-49.673797" y="91.770053" angle="0" scale_x="0.504664" scale_y="0.541576"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="grate_1">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="-29.935829" y="79.727273" angle="0" scale_x="0.798898" scale_y="0.798898"/>
+                </key>
+            </timeline>
+            <timeline id="4" name="grate_0">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-34.897666" y="84.68911" angle="0" scale_x="0.783731" scale_y="0.783731"/>
+                </key>
+            </timeline>
+            <timeline id="5" name="fanblades_spin_0">
+                <key id="0" spin="-1">
+                    <object folder="0" file="3" x="0.939928" y="50.314706" angle="0" scale_x="0.55" scale_y="0.55"/>
+                </key>
+                <key id="1" time="165" spin="-1">
+                    <object folder="0" file="3" x="0.939928" y="50.314706" angle="270" scale_x="0.55" scale_y="0.55"/>
+                </key>
+                <key id="2" time="330" spin="-1">
+                    <object folder="0" file="3" x="0.939928" y="50.314706" angle="180" scale_x="0.55" scale_y="0.55"/>
+                </key>
+                <key id="3" time="495" spin="-1">
+                    <object folder="0" file="3" x="0.939928" y="50.314706" angle="90" scale_x="0.55" scale_y="0.55"/>
+                </key>
+                <key id="4" time="660" spin="-1">
+                    <object folder="0" file="3" x="0.939928" y="50.314706" angle="0" scale_x="0.55" scale_y="0.55"/>
+                </key>
+                <key id="5" time="825" spin="-1">
+                    <object folder="0" file="3" x="0.939928" y="50.314706" angle="270" scale_x="0.55" scale_y="0.55"/>
+                </key>
+                <key id="6" time="990" spin="-1">
+                    <object folder="0" file="3" x="0.939928" y="50.314706" angle="180" scale_x="0.55" scale_y="0.55"/>
+                </key>
+                <key id="7" time="1155" spin="-1">
+                    <object folder="0" file="3" x="0.939928" y="50.314706" angle="90" scale_x="0.55" scale_y="0.55"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>

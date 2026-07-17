@@ -15,7 +15,8 @@ namespace RomenH.Fans
 
 		public override BuildingDef CreateBuildingDef()
 		{
-			return FanTemplates.CreateBasicFan(ID, "highgasfan_kanim", ModSettings.Instance.HighPressureFanWattage);
+			string prefix = ModSettings.Instance.GetKanimPrefix();
+			return FanTemplates.CreateBasicFan(ID, prefix + "highgasfan_kanim", ModSettings.Instance.HighPressureFanWattage);
 		}
 
 		public override void ConfigureBuildingTemplate(GameObject go, Tag prefab_tag)

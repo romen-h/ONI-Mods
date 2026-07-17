@@ -1,0 +1,31 @@
+[h1]Fan Tiles[/h1]
+
+Adds a couple [b]Fan Tiles[/b] to the game. They are tiles that act as both a pump and vent in a single space. Sucking in liquids/gasses from the intake end, and expelling them from the exhaust end, [b]Fan Tiles[/b] are a power-efficient way to move liquids/gasses between reservoirs without the use of liquid/gas conduits.
+
+Costing only 60w to run continuously, [b]Fan tiles[/b] move the same amount of liquid/gas as a pump (5kg/s or 500g/s respectively) at 1/4 the power cost. But they [b]do not[/b] output to pipes! they output like a vent on the exhaust end, immediately dumping the liquid/gas they take in on their other side. Watch out for overpressurization though! They will overpressurize the same as the vents in game (1000kg for liquid, 2kg/20kg for gas).
+
+Normal [b]Fan Tiles[/b] are unlocked at the same point as pumps for liquids/gasses and can be used very early. When [b]High Pressure Vents[/b] are unlocked, a high pressure [b]Fan Tile[/b] that can output into gasses of up to 20kg/tile is also unlocked.
+
+[h1]Compressor Fan Tiles[/h1]
+
+Once your duplicants have advanced their technology even further up the tech tree, they unlock very powerful [b]Compressor Fan Tiles[/b] that act as unique replacement for door compressors. They will exhaust into liquids/gasses without ever becoming overpressurized or taking pressure damage! They are significantly more expensive than the default [b]Fan Tiles[/b], costing both [b]Refined Metals[/b] and [b]Plastic[/b] to make and 120w to run continuously.
+
+[h1]Color Coded[/h1]
+
+The different types of [b]Fan Tiles[/b] can be distinguished by the color of their intake/exhaust. A short list of colors and the corresonding tile is listed below:
+
+[list]
+[*] Yellow - Fan Block - costs 60w, moves 500g/s of gas, and overpressurizes at 2kg/tile.
+[*] Purple - Turbine Block - costs 60w, moves 5kg/s of liquid, and overpressurizes at 1000kg/tile.
+[*] Orange - High Pressure Fan Block - costs 60w, moves 500g/s of gas, and overpressurizes at 20kg/tile.
+[*] Red - Compressor Fan Block - costs 120w, moves 500g/s of gas, and [b]NEVER[/b] overpressurizes.
+[*] Blue - Compressor Turbine Block - costs 120w, moves 5kg/s of liquid, and [b]NEVER[/b] overpressurizes.
+[/list]
+
+[h1]Problems/Help[/h1]
+
+If there are problems with the mod please reach out on the (un)official Oxygen Not Included Discord where I hang around on the modding channels as @test447. I don't pay full attention to steam comments.
+
+[h1]Code/License[/h1]
+Code is open source and may be found in my ONI-Mods Github repository. Feel free to look at, copy, modify it, etc.. Art assets and animations may also be found in that repository but cannot be redistributed without permission.
+Github repository link [url=https://github.com/daviscook477/ONI-Mods]here[/url]

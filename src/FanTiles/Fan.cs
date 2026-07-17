@@ -39,6 +39,9 @@ namespace RomenH.Fans
 		[MyCmpGet]
 		private PrimaryElement exhaustPE;
 
+		[MyCmpGet]
+		private KBatchedAnimController anim;
+
 		private float elapsedTime;
 		private bool pumpable;
 		private bool ventable;
@@ -75,7 +78,9 @@ namespace RomenH.Fans
 			elapsedTime = 0.0f;
 			pumpable = UpdatePumpOperational();
 			ventable = UpdateVentOperational();
-			
+
+			UpdateSymbolVisibility();
+
 			SimMessages.SetCellProperties(cell, (byte)Sim.Cell.Properties.Unbreakable);
 		}
 
@@ -128,6 +133,27 @@ namespace RomenH.Fans
 			bool flag = !obstructedFlag && !overPressureFlag;
 			operational.SetFlag(FanOutFlag, flag);
 			return flag;
+		}
+
+		private void UpdateSymbolVisibility()
+		{
+			bool showWindSymbols = ModSettings.Instance.EnableWindEffect;
+
+			string[] windSymbols = [
+				"suck_fx",
+				"blow_fx"
+			];
+
+			foreach (var symbolName in windSymbols)
+			{
+				anim.GetAnim().animFile.build.GetSymbol();
+				try
+				{
+					anim.SetSymbolVisiblity(symbolName, showWindSymbols);
+				}
+				catch
+				{ }
+			}
 		}
 
 		public List<Descriptor> GetDescriptors(GameObject go)

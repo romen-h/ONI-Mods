@@ -5,11 +5,24 @@ using PeterHan.PLib.Options;
 
 namespace RomenH.Fans
 {
-	[PeterHan.PLib.Options.RestartRequired]
+	[RestartRequired]
 	[JsonObject(MemberSerialization.OptIn)]
-	[PeterHan.PLib.Options.ModInfo("Fan Tiles", "https://github.com/romen-h/ONI-Mods")]
+	[ModInfo("Fan Tiles", "https://github.com/romen-h/ONI-Mods")]
+	[ConfigFile(SharedConfigLocation: true)]
 	public class ModSettings : SingletonOptions<ModSettings>
 	{
+		// General
+
+		[JsonProperty]
+		[Option("Use Old Artwork", "Toggles the art for the fan tiles to the original art.", category: "General")]
+		public bool OldArtworkEnabled
+		{ get; set; }
+
+		[JsonProperty]
+		[Option("Enable Wind Effect", "Toggles the white wind lines that appear when fans are running.", category: "General")]
+		public bool EnableWindEffect
+		{ get; set; }
+
 		// Fan
 
 		[JsonProperty]
@@ -85,8 +98,16 @@ namespace RomenH.Fans
 		public float CompressorTurbineWattage
 		{ get; set; }
 
+		internal string GetKanimPrefix()
+		{
+			return OldArtworkEnabled ? "legacy_" : "3gub_";
+		}
+
 		public ModSettings()
 		{
+			OldArtworkEnabled = false;
+			EnableWindEffect = true;
+
 			FanFlowRate = 0.5f;
 			FanPressureLimit = 2f;
 			FanWattage = 60f;
