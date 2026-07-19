@@ -28,12 +28,13 @@
     <BuildDay>$([System.DateTime]::UtcNow.ToString("dd"))</BuildDay>
     <BuildHour>$([System.DateTime]::UtcNow.ToString("HH"))</BuildHour>
     <BuildMinute>$([System.DateTime]::UtcNow.ToString("mm"))</BuildMinute>
+	<DayOfYear>$([System.DateTime]::UtcNow.DayOfYear.ToString())</DayOfYear>
     <VersionPrefix>$(BuildYear).$(BuildMonth).$(BuildDay).1$(BuildHour)$(BuildMinute)</VersionPrefix>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
     <FileVersion>$(VersionPrefix)</FileVersion>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <InformationalVersion>Game Version $(CurrentGameVersion)</InformationalVersion>
+    <InformationalVersion>Game Version $(GameVersion)</InformationalVersion>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 

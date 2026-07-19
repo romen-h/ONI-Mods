@@ -146,13 +146,7 @@ namespace RomenH.Fans
 
 			foreach (var symbolName in windSymbols)
 			{
-				anim.GetAnim().animFile.build.GetSymbol();
-				try
-				{
-					anim.SetSymbolVisiblity(symbolName, showWindSymbols);
-				}
-				catch
-				{ }
+				anim.SetSymbolVisiblity(symbolName, showWindSymbols);
 			}
 		}
 
